@@ -5,7 +5,7 @@ INSERT INTO restaurants (name, type, street_number, street_name, postal_code, ph
 VALUES
 (
   "Soufi's",
-  'Middle Eastern',,
+  'Middle Eastern',
   '444',
   'Semantic Lane',
   '4164444444',
