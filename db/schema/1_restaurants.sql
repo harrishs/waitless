@@ -14,5 +14,3 @@ CREATE TABLE restaurants (
   -- can be null, render conditionally if it's present
   image_url VARCHAR(255)
 );
-
-
