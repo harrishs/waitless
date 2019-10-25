@@ -39,6 +39,7 @@ const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const register = require("./routes/register");
 const merchantActivateWait = require("./routes/activatewaittime-merchant");
+const merchantWaitList = require("./routes/peoplewaiting-merchant")
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -48,7 +49,8 @@ app.use("/api/widgets", widgetsRoutes(db));
 app.use("/login", login(db));
 app.use("/logout", logout());
 app.use("/register", register(db));
-app.use("/waitlist", merchantActivateWait(db));
+app.use("/create-waitlist", merchantActivateWait(db));
+app.use("/waitlist", merchantWaitList(db));
 // Note: mount other resources here, using the same pattern above
 
 

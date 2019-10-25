@@ -7,15 +7,20 @@ module.exports = (db) => {
         res.render("activatewaittime-merchant");
     });
 
-
     router.post("/", (req, res)=> {
-        time = req.body.times;
-        queryStr =  `INSERT INTO waitlists (restaurant_id, wait_time)
+        const time = parseInt(req.body.times) * 60000;
+        let queryDel = `DELETE FROM waitlists WHERE restaurant_id = $1`;
+        let queryIns =  `INSERT INTO waitlists (restaurant_id, wait_time)
         VALUES ($1, $2)`;
-        queryVals = [1, parseInt(time)];
-        db.query(queryStr, queryVals)
-        .then(console.log("Success"))
-        .catch(err => console.log(err))
+        let queryValsIns = [1, parseInt(time)];
+        let queryVal = [1];
+        db.query(queryDel, queryVal)
+        .then(console.log("Successfully deleted"))
+        .catch(err => console.log(err));
+        db.query(queryIns, queryValsIns)
+        .then(console.log("Success time in ms: " + time))
+        .catch(err => console.log(err));
+        res.redirect("/waitlist");
     });
 
     return router;
