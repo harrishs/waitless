@@ -1,6 +1,10 @@
 -- all data's fake right now
 -- just testing connection to db
+<<<<<<< HEAD
 ​
+=======
+
+>>>>>>> 065848ea44737ba8f883ffc83494e591cf2af402
 INSERT INTO restaurants (name, type, street_number, street_name, postal_code, phone_number,  email, password, image_url)
 VALUES
 (
