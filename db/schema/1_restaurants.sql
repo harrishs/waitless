@@ -10,7 +10,9 @@ CREATE TABLE restaurants (
   phone_number VARCHAR(10) NOT NULL,
   active BOOLEAN NOT NULL DEFAULT TRUE,
   email VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL
+  password VARCHAR(255) NOT NULL,
+  -- can be null, render conditionally if it's present
+  image_url VARCHAR(255)
 );
 
 
