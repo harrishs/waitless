@@ -1,40 +1,42 @@
 -- all data's fake right now
 -- just testing connection to db
-
-INSERT INTO restaurants (name, type, street_number, street_name, postal_code, phone_number, email, password)
+​
+INSERT INTO restaurants (name, type, street_number, street_name, postal_code, phone_number,  email, password, image_url)
 VALUES
 (
-  "Soufi's",
-  'Middle Eastern',,
+  'Soufi''s',
+  'Middle Eastern',
   '444',
   'Semantic Lane',
+  'M0M 0M0',
   '4164444444',
-  'M0M 0M0'
   'jimmy@soufis.com',
-  -- bcrypt for 'password'
-  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'
+  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
+  ''
 ),
 (
-  "Striped Pizza",
-  "Italian",
-  "52",
-  "Weekly Road",
-  "4162224422",
-  "M2E 1Z6",
-  "gino@stripedpizza.net",
+  'Striped Pizza',
+  'Italian',
+  '52',
+  'Weekly Road',
+  'M2E 1Z6',
+  '4162224422',
+  'gino@stripedpizza.net',
   -- bcrypt for 'password'
-  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'
+  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
+  ''
 ),
 (
-  "Lemongrass Thai Cuisine",
-  "Thai",
-  "125",
-  "Salad Lane",
-  "9053254475",
-  "M2Z 2R7",
-  "manager@lemongrass.com",
+  'Lemongrass Thai Cuisine',
+  'Thai',
+  '125',
+  'Salad Lane',
+  'M2Z 2R7',
+  '9053254475',
+  'manager@lemongrass.com',
     -- bcrypt for 'password'
-  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'
+  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
+  ''
 );
 -- CREATE TABLE restaurants (
 --   id SERIAL PRIMARY KEY,
@@ -48,3 +50,5 @@ VALUES
 --   email VARCHAR(255) NOT NULL,
 --   password VARCHAR(255) NOT NULL
 -- );
+
+
