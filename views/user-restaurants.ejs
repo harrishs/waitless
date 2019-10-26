@@ -1,7 +1,12 @@
 <% for (let restaurant of restaurants) { %>
-  <div class ="<%= restaurant.id %>"></div>
+  <div class ="<%= restaurant.id %>">
     <h1><%= restaurant.name %></h1>
     <p>Type: <%= restaurant.type %></p>
     <p>Wait Time: </p>
+    <form action="/restaurants/<%= restaurant.id %>" method="POST">
+      <div class="button">
+        <button type="submit">Post to ID</button>
+      </div>
+    </form>
   </div>
 <% } %>
