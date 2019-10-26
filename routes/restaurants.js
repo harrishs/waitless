@@ -44,9 +44,22 @@ module.exports = (db) => {
     // the user into the database but doing very basic insert for now
     res.send(`Hit post route for ${req.params.id}!`);
     const insertString =
-      `INSERT INTO waitlist-entries
-       VALUES  restaurants.id `;
+      `INSERT INTO waitlist_entries (waitlist_id, user_id, booked_at, party_size) VALUES
+       ($1, 1, $2, 2)
+      `;
+    const insertParameters = [req.params.id, Date.now()];
+    db.query(insertString, insertParameters)
+      .then(() => {
+        res.redirect('/restaurants')
+      })
+      .catch(err => console.error(err));
   })
+
+  // waitlist_id INTEGER NOT NULL REFERENCES waitlists(id),
+  // user_id INTEGER REFERENCES users(id),
+  // booked_at INTEGER NOT NULL,
+  // -- limited to 1-6 since they will be directed to call the restaurant otherwise
+  // party_size INTEGER NOT NULL
 
   return router;
 };
