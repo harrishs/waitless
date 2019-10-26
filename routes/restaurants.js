@@ -6,9 +6,8 @@ module.exports = (db) => {
   let data = {};
 
   // GET - /restaurants
-  // Queries all restaurants and renders them.
+  // Queries all restaurants and renders them with information appropriate to the page
   router.get("/", (req, res) => {
-    // const queryString = "SELECT * FROM restaurants";
     const queryString = `
       SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.wait_time
       FROM restaurants
