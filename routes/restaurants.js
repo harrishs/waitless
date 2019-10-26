@@ -39,7 +39,7 @@ module.exports = (db) => {
     res.send(`Hit post route for ${req.params.id}!`);
     // const insertString =
     //   `INSERT INTO waitlist-entries
-    //    WHERE restaurants.id `;
+    //    VALUES  restaurants.id `;
   })
 
   return router;
