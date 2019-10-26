@@ -16,7 +16,6 @@ module.exports = (db) => {
     `;
     db.query(queryString)
       .then((resultSet) => {
-        console.log(resultSet)
         data.restaurants = resultSet.rows;
         res.render('user-restaurants', data);
       })
@@ -49,7 +48,9 @@ module.exports = (db) => {
     const insertParameters = [req.params.id, Date.now()];
     db.query(insertString, insertParameters)
       .then(() => {
-        res.redirect('/restaurants', data)
+        // console.log(`Successful insertion of waitlist entry for waitlist_id: ${insertParameters[0]}`);
+        // insert, redirect
+        res.redirect('/restaurants')
       })
       .catch(err => console.error(err));
   })
