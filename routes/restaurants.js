@@ -29,5 +29,9 @@ module.exports = (db) => {
       .catch(err => console.log(err));
   });
 
+  router.post("/:id", (req, res) => {
+
+  })
+
   return router;
 };
