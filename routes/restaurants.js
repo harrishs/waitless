@@ -3,11 +3,14 @@ const router  = express.Router();
 
 // /restaurants routes
 module.exports = (db) => {
+  // needed here for renders, will expand this object out soon
   let data = {};
 
   // GET - /restaurants
+  // SHOW route
   // Queries all restaurants and renders them with information appropriate to the page
   router.get("/", (req, res) => {
+    // using left join here since we don't need null results in the render
     const queryString = `
       SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.wait_time
       FROM restaurants
@@ -16,6 +19,7 @@ module.exports = (db) => {
     `;
     db.query(queryString)
       .then((resultSet) => {
+        // pass the resultSet to the data object and render
         data.restaurants = resultSet.rows;
         res.render('user-restaurants', data);
       })
@@ -48,18 +52,11 @@ module.exports = (db) => {
     const insertParameters = [req.params.id, Date.now()];
     db.query(insertString, insertParameters)
       .then(() => {
-        // console.log(`Successful insertion of waitlist entry for waitlist_id: ${insertParameters[0]}`);
         // insert, redirect
         res.redirect('/restaurants')
       })
       .catch(err => console.error(err));
   })
-
-  // waitlist_id INTEGER NOT NULL REFERENCES waitlists(id),
-  // user_id INTEGER REFERENCES users(id),
-  // booked_at INTEGER NOT NULL,
-  // -- limited to 1-6 since they will be directed to call the restaurant otherwise
-  // party_size INTEGER NOT NULL
 
   return router;
 };
