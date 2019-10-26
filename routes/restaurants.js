@@ -8,9 +8,16 @@ module.exports = (db) => {
   // GET - /restaurants
   // Queries all restaurants and renders them.
   router.get("/", (req, res) => {
-    const queryString = "SELECT * FROM restaurants";
+    // const queryString = "SELECT * FROM restaurants";
+    const queryString = `
+      SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.wait_time
+      FROM restaurants
+      LEFT JOIN waitlists
+      ON waitlists.id=restaurants.id
+    `;
     db.query(queryString)
       .then((resultSet) => {
+        console.log(resultSet)
         data.restaurants = resultSet.rows;
         res.render('user-restaurants', data);
       })
