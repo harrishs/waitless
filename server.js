@@ -5,6 +5,7 @@ require('dotenv').config();
 const PORT       = process.env.PORT || 8080;
 const ENV        = process.env.ENV || "development";
 const express    = require("express");
+const session    = require("express-session");
 const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
@@ -22,6 +23,11 @@ db.connect();
 app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
+// For express-session, to set the secret token required:
+// This can be any string, but should be a randomly generated one.
+app.use(session({
+  'secret': 'fluffy bunny feet'
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
