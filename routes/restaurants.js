@@ -12,7 +12,7 @@ module.exports = (db) => {
   router.get("/", (req, res) => {
     // using left join here since we don't need null results in the render
     const queryString = `
-      SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.wait_time
+      SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.id AS waitlist_id, waitlists.wait_time
       FROM restaurants
       LEFT JOIN waitlists
       ON waitlists.id=restaurants.id
@@ -39,24 +39,6 @@ module.exports = (db) => {
       })
       .catch(err => console.log(err));
   });
-
-  // POST /:id => /restaurants/:id
-  // Adds the user into the restaurant's waitlist.
-  router.post("/:id", (req, res) => {
-    // gonna have to be tracking the session at some point here to insert
-    // the user into the database but doing very basic insert for now
-    const insertString =
-      `INSERT INTO waitlist_entries (waitlist_id, user_id, booked_at, party_size) VALUES
-       ($1, 1, $2, 2)
-      `;
-    const insertParameters = [req.params.id, Date.now()];
-    db.query(insertString, insertParameters)
-      .then(() => {
-        // insert, redirect
-        res.redirect('/restaurants')
-      })
-      .catch(err => console.error(err));
-  })
 
   return router;
 };
