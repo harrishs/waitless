@@ -1,12 +1,11 @@
 -- all data's fake right now
 -- just testing connection to db
-INSERT INTO restaurants (name, type, street_number, street_name, postal_code, phone_number,  email, password, image_url)
+INSERT INTO restaurants (name, type, address, postal_code, phone_number,  email, password, image_url)
 VALUES
 (
   'Soufi''s',
   'Middle Eastern',
-  '444',
-  'Semantic Lane',
+  '444 Semantic Lane',
   'M0M 0M0',
   '4164444444',
   'jimmy@soufis.com',
@@ -16,8 +15,7 @@ VALUES
 (
   'Striped Pizza',
   'Italian',
-  '52',
-  'Weekly Road',
+  '52 Weekly Road',
   'M2E 1Z6',
   '4162224422',
   'gino@stripedpizza.net',
@@ -28,8 +26,7 @@ VALUES
 (
   'Lemongrass Thai Cuisine',
   'Asian',
-  '125',
-  'Salad Lane',
+  '125 Salad Lane',
   'M2Z 2R7',
   '9053254475',
   'manager@lemongrass.com',
@@ -40,8 +37,7 @@ VALUES
 (
   'Ultra Kebab',
   'Middle Eastern',
-  '923',
-  'Numbers Street',
+  '923 Numbers Street',
   'M0M 0M0',
   '4165586881',
   'manager@ultrakebab.com',
@@ -51,9 +47,8 @@ VALUES
 (
   'Saigon Pho',
   'Asian',
-  '52',
-  'Weekly Road',
-  'M2E 1Z6',
+  '112 Stanton Road',
+  'M2D 1R6',
   '4162224422',
   'lisa@saigonpho.com',
   -- bcrypt for 'password'
@@ -63,8 +58,7 @@ VALUES
 (
   'El Rey Mexicana',
   'Mexican',
-  '330',
-  'Carlson St',
+  '330 Carlson Lane',
   'M4W 2R7',
   '9059912345',
   'admin@elrey.com',
@@ -75,22 +69,20 @@ VALUES
 (
   'Marcelle''s',
   'Fine Dining',
-  '444',
-  'Semantic Lane',
-  'M0M 0M0',
+  '444 Brown Lane',
+  'M2M 1M7',
   '4164444444',
-  'jimmy@soufis.com',
+  'marcelle@marcelles.com',
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
   ''
 ),
 (
   'Obsidian',
   'Fine Dining',
-  '110',
-  'Grassy Park Blvd',
+  '110 Grassy Park Blvd',
   'M4A 1F6',
   '4162234422',
-  'gino@stripedpizza.net',
+  'foh@obsidian.com',
   -- bcrypt for 'password'
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
   ''
@@ -98,8 +90,7 @@ VALUES
 (
   'Silver Spoon Yogurt Bar',
   'Brunch',
-  '445',
-  'Draper Avenue',
+  '445 Draper Avenue',
   'M3E 2L7',
   '9055574415',
   'john@theoneandonlysilverspoon.com',
@@ -110,8 +101,7 @@ VALUES
 (
   'Maze''s End Cafe',
   'Brunch',
-  '663',
-  'Ferrand Line',
+  '663 Ferrand Line',
   'M0M 0M0',
   '4164444444',
   'sam@mazeend.com',
@@ -121,8 +111,7 @@ VALUES
 (
   'Tan Fish Lane',
   'Fine Dining',
-  '172',
-  'Full Road',
+  '172 Full Road',
   'M7E 1Z6',
   '4169245512',
   'gram@rogers.net',
