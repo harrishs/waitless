@@ -41,11 +41,11 @@ module.exports = (db) => {
   // Adds the user into the restaurant's waitlist.
   router.post("/:id", (req, res) => {
     // gonna have to be tracking the session at some point here to insert
-    // the user into the database
+    // the user into the database but doing very basic insert for now
     res.send(`Hit post route for ${req.params.id}!`);
-    // const insertString =
-    //   `INSERT INTO waitlist-entries
-    //    VALUES  restaurants.id `;
+    const insertString =
+      `INSERT INTO waitlist-entries
+       VALUES  restaurants.id `;
   })
 
   return router;
