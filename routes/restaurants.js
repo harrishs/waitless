@@ -24,7 +24,7 @@ module.exports = (db) => {
         // pass the resultSet to the data object and render
         data.restaurants = resultSet.rows;
         data.bookedWith = req.session.waitlistId || null;
-        res.render('user-restaurants', data);
+        res.render('browse', data);
       })
       .catch(err => console.log(err));
   });
@@ -38,7 +38,7 @@ module.exports = (db) => {
     db.query(queryString, [req.params.id])
       .then((resultSet) => {
         data.restaurants = resultSet.rows;
-        res.render('user-restaurants', data);
+        res.render('browse', data);
       })
       .catch(err => console.log(err));
   });
