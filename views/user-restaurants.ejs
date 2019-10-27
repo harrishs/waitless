@@ -1,8 +1,10 @@
 <% for (let restaurant of restaurants) { %>
   <div class ="<%= restaurant.id %>">
-    <h1><%= restaurant.name %></h1>
+    <h3><%= restaurant.name %></h1>
     <p>Type: <%= restaurant.type %></p>
-    <p>Wait Time: <%= restaurant.wait_time ? `${restaurant.wait_time} minutes` : `No wait time` %></p>
+    <p>
+      <%= restaurant.wait_time ? `Estimated wait time: ${restaurant.wait_time} minutes` : `No wait time` %>
+    </p>
     <% if (restaurant.waitlist_id !== null) { %>
       <% if (bookedWith != restaurant.waitlist_id) { %>
         <% include partials/_add_to_waitlist %>
