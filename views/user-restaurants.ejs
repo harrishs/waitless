@@ -7,7 +7,7 @@
       <% if (bookedWith != restaurant.waitlist_id) { %>
         <% include partials/_add_to_waitlist %>
       <% } else { %>
-        <h5>Booked here!</h5>
+        <% include partials/_remove_from_waitlist %>
       <% } %>
     <% } %>
   </div>

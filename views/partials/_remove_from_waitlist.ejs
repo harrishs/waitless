@@ -1,1 +1,5 @@
-<form action="/waitlists/<%= restaurant.waitlist_id %>" method="POST"></form>
+<form action="/waitlists/<%= restaurant.waitlist_id %>?_method=DELETE" method="POST">
+  <div class="button" style="margin-top: 10px;">
+    <button type="submit">Remove from Waitlist</button>
+  </div>
+</form>

@@ -28,5 +28,9 @@ module.exports = (db) => {
       .catch(err => console.error(err));
   })
 
+  router.delete("/:id", (req, res) => {
+    res.send("Hit delete route!");
+  });
+
   return router;
 };
