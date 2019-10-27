@@ -45,6 +45,7 @@ const login = require("./routes/login");
 const logout = require("./routes/logout")
 const register = require("./routes/register");
 const restaurants = require("./routes/restaurants");
+const waitlists = require("./routes/waitlists");
 const merchantActivateWait = require("./routes/activatewaittime-merchant");
 const merchantWaitList = require("./routes/peoplewaiting-merchant")
 
@@ -54,6 +55,7 @@ app.use("/login", login(db));
 app.use("/logout", logout());
 app.use("/register", register(db));
 app.use("/restaurants", restaurants(db));
+app.use("/waitlists", waitlists(db));
 app.use("/create-waitlist", merchantActivateWait(db));
 app.use("/waitlist", merchantWaitList(db));
 // Note: mount other resources here, using the same pattern above
