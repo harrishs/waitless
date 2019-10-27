@@ -26,7 +26,9 @@ app.set("view engine", "ejs");
 // For express-session, to set the secret token required:
 // This can be any string, but should be a randomly generated one.
 app.use(session({
-  'secret': 'fluffy bunny feet'
+  secret: 'fluffy bunny feet',
+  resave: false,
+  saveUninitialized: true
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
