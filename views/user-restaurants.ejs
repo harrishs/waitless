@@ -1,3 +1,4 @@
+<% include partials/_header %>
 <% for (let restaurant of restaurants) { %>
   <div class ="<%= restaurant.id %>">
     <h3><%= restaurant.name %></h1>
@@ -14,3 +15,4 @@
     <% } %>
   </div>
 <% } %>
+<% include partials/_footer %>
