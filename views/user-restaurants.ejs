@@ -4,10 +4,11 @@
     <p>Type: <%= restaurant.type %></p>
     <p>Wait Time: <%= restaurant.wait_time ? `${restaurant.wait_time} minutes` : `No wait time` %></p>
     <% if (restaurant.wait_time) { %>
-      <% if (bookedWith == restaurant.waitlist_id) { %>
-        <h3>Booked here!</h3>
+      <% if (bookedWith != restaurant.waitlist_id) { %>
+        <% include partials/_add_to_waitlist %>
+      <% } else { %>
+        <h5>Booked here!</h5>
       <% } %>
-      <% include partials/_add_to_waitlist %>
     <% } %>
   </div>
 <% } %>
