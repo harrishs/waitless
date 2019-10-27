@@ -4,7 +4,7 @@
     <p>Type: <%= restaurant.type %></p>
     <p>Wait Time: <%= restaurant.wait_time ? `${restaurant.wait_time} minutes` : `No wait time` %></p>
     <% if (restaurant.wait_time) { %>
-    <form action="/restaurants/<%= restaurant.id %>" method="POST">
+    <form action="/restaurants/<%= restaurants.id %>" method="POST">
       <div class="button">
         <button type="submit">Add to Waitlist</button>
       </div>

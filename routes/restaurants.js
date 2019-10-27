@@ -8,6 +8,8 @@ module.exports = (db) => {
   // GET - /restaurants
   // Queries all restaurants and renders them.
   router.get("/", (req, res) => {
+    // testing some session code
+    req.session.user_id = 1;
     // const queryString = "SELECT * FROM restaurants";
     const queryString = `
       SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.wait_time
