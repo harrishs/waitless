@@ -28,7 +28,8 @@ app.set("view engine", "ejs");
 app.use(session({
   secret: 'fluffy bunny feet',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  maxAge: 60000
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
