@@ -4,7 +4,10 @@
     <p>Type: <%= restaurant.type %></p>
     <p>Wait Time: <%= restaurant.wait_time ? `${restaurant.wait_time} minutes` : `No wait time` %></p>
     <% if (restaurant.wait_time) { %>
-    <form action="/waitlists/<%= restaurant.waitlist_id %>" method="POST">
+      <% if (bookedWith == restaurant.waitlist_id) { %>
+        <h3>Booked here!</h3>
+      <% } %>
+      <form action="/waitlists/<%= restaurant.waitlist_id %>" method="POST">
       <label name="party-size" for="party-size">
         Party Size:
       </label>

@@ -23,6 +23,7 @@ module.exports = (db) => {
       .then((resultSet) => {
         // pass the resultSet to the data object and render
         data.restaurants = resultSet.rows;
+        data.bookedWith = req.session.waitlistId || null;
         res.render('user-restaurants', data);
       })
       .catch(err => console.log(err));
