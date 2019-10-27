@@ -8,6 +8,7 @@ const express    = require("express");
 const session    = require("express-session");
 const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
+const methodOverride = require("method-override");
 const app        = express();
 const morgan     = require('morgan');
 
@@ -39,6 +40,8 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
+// to handle DELETE requests on waitlist route
+app.use(methodOverride('_method'));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
