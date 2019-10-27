@@ -10,7 +10,9 @@ module.exports = (db) => {
   // SHOW route
   // Queries all restaurants and renders them with information appropriate to the page
   router.get("/", (req, res) => {
-    // using left join here since we don't need null results in the render
+    // testing some session code
+    req.session.user_id = 1;
+    // const queryString = "SELECT * FROM restaurants";
     const queryString = `
       SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.id AS waitlist_id, waitlists.wait_time
       FROM restaurants

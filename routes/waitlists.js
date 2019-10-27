@@ -5,8 +5,12 @@ module.exports = (db) => {
   // POST /:id => /waitlists/:id
   // Adds the user into the restaurant's waitlist.
   router.post("/:id", (req, res) => {
+    if (req.session.waitlist_id) {
+      res.send("Already booked! Try again!");
+    }
     // gonna have to be tracking the session at some point here to insert
     // the user into the database but doing very basic insert for now
+    req.session.waitlist_id = req.params.id;
     const insertString =
       `INSERT INTO waitlist_entries (waitlist_id, user_id, booked_at, party_size) VALUES
        ($1, 1, $2, $3)
