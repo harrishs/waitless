@@ -7,22 +7,7 @@
       <% if (bookedWith == restaurant.waitlist_id) { %>
         <h3>Booked here!</h3>
       <% } %>
-      <form action="/waitlists/<%= restaurant.waitlist_id %>" method="POST">
-      <label name="party-size" for="party-size">
-        Party Size:
-      </label>
-      <select name="party_size">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-      </select>
-      <div class="button" style="margin-top: 10px;">
-        <button type="submit">Add to Waitlist</button>
-      </div>
-    </form>
+      <% include partials/_add_to_waitlist %>
     <% } %>
   </div>
 <% } %>
