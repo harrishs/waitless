@@ -15,6 +15,7 @@ module.exports = (db) => {
             let timeObj = await db.query(queryStr, queryVals);
             let waitObj = await db.query(queryListId, queryVals);
             let waitId = waitObj.rows[0].id;
+            //wait time in db to display
             let time = timeObj.rows[0].wait_time;
 
             //insert into waitlist entries
@@ -28,11 +29,27 @@ module.exports = (db) => {
             let queryList = `SELECT count(*) FROM waitlist_entries WHERE waitlist_id = $1`;
             let numPpl = await db.query(queryList, [waitId]);
             let count = numPpl.rows[0].count;
+            console.log(count);
             if (count > 1){
-                //increment timer
-
+                //Query to obtain booking time of first and last entries
+                let queryFirst = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 LIMIT 1`;
+                let queryLast = `SELECT TOP 1 booked_at FROM waitlist_entries ORDER BY id DESC WHERE waitlist_id = $1`;
+                let firstObj = await db.query(queryFirst, [waitId]);
+                let lastObj = await db.query(queryLast, [waitId]);
+                let firstEntry = firstObj.rows[0].booked_at;
+                let lastEntry = lastObj.rows[0].booked_at;
+                //time between is time elapsed
+                let timeBetween = lastEntry - firstEntry;
+                //increment in milliseconds
+                let increment = count * 300000;
+                //final time
+                let final = (time - timeBetween) + increment;
+                //Update wait time in waitlist
+                let queryWait = `UPDATE waitlists SET wait_time = $1 WHERE restaurant_id = $2`;
+                db.query(queryWait, [final, queryVals[0]])
+                .then(console.log("Updated wait time to: ", final))
+                .catch(err => console.log(err));
             }
-            
             }
             waitInsert();
 
