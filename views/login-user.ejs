@@ -4,25 +4,37 @@
   <head>
     <link rel="stylesheet" href="/styles/login-user.css" type="text/css" />
     <title>Login</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
   </head>
+<body>
+      <a href="https://imgbb.com/"><img src="https://i.ibb.co/ngvjBCh/Logo.png" alt="Logo" border="0"></a>
+</body>
 
 <body>
   <form action="/login/users" method="post">
-    </div>
+      <label class= "icon_holder"><img src="https://i.ibb.co/qnqnZ3K/Email.png"></label>
+      <input class= "placeholder_text" placeholder= "Email" name="email" required>
+<br>
+      <label class= "icon_holder"><img src="https://i.ibb.co/0Jz4v0d/Password.png"></label>
+      <input type= "password" id="myInput" class= "placeholder_text" placeholder="Password" name="password" required>
+      <input type="checkbox" onclick="myFunction()">Show Password
 
-    <div class="container">
-      <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" required>
+      <script>
+        function myFunction() {
+          var x = document.getElementById("myInput");
+          if (x.type === "password") {
+            x.type = "text";
+          } else {
+            x.type = "password";
+          }
+        }
+      </script>
+<br>
+      <button class= "sign_button">Sign In</button>
+      <button href="/register" class= "sign_button">Sign Up</button>
 
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
-
-      <button type="submit">Login</button>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-    </div>
   </form>
-  <a style= "color:white" href="/register"> Register </a>
 </body>
 </html>
+
+

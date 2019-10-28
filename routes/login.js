@@ -32,9 +32,10 @@ module.exports = (db) => {
     };
 
     let email = req.body.email.trim().toLowerCase();
-    let password = req.body.password.trim();
+    let password =   req.body.password.trim();
 
     let emptyField = email.length === 0 || password.length === 0 ? true : false;
+
       if (emptyField) {
         res.status(400).send('Please specify email and password');
       } else {
@@ -44,7 +45,9 @@ module.exports = (db) => {
                           `;
 
         db
-          .query(userQuery, [email])
+          .query(`SELECT * FROM users
+          WHERE users.email = $1
+          LIMIT 1 `, [email])
           .then(userInfo => {
           let response = userInfo.rows[0];
             if (response !== undefined && bcrypt.compareSync(password, response.password)) {
@@ -134,3 +137,4 @@ module.exports = (db) => {
   // Return the router with all our registered login routes
   return router;
 };
+
