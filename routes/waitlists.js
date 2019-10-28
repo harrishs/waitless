@@ -4,6 +4,7 @@ const router = express.Router();
 module.exports = (db) => {
   // POST /:id => /waitlists/:id
   // Adds the user into the restaurant's waitlist.
+  // A new waitlist entry is created, then the user's booking_id is subsequently updated.
   router.post("/:id", (req, res) => {
     req.session.waitlistId = req.params.id;
     const insertString =
@@ -12,18 +13,23 @@ module.exports = (db) => {
        RETURNING id
       `;
     const insertParameters = [req.params.id, Date.now(), req.body.party_size, 'John'];
-    const updateString =
-      `UPDATE users
-       SET booking_id = $1
-       WHERE id = $2;
-      `;
-    const updateParameters = "";
     db.query(insertString, insertParameters)
     .then((resultSet) => {
-      // this is the id returned in the
-      console.log(resultSet.rows[0].id);
-      res.send(`New waitlist entry with id ${id} added!`);
-      // res.redirect("/restaurants");
+      const updateString =
+      `UPDATE users
+      SET booking_id = $1
+      WHERE id = $2;
+      `;
+      // this is the id returned in from the insert of the waitlist entry,
+      // which will now be used in the update of the appropriate user record.
+      const booking_id = resultSet.rows[0].id;
+      const updateParameters = [booking_id, req.session.user_id];
+      // res.send(`New waitlist entry with id ${booking_id} added!`);
+      db.query(updateString, updateParameters)
+      .then(() => {
+        res.send("Success updating user!");
+      })
+      .catch(err => console.error(err));
     })
     .catch(err => console.error(err));
   });
