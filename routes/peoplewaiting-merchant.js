@@ -1,14 +1,17 @@
 const express = require('express');
 const router  = express.Router();
 const bodyParser = require("body-parser");
+
 module.exports = (db) => {
     router.get("/", (req, res)=> {
         res.render("peoplewaiting-merchant");
     });
 
     router.post("/", (req,res)=> {
-        restaurant_id = req.session.user_id;
-        async function waitInsert(rest_id) {
+        let restaurant_id = req.session.user_id;
+        let party_name = req.body.name;
+        let party_size = req.body.party;
+        async function waitInsert(rest_id, party_name, party_size) {
             //Find waitlist id and wait time provided by restaurant
             let queryStr = `SELECT wait_time FROM waitlists WHERE restaurant_id = $1`;
             let queryListId = `SELECT id FROM waitlists WHERE restaurant_id = $1`;
@@ -18,14 +21,14 @@ module.exports = (db) => {
             let waitId = waitObj.rows[0].id;
             //wait time in db to display
             let time = timeObj.rows[0].wait_time;
-
+        
             //insert into waitlist entries
             let query2 = `INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name) VALUES ($1, $2, $3, $4)`;
-            let queryVal2 = [waitId, Date.now(), req.body.party, req.body.name];
+            let queryVal2 = [waitId, Date.now(), party_size, party_name];
             db.query(query2, queryVal2)
             .then(console.log("Success"))
             .catch(err => console.log(err));
-
+        
             //Get number of entries in waitlist
             let queryList = `SELECT count(*) FROM waitlist_entries WHERE waitlist_id = $1`;
             let numPpl = await db.query(queryList, [waitId]);
@@ -52,7 +55,8 @@ module.exports = (db) => {
                 .catch(err => console.log(err));
             }
         }
-            waitInsert(restaurant_id);            
+        waitInsert(restaurant_id, party_name, party_size);   
+        res.redirect("/waitlist");
     })
     return router;
 }
