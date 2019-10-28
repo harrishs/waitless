@@ -6,7 +6,7 @@ CREATE TABLE waitlist_entries (
   -- with the waitlist_entries.id -- TO DO
   id SERIAL PRIMARY KEY,
   -- references the waitlist that the restaurant has
-  waitlist_id INTEGER NOT NULL REFERENCES waitlists(id),
+  waitlist_id INTEGER NOT NULL REFERENCES waitlists(id) ON DELETE CASCADE,
   -- initial time of booking
   booked_at BIGINT NOT NULL,
   -- limited to 1-6 since they will be directed to call the restaurant otherwise
