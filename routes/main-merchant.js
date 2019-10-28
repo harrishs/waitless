@@ -16,10 +16,15 @@ module.exports = (db) => {
             let query2 = `SELECT * FROM waitlist_entries WHERE  waitlist_id = $1`;
             let entriesObj = await db.query(query2, [wait_id]);
             let entriesArr = entriesObj.rows;
-            console.log(entriesArr);
+            return entriesArr;
         }
-        getList(rest_id);
-        res.render("main-merchant")
+        getList(rest_id)
+        .then(vals => 
+            {
+                res.render("main-merchant", {entries: vals})
+            })
+        .catch(err => console.log(err));
+        
     })
     return router;
 }

@@ -13,6 +13,12 @@
     <a href = "/update-waitlist">Add New Waitlist Entry</a>
 
     <h1>Waitlist</h1>
-    
+    <% if (entries){ %>
+    <% for (let entry of entries){ %>
+        <h1><%= entry.party_name %></h1>
+        <h1><%= entry.party_size %></h1>
+        <% }} else { %>
+            <h2>No Waitlist</h2>
+        <% } %>
 </body>
 </html>
