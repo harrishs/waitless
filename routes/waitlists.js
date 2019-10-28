@@ -20,12 +20,12 @@ module.exports = (db) => {
       `;
     const insertParameters = [req.params.id, 1, Date.now(), req.body.party_size];
     db.query(insertString, insertParameters)
-      .then(() => {
-        // insert, redirect
-        // console.log(`Successfully added user for waitlist ${req.params.id}! Party size of ${req.body.party_size}!`)
-        res.redirect("/restaurants");
-      })
-      .catch(err => console.error(err));
+    .then(() => {
+      // insert, redirect
+      // console.log(`Successfully added user for waitlist ${req.params.id}! Party size of ${req.body.party_size}!`)
+      res.redirect("/restaurants");
+    })
+    .catch(err => console.error(err));
   });
 
   router.delete("/:id", (req, res) => {
@@ -33,11 +33,11 @@ module.exports = (db) => {
       `DELETE FROM waitlist_entries WHERE user_id = $1`;
     const deleteParameters = [req.session.user_id];
     db.query(deleteString, deleteParameters)
-      .then(() => {
-        req.session.waitlistId = null;
-        res.redirect('/restaurants')
-      })
-      .catch(err => console.error(err));
+    .then(() => {
+      req.session.waitlistId = null;
+      res.redirect('/restaurants')
+    })
+    .catch(err => console.error(err));
   });
 
   return router;
