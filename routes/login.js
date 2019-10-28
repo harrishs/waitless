@@ -32,9 +32,13 @@ module.exports = (db) => {
     };
 
     let email = req.body.email.trim().toLowerCase();
-    let password = req.body.password.trim();
+    let password =   req.body.password.trim();
+
+    console.log('~~~~~~~~~~', email, password)
 
     let emptyField = email.length === 0 || password.length === 0 ? true : false;
+
+    console.log('F****************', emptyField)
       if (emptyField) {
         res.status(400).send('Please specify email and password');
       } else {
@@ -43,22 +47,26 @@ module.exports = (db) => {
                            LIMIT 1 `;
 
         db
-          .query(userQuery, [email])
+          .query(`SELECT * FROM users
+          WHERE users.email = $1
+          LIMIT 1 `, [email])
           .then(userInfo => {
-          let response = userInfo.rows[0];
-            if (response !== undefined && bcrypt.compareSync(password, response.password)) {
-              req.session.user_id = response.id;
-              req.session.email = response.email;
-              req.session.name = response.name;
-              req.session.phone_number = response.phone_number;
-              data.user = response.name;
-              data.email = response.email;
-              data.error.loginError = false;
-              res.render('viewrestaurant-user');
-            } else {
-              data.error.loginError = true;
-              res.status(400).send("Username and password don't match");
-            }
+            let response = userInfo.rows[0];
+
+            console.log('!!!!!!!!!!!!!!!', response)
+            // if (response !== undefined && bcrypt.compareSync(password, response.password)) {
+            //   req.session.user_id = response.id;
+            //   req.session.email = response.email;
+            //   req.session.name = response.name;
+            //   req.session.phone_number = response.phone_number;
+            //   data.user = response.name;
+            //   data.email = response.email;
+            //   data.error.loginError = false;
+            //   res.render('/restaurants');
+            // } else {
+            //   data.error.loginError = true;
+            //   res.status(400).send("Username and password don't match");
+            // }
           })
           .catch(err => {
             data.error.loginError = true;
