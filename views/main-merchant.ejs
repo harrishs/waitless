@@ -16,11 +16,12 @@
     </form>
 
     <h1>Waitlist</h1>
-    <% if (entries){ %>
+    <% if (entries){ let count = 1; %>
     <% for (let entry of entries){ %>
+        <h1>Rank: <%= count %></h1>
         <h1><%= entry.party_name %></h1>
         <h1><%= entry.party_size %></h1>
-        <% }} else { %>
+        <% count++ }} else { %>
             <h2>No Waitlist</h2>
         <% } %>
 </body>
