@@ -52,9 +52,7 @@ module.exports = (db) => {
                 .catch(err => console.log(err));
             }
         }
-            waitInsert(restaurant_id);
-
-            
+            waitInsert(restaurant_id);            
     })
     return router;
 }

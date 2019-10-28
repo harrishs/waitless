@@ -100,8 +100,8 @@ module.exports = (db) => {
     if (emptyField) {
       res.status(400).send('Please make sure all fields are filled out');
     } else {
-      const userQuery = `SELECT * FROM users
-                         WHERE users.email = $1
+      const userQuery = `SELECT * FROM restaurants
+                         WHERE restaurants.email = $1
                          LIMIT 1 `;
 
       db
@@ -110,11 +110,11 @@ module.exports = (db) => {
           let response = userInfo.rows[0];
           if (response !== undefined && bcrypt.compareSync(password, response.password)) {
 
-            if (!response.isMerchant) {
-              data.error.loginError = true;
-              data.error.details = 'User is not a merchant';
-              res.render('login', data);
-            } else {
+            // if (!response.isMerchant) {
+            //   data.error.loginError = true;
+            //   data.error.details = 'User is not a merchant';
+            //   res.render('login', data);
+            // } else {
               req.session.user_id = response.id;
               req.session.email = response.email;
               req.session.name = response.name;
@@ -122,7 +122,7 @@ module.exports = (db) => {
               data.email = response.email;
               data.error.loginError = false;
               res.render('activatewaittime-merchant');
-            }
+            // }
           } else {
             data.error.loginError = true;
             res.status(400).send("Username and password don't match");
