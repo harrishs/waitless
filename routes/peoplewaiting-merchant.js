@@ -7,11 +7,12 @@ module.exports = (db) => {
     });
 
     router.post("/", (req,res)=> {
-        async function waitInsert() {
+        restaurant_id = req.session.user_id;
+        async function waitInsert(rest_id) {
             //Find waitlist id and wait time provided by restaurant
             let queryStr = `SELECT wait_time FROM waitlists WHERE restaurant_id = $1`;
             let queryListId = `SELECT id FROM waitlists WHERE restaurant_id = $1`;
-            let queryVals = [1];
+            let queryVals = [rest_id];
             let timeObj = await db.query(queryStr, queryVals);
             let waitObj = await db.query(queryListId, queryVals);
             let waitId = waitObj.rows[0].id;
@@ -46,12 +47,12 @@ module.exports = (db) => {
                 let final = (time - timeBetween) + increment;
                 //Update wait time in waitlist
                 let queryWait = `UPDATE waitlists SET wait_time = $1 WHERE restaurant_id = $2`;
-                db.query(queryWait, [final, queryVals[0]])
+                db.query(queryWait, [final, rest_id[0]])
                 .then(console.log("Updated wait time to: ", final))
                 .catch(err => console.log(err));
             }
-            }
-            waitInsert();
+        }
+            waitInsert(restaurant_id);
 
             
     })
