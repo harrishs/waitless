@@ -45,7 +45,7 @@ module.exports = (db) => {
                 //time between is time elapsed
                 let timeBetween = lastEntry - firstEntry;
                 //increment in milliseconds
-                let increment = count * 300000;
+                let increment = 300000;
                 //final time
                 let final = (time - timeBetween) + increment;
                 //Update wait time in waitlist
@@ -53,6 +53,9 @@ module.exports = (db) => {
                 db.query(queryWait, [final, rest_id])
                 .then(res.redirect("/waitlist"))
                 .catch(err => console.log(err));
+            }
+            else {
+                res.redirect("/waitlist")
             }
         }
         waitInsert(restaurant_id, party_name, party_size)
