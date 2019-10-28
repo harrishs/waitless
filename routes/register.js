@@ -4,7 +4,15 @@ const bcrypt = require('bcrypt');
 
 module.exports = (db) => {
 
-  const data = {};
+  const data = {
+    user: '',
+    error: {
+      registerError: false,
+      loginError: false,
+      details : ''
+    },
+    email: ''
+  };
   // route to display the registration page
   router.get("/", (req, res) => {
     res.render("register");
@@ -23,8 +31,6 @@ module.exports = (db) => {
       res.status(400).send('Please make sure all fields are filled out');
     } else {
 
-      console.log("Checking whether user with email " + email + " already exists");
-
       // See whether user with this email already exists in database
       const userQuery = `SELECT * FROM users
                          WHERE users.email = $1
@@ -35,28 +41,34 @@ module.exports = (db) => {
         .query(userQuery, [email])
         .then(userInfo => {
 
-          console.log("Number of users found: " + userInfo.rows.length);
+          // console.log("Number of users found: " + userInfo.rows.length);
 
           if (userInfo.rows.length > 0) {
             res.status(400).send('Email already exists');
           } else {
 
-            console.log("Inserting new user");
+            // console.log("Inserting new user");
 
             // hash password for security
             const hashedPassword = bcrypt.hashSync(password,10);
 
             // Build the insert query
-            const insertQuery = `INSERT INTO users (email, password, name, phone_number) VALUES ($1, $2, $3, $4)`;
+            const insertQuery = `
+              INSERT INTO users (email, password, name, phone_number)
+              VALUES ($1, $2, $3, $4)
+              RETURNING id, email, password, name, phone_number
+            `;
 
             // Insert the new user into the database
             db
-              .query(insertQuery, [req.body.email, req.body.password, req.body.name, req.body.phone_number])
-              .then(newUserInfo => {
-                console.log("Number of users inserted " + newUserInfo.rows.length);
+              .query(insertQuery, [req.body.email, hashedPassword, req.body.name, req.body.phone_number])
+              .then(resultSet => {
+                // console.log("Number of users inserted " + newUserInfo.rows.length);
 
-                let response = newUserInfo.rows[0];
-                if (response !== undefined && bcrypt.compareSync(password, response.password)) {
+                let response = resultSet.rows[0];
+                console.log(response);
+                console.log(`Unencrypted password: ${password}`)
+                if (response !== undefined && bcrypt.compareSync(password, hashedPassword)) {
                   console.log("Adding new user to session");
                   req.session.user_id = response.id;
                   req.session.email = response.email;
@@ -66,8 +78,11 @@ module.exports = (db) => {
                   data.email = response.email;
                   data.error.loginError = false;
                   console.log("Rendering main view");
-                  res.render('viewrestaurant-user');
+                  res.redirect('/restaurants');
                 } else {
+                  if (bcrypt.compareSync(password, hashedPassword) === false) {
+                    console.log("bcrypt compare not the same");
+                  }
                   data.error.loginError = true;
                   res.status(400).send("New user not inserted into database");
                 }

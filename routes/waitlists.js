@@ -26,7 +26,7 @@ module.exports = (db) => {
       const updateParameters = [booking_id, req.session.user_id];
       db.query(updateString, updateParameters)
       .then(() => {
-        res.send("Success updating user!");
+        res.redirect("/restaurants");
       })
       .catch(err => console.error(err));
     })
