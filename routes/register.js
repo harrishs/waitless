@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 module.exports = (db) => {
 
+  const data = {};
   // route to display the registration page
   router.get("/", (req, res) => {
     res.render("register");
@@ -27,7 +28,8 @@ module.exports = (db) => {
       // See whether user with this email already exists in database
       const userQuery = `SELECT * FROM users
                          WHERE users.email = $1
-                         LIMIT 1 `;
+                         LIMIT 1
+                        `;
 
       db
         .query(userQuery, [email])
@@ -49,7 +51,7 @@ module.exports = (db) => {
 
             // Insert the new user into the database
             db
-              .query(insertQuery, [email, password, name, phone_number])
+              .query(insertQuery, [req.body.email, req.body.password, req.body.name, req.body.phone_number])
               .then(newUserInfo => {
                 console.log("Number of users inserted " + newUserInfo.rows.length);
 

@@ -37,22 +37,25 @@ module.exports = (db) => {
   // Removes a user from a given waitlist. The waitlist entry is deleted and the user's booking_id
   // is set back to null.
   router.delete("/:id", (req, res) => {
-    const deleteString =
-      `DELETE FROM waitlist_entries WHERE user_id = $1`;
-    const deleteParameters = [req.session.user_id];
-    db.query(deleteString, deleteParameters)
-    .then(() => {
-      const updateString = `
+    // find the user corresponding with the booking id
+    const updateString = `
         UPDATE users
         SET booking_id = $1
-        WHERE id = $2;
-      `
-      const updateParameters = [null, req.session.user_id];
-      db.query(updateString, updateParameters)
-      .then()
-
-      req.session.waitlistId = null;
-      res.redirect('/restaurants')
+        WHERE id = $2
+        RETURNING id
+      `;
+    const updateParameters = [null, req.session.user_id];
+    db.query(updateString, updateParameters)
+    .then((resultSet) => {
+      const deleteString =
+        `DELETE FROM waitlist_entries WHERE id = $1`;
+      const deleteParameters = [resultSet.rows[0].id];
+      db.query(deleteString, deleteParameters)
+      .then(() => {
+        req.session.waitlistId = null;
+        res.redirect('/restaurants');
+      })
+      .catch(err => console.error(err));
     })
     .catch(err => console.error(err));
   });

@@ -40,7 +40,8 @@ module.exports = (db) => {
       } else {
         const userQuery = `SELECT * FROM users
                            WHERE users.email = $1
-                           LIMIT 1 `;
+                           LIMIT 1
+                          `;
 
         db
           .query(userQuery, [email])
@@ -54,7 +55,7 @@ module.exports = (db) => {
               data.user = response.name;
               data.email = response.email;
               data.error.loginError = false;
-              res.render('viewrestaurant-user');
+              res.redirect('/restaurants');
             } else {
               data.error.loginError = true;
               res.status(400).send("Username and password don't match");
