@@ -19,8 +19,8 @@ module.exports = (db) => {
             let time = timeObj.rows[0].wait_time;
 
             //insert into waitlist entries
-            let query2 = `INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size) VALUES ($1, $2, $3)`;
-            let queryVal2 = [waitId, Date.now(), req.body.party];
+            let query2 = `INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name) VALUES ($1, $2, $3)`;
+            let queryVal2 = [waitId, Date.now(), req.body.party, req.body.name];
             db.query(query2, queryVal2)
             .then(console.log("Success"))
             .catch(err => console.log(err));
