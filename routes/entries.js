@@ -26,29 +26,35 @@ module.exports = (db) => {
       const updateParameters = [booking_id, req.session.user_id];
       db.query(updateString, updateParameters)
       .then(() => {
-        res.send("Success updating user!");
+        res.redirect("/restaurants");
       })
       .catch(err => console.error(err));
     })
     .catch(err => console.error(err));
   });
 
-  // DELETE /:id => /waitlists/delete
-  // Removes a user from a given waitlist. The waitlist entry is deleted and the user's booking_id
-  // is set back to null.
-  router.delete("/:id", (req, res) => {
+  // DELETE /:id => /waitlists/delete/:id
+  // Removes a user from a given waitlist through the user side of the app.
+  // The waitlist entry is deleted and the user's booking_id is set back to null.
+
+  // DELETE => /waitlists/delete
+  // Removes a user from a given waitlist through the user side of the app.
+  // The waitlist entry is deleted and the user's booking_id is set back to null.
+  router.delete("/", (req, res) => {
     // find the user corresponding with the booking id
     const updateString = `
-        UPDATE users
-        SET booking_id = $1
-        WHERE id = $2
-        RETURNING id
-      `;
+      UPDATE users
+      SET booking_id = $1
+      WHERE id = $2
+      RETURNING id
+    `;
     const updateParameters = [null, req.session.user_id];
     db.query(updateString, updateParameters)
     .then((resultSet) => {
-      const deleteString =
-        `DELETE FROM waitlist_entries WHERE id = $1`;
+      const deleteString = `
+      DELETE FROM waitlist_entries
+      WHERE id = $1
+      `;
       const deleteParameters = [resultSet.rows[0].id];
       db.query(deleteString, deleteParameters)
       .then(() => {

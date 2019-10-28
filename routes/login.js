@@ -119,7 +119,7 @@ module.exports = (db) => {
               data.user = response.name;
               data.email = response.email;
               data.error.loginError = false;
-              res.render('activatewaittime-merchant');
+              res.redirect("/waitlist")
           } else {
             data.error.loginError = true;
             res.status(400).send("Username and password don't match");
