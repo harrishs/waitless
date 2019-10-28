@@ -22,23 +22,18 @@ module.exports = (db) => {
                 return undefined;
             }
         }
-
-        //check if any waitlist for restaurant
-        let queryList = `SELECT * FROM waitlists WHERE restaurant_id =  $1`;
-        db.query(queryList, [rest_id])
-        .then(res => {
-            if (!res.rows)
-            {
-                res.render("main-merchant", {})
-            }
-        })
-
         getList(rest_id)
-        .then(vals => 
-            {
-                res.render("main-merchant", {entries: vals[0], time: vals[1]/60000})
-            })
-        .catch(err => console.log(err));
+                .then(vals => 
+                    {
+                        if (!vals){
+                        res.render("main-merchant", {entries: null, time: null})
+                        }
+                        else{
+                            res.render("main-merchant", {entries: vals[0], time: vals[1]/60000})
+                        }
+                        
+                    })
+                .catch(err => console.log(err));
         
     })
 
