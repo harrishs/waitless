@@ -20,7 +20,7 @@ module.exports = (db) => {
             let time = timeObj.rows[0].wait_time;
 
             //insert into waitlist entries
-            let query2 = `INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name) VALUES ($1, $2, $3)`;
+            let query2 = `INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name) VALUES ($1, $2, $3, $4)`;
             let queryVal2 = [waitId, Date.now(), req.body.party, req.body.name];
             db.query(query2, queryVal2)
             .then(console.log("Success"))
@@ -31,7 +31,7 @@ module.exports = (db) => {
             let numPpl = await db.query(queryList, [waitId]);
             let count = numPpl.rows[0].count;
             console.log(count);
-            if (count > 1){
+            if (count > 0){
                 //Query to obtain booking time of first and last entries
                 let queryFirst = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 LIMIT 1`;
                 let queryLast = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 ORDER BY id DESC LIMIT 1`;
