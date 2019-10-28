@@ -1,6 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-const cookieSession = require('cookie-session');
 
 module.exports = (db) => {
   router.get("/users", (req, res) => {
@@ -14,8 +13,8 @@ module.exports = (db) => {
 };
 
 
-// // Route to process logout route
-// app.post("/logout", (req, res) => {
-//   req.session.theirUserId = undefined;
-//   res.redirect("/");
-// });
+// Route to process logout route
+app.post("/logout", (req, res) => {
+  req.session = null
+  res.redirect("/");
+});

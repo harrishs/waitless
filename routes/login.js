@@ -1,111 +1,127 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cookieSession = require('cookie-session');
-const router = express.Router();
+const router  = express.Router();
 const bcrypt = require('bcrypt');
 
-router.use(bodyParser.urlencoded({ extended: true }));
-​
-router.use(cookieSession({
-  name: 'user_id',
-  keys: ['id']
-}));
-
 module.exports = (db) => {
+
+  // Route to show the login page for users
   router.get("/users", (req, res) => {
     let data = {
       user: '',
       error: {
         registerError: false,
-        loginError: false
+        loginError: false,
+        details: ''
       },
       email: ''
     };
     res.render("login-user", data);
   });
 
+
+  // Route to login registered users
   router.post("/users", (req,res) => {
     let data = {
       user: '',
       error: {
         registerError: false,
-        loginError: false
+        loginError: false,
+        details: ''
       },
       email: ''
     };
 
-    let emptyField = req.body.email.length === 0 || req.body.password.length === 0 ? true : false;
+    let email = req.body.email.trim().toLowerCase();
+    let password = req.body.password.trim();
+
+    let emptyField = email.length === 0 || password.length === 0 ? true : false;
       if (emptyField) {
-        res.status(400).send('Please make sure all fields are filled out');
+        res.status(400).send('Please specify email and password');
       } else {
-        const getUser = `SELECT * FROM users
+        const getUser = `SELECT; * FROM users
                          WHERE users.email = $1
                         LIMIT 1 `;
-        const getUserValues = [req.body.email];
+        const getUserValues = [email];
             ​
-      db
-        .query(getUser, getUserValues)
-        .then(userInfo => {
-        let response = userInfo.rows[0];
-          if (response !== undefined && bcrypt.compareSync(req.body.password, response.password)) {
-            req.session.user_id = response.id;
-            req.session.email = response.email;
-            data.user = response.name;
-            data.email = response.email;
-            data.error.loginError = false;
-          } else {
+        db
+          .query(getUser, getUserValues)
+          .then(userInfo => {
+          let response = userInfo.rows[0];
+            if (response !== undefined && bcrypt.compareSync(password, response.password)) {
+              req.session.user_id = response.id;
+              req.session.email = response.email;
+              req.session.name = response.name;
+              data.user = response.name;
+              data.email = response.email;
+              data.error.loginError = false;
+            } else {
+              data.error.loginError = true;
+              res.render('login', data);
+            }
+          })
+          .catch(err => {
             data.error.loginError = true;
             res.render('login', data);
-          }
-        })
-        .catch(err => {
-          data.error.loginError = true;
-          res.render('login', data);
-        });
+          });
       }
   })
 
+  // Route to show login page for merchants
   router.get("/merchants", (req, res) => {
     let data = {
       user: '',
       error: {
         registerError: false,
-        loginError: false
+        loginError: false,
+        details: ''
       },
       email: ''
     };
     res.render("login-merchant", data);
   });
 
+
+  // Route to login merchanges
   router.post("/merchants", (req,res) => {
     let data = {
       user: '',
       error: {
         registerError: false,
-        loginError: false
+        loginError: false,
+        details : ''
       },
       email: ''
     };
 
-    let emptyField = req.body.email.length === 0 || req.body.password.length === 0 ? true : false;
-      if (emptyField) {
-        res.status(400).send('Please make sure all fields are filled out');
-      } else {
-        const getUser = `SELECT * FROM users
+    let email = req.body.email.trim().toLowerCase();
+    let password = req.body.password.trim();
+
+    let emptyField = email.length === 0 || password.length === 0 ? true : false;
+    if (emptyField) {
+      res.status(400).send('Please make sure all fields are filled out');
+    } else {
+      const getUser = `SELECT * FROM users
                         WHERE users.email = $1
                         LIMIT 1 `;
-        const getUserValues = [req.body.email];
+      const getUserValues = [email];
             ​
       db
         .query(getUser, getUserValues)
         .then(userInfo => {
-        let response = userInfo.rows[0];
-          if (response !== undefined && bcrypt.compareSync(req.body.password, response.password)) {
-            req.session.user_id = response.id;
-            req.session.email = response.email;
-            data.user = response.name;
-            data.email = response.email;
-            data.error.loginError = false;
+          let response = userInfo.rows[0];
+          if (response !== undefined && bcrypt.compareSync(password, response.password)) {
+            if (!response.isMerchant) {
+              data.error.loginError = true;
+              data.error.details = 'User is not a merchant';
+              res.render('login', data);
+            } else {
+              req.session.user_id = response.id;
+              req.session.email = response.email;
+              req.session.name = response.name;
+              data.user = response.name;
+              data.email = response.email;
+              data.error.loginError = false;
+            }
           } else {
             data.error.loginError = true;
             res.render('login', data);
@@ -115,19 +131,10 @@ module.exports = (db) => {
           data.error.loginError = true;
           res.render('login', data);
         });
-      }
-  })
+    }
+  });
+
+
+  // Return the router with all our registered login routes
   return router;
 };
-
-
-/* authenticate (login, password, merchant (boolean true or false))
-select query
-gets the information
-selects data
-compare provided versus db entry
-bcrypt hash
-if equal return true
-else false
-*/
-

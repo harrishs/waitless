@@ -33,7 +33,6 @@ module.exports = (db) => {
 
 //     //adding user to database
 //     userDatabase[randomId] = user;
-//     console.log(userDatabase);
 
 //     //setting cookie containing user's new ID
 //     req.session.theirUserId = randomId;
