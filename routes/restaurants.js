@@ -20,13 +20,13 @@ module.exports = (db) => {
       ON waitlists.id=restaurants.id
     `;
     db.query(queryString)
-      .then((resultSet) => {
-        // pass the resultSet to the data object and render
-        data.restaurants = resultSet.rows;
-        data.bookedWith = req.session.waitlistId || null;
-        res.render('browse', data);
-      })
-      .catch(err => console.log(err));
+    .then((resultSet) => {
+      // pass the resultSet to the data object and render
+      data.restaurants = resultSet.rows;
+      data.bookedWith = req.session.waitlistId || null;
+      res.render('browse', data);
+    })
+    .catch(err => console.log(err));
   });
 
   // GET /:id => /restaurants/:id
@@ -36,11 +36,11 @@ module.exports = (db) => {
       `SELECT * FROM restaurants
        WHERE restaurants.id = $1`;
     db.query(queryString, [req.params.id])
-      .then((resultSet) => {
-        data.restaurants = resultSet.rows;
-        res.render('browse', data);
-      })
-      .catch(err => console.log(err));
+    .then((resultSet) => {
+      data.restaurants = resultSet.rows;
+      res.render('browse', data);
+    })
+    .catch(err => console.log(err));
   });
 
   return router;

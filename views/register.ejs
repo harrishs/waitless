@@ -3,21 +3,27 @@
 <html>
   <head>
     <link rel="stylesheet" href="/styles/register.css" type="text/css" />
-    <title>Login</title>
+    <title>Register</title>
   </head>
+
+  <div class="header">
+      <img src="https://i.ibb.co/ngvjBCh/Logo.png">
+      <div class="header-right">
+        <a href="/login/users">Sign In</a>
+        <a class="active" href="/register">Sign Up</a>
+      </div>
+  </div>
+
 
 <body>
   <form action="/register" method="POST">
       <div class="container">
-        <h1>Register</h1>
-        <p>Please fill in this form to create an account.</p>
-        <hr>
-
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
 
         <label for="name"><b>Name</b></label>
         <input type="text" placeholder="First and Last Name" name="name" required>
+
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
 
         <label for="phone_number"><b>Phone Number</b></label>
         <input type="text" placeholder="Phone Number" name="phone_number" required>

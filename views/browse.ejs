@@ -8,9 +8,9 @@
     </p>
     <% if (restaurant.waitlist_id !== null) { %>
       <% if (bookedWith != restaurant.waitlist_id) { %>
-        <% include partials/waitlist/_add %>
+        <% include partials/waitlist_entries/_add %>
       <% } else { %>
-        <% include partials/waitlist/_remove %>
+        <% include partials/waitlist_entries/_remove %>
       <% } %>
     <% } %>
   </div>
