@@ -15,12 +15,13 @@ module.exports = (db) => {
         let queryValsIns = [1, parseInt(time)];
         let queryVal = [1];
         db.query(queryDel, queryVal)
-        .then(console.log("Successfully deleted"))
+        .then(() => {console.log("Successfully deleted")
+        res.redirect("/waitlist");})
         .catch(err => console.log(err));
         db.query(queryIns, queryValsIns)
         .then(console.log("Success time in ms: " + time))
         .catch(err => console.log(err));
-        res.redirect("/waitlist");
+        
     });
 
     return router;

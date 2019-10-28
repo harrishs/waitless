@@ -50,13 +50,12 @@ module.exports = (db) => {
                 let final = (time - timeBetween) + increment;
                 //Update wait time in waitlist
                 let queryWait = `UPDATE waitlists SET wait_time = $1 WHERE restaurant_id = $2`;
-                db.query(queryWait, [final, rest_id[0]])
-                .then(console.log("Updated wait time to: ", final))
+                db.query(queryWait, [final, rest_id])
+                .then(res.redirect("/waitlist"))
                 .catch(err => console.log(err));
             }
         }
-        waitInsert(restaurant_id, party_name, party_size);   
-        res.redirect("/waitlist");
+        waitInsert(restaurant_id, party_name, party_size)
     })
     return router;
 }

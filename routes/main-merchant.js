@@ -41,9 +41,9 @@ module.exports = (db) => {
         let rest_id = req.session.user_id;
         let queryDel = `DELETE FROM waitlists WHERE restaurant_id = $1`;
         db.query(queryDel, [rest_id])
-        .then(console.log("Successfully deleted"))
+        .then(() => {console.log("Successfully deleted")
+        res.redirect("/waitlist");})
         .catch(err => console.log(err));
-        res.redirect("/waitlist");
     })
 
     router.post("/delete", (req, res) => {
