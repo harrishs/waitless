@@ -11,6 +11,9 @@
 <body>
     <a href = "/create-waitlist">Create New Waitlist</a>
     <a href = "/update-waitlist">Add New Waitlist Entry</a>
+    <form action="/waitlist" method="post">
+        <input type="submit" value="Delete Waitlist">
+    </form>
 
     <h1>Waitlist</h1>
     <% if (entries){ %>
