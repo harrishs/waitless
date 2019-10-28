@@ -34,39 +34,35 @@ module.exports = (db) => {
     let email = req.body.email.trim().toLowerCase();
     let password =   req.body.password.trim();
 
-    console.log('~~~~~~~~~~', email, password)
-
     let emptyField = email.length === 0 || password.length === 0 ? true : false;
 
-    console.log('F****************', emptyField)
       if (emptyField) {
         res.status(400).send('Please specify email and password');
       } else {
         const userQuery = `SELECT * FROM users
                            WHERE users.email = $1
-                           LIMIT 1 `;
+                           LIMIT 1
+                          `;
 
         db
           .query(`SELECT * FROM users
           WHERE users.email = $1
           LIMIT 1 `, [email])
           .then(userInfo => {
-            let response = userInfo.rows[0];
-
-            console.log('!!!!!!!!!!!!!!!', response)
-            // if (response !== undefined && bcrypt.compareSync(password, response.password)) {
-            //   req.session.user_id = response.id;
-            //   req.session.email = response.email;
-            //   req.session.name = response.name;
-            //   req.session.phone_number = response.phone_number;
-            //   data.user = response.name;
-            //   data.email = response.email;
-            //   data.error.loginError = false;
-            //   res.render('/restaurants');
-            // } else {
-            //   data.error.loginError = true;
-            //   res.status(400).send("Username and password don't match");
-            // }
+          let response = userInfo.rows[0];
+            if (response !== undefined && bcrypt.compareSync(password, response.password)) {
+              req.session.user_id = response.id;
+              req.session.email = response.email;
+              req.session.name = response.name;
+              req.session.phone_number = response.phone_number;
+              data.user = response.name;
+              data.email = response.email;
+              data.error.loginError = false;
+              res.redirect('/restaurants');
+            } else {
+              data.error.loginError = true;
+              res.status(400).send("Username and password don't match");
+            }
           })
           .catch(err => {
             data.error.loginError = true;
@@ -108,8 +104,8 @@ module.exports = (db) => {
     if (emptyField) {
       res.status(400).send('Please make sure all fields are filled out');
     } else {
-      const userQuery = `SELECT * FROM users
-                         WHERE users.email = $1
+      const userQuery = `SELECT * FROM restaurants
+                         WHERE restaurants.email = $1
                          LIMIT 1 `;
 
       db
@@ -117,12 +113,6 @@ module.exports = (db) => {
         .then(userInfo => {
           let response = userInfo.rows[0];
           if (response !== undefined && bcrypt.compareSync(password, response.password)) {
-
-            if (!response.isMerchant) {
-              data.error.loginError = true;
-              data.error.details = 'User is not a merchant';
-              res.render('login', data);
-            } else {
               req.session.user_id = response.id;
               req.session.email = response.email;
               req.session.name = response.name;
@@ -130,7 +120,6 @@ module.exports = (db) => {
               data.email = response.email;
               data.error.loginError = false;
               res.render('activatewaittime-merchant');
-            }
           } else {
             data.error.loginError = true;
             res.status(400).send("Username and password don't match");
@@ -148,3 +137,4 @@ module.exports = (db) => {
   // Return the router with all our registered login routes
   return router;
 };
+
