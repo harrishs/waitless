@@ -33,7 +33,7 @@ module.exports = (db) => {
             if (count > 1){
                 //Query to obtain booking time of first and last entries
                 let queryFirst = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 LIMIT 1`;
-                let queryLast = `SELECT TOP 1 booked_at FROM waitlist_entries ORDER BY id DESC WHERE waitlist_id = $1`;
+                let queryLast = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 ORDER BY id DESC LIMIT 1`;
                 let firstObj = await db.query(queryFirst, [waitId]);
                 let lastObj = await db.query(queryLast, [waitId]);
                 let firstEntry = firstObj.rows[0].booked_at;
