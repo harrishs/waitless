@@ -6,7 +6,6 @@ const PORT       = process.env.PORT || 8080;
 const ENV        = process.env.ENV || "development";
 const express    = require("express");
 const methodOverride = require("method-override");
-// const session    = require("express-session");
 const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
@@ -16,7 +15,8 @@ const cookieSession = require('cookie-session');
 
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1', 'key2']
+  keys: ['key1', 'key2'],
+  maxAge: 90000             // 15 minutes
 }));
 
 // PG database client/connection setup
@@ -30,14 +30,6 @@ db.connect();
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.set("view engine", "ejs");
-// For express-session, to set the secret token required:
-// This can be any string, but should be a randomly generated one.
-// app.use(session({
-//   secret: 'fluffy bunny feet',
-//   resave: false,
-//   saveUninitialized: true,
-//   maxAge: 60000
-// }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
