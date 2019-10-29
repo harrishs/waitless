@@ -16,7 +16,12 @@ module.exports = (db) => {
     db.query(queryString, queryParameters)
     .then((resultSet) => {
       data = resultSet.rows[0];
-      data.timeRemaining = req.session.cookie.maxAge;
+      const timeDifference = Date.now() - req.session.bookedAt;
+      const initialTime = data.wait_time * 60000;
+      const currentWait = initialTime - timeDifference;
+      console.log(currentWait);
+      data.minutes = Math.floor(currentWait / 60000);
+      data.seconds = Math.floor((currentWait % 60000) / 1000);
       console.log(data.timeRemaining);
       res.render("status", data);
     })
@@ -34,11 +39,12 @@ module.exports = (db) => {
     const insertString = `
         INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name)
         VALUES ($1, $2, $3, $4)
-        RETURNING id
+        RETURNING id, booked_at
       `;
     const insertParameters = [req.params.id, Date.now(), req.body.party_size, 'John'];
     db.query(insertString, insertParameters)
     .then((resultSet) => {
+      req.session.bookedAt = resultSet.rows[0].booked_at;
       const updateString = `
         UPDATE users
         SET booking_id = $1
@@ -62,6 +68,8 @@ module.exports = (db) => {
           data = resultSet.rows[0];
           req.session.cookie.maxAge = data.wait_time * 60000;
           data.timeRemaining = req.session.cookie.maxAge;
+          data.minutes = Math.floor(req.session.cookie.maxAge / 60000);
+          data.seconds = Math.floor((req.session.cookie.maxAge % 60000) / 1000);
           res.render("status", data);
         })
         .catch(err => console.log(err));
