@@ -2,21 +2,23 @@
 require('dotenv').config();
 
 // Web server config
-const PORT       = process.env.PORT || 8080;
-const ENV        = process.env.ENV || "development";
-const express    = require("express");
-const methodOverride = require("method-override");
-const bodyParser = require("body-parser");
-const sass       = require("node-sass-middleware");
-const app        = express();
-const morgan     = require('morgan');
+const PORT                    = process.env.PORT || 8080;
+const ENV                     = process.env.ENV || "development";
+const express                 = require("express");
+const expressSession          = require("express-session");
+const methodOverride          = require("method-override");
+const bodyParser              = require("body-parser");
+const sass                    = require("node-sass-middleware");
+const app                     = express();
+const morgan                  = require('morgan');
 
-const cookieSession = require('cookie-session');
-
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2'],
-  maxAge: 90000             // 15 minutes
+app.use(expressSession({
+  secret: 'fluffy bunny feet',
+  cookie: {
+    maxAge: 90000
+  },
+  resave: false,
+  saveUninitialized: true
 }));
 
 // PG database client/connection setup
@@ -64,11 +66,11 @@ app.use("/update-waitlist", merchantWaitList(db));
 app.use("/waitlist", mainMerchant(db));
 // Note: mount other resources here, using the same pattern above
 
-
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
+  console.log(req.session.user_id);
   res.render("index");
 });
 

@@ -1,12 +1,17 @@
 <% include partials/_header %>
 <form method="POST" action="/restaurants">
-  <label for="search-type">Search by:</label>
+  <label for="search">Search by:</label>
 
-  <select name="type" id="search-type">
+  <select name="search" id="search">
     <option value="">--Please choose an option--</option>
     <option value="type">Type</option>
+    <option value="name">Name</option>
     <option value="waitlist">Waitlist Time</option>
   </select>
+
+  <label for="search_value">Search value:</label>
+  <input type="text" name="search_value">
+
   <button type="submit">Submit</button>
 </form>
 <% for (let restaurant of restaurants) { %>
@@ -14,13 +19,14 @@
     <h3><%= restaurant.name %></h3>
     <p>Type: <%= restaurant.type %></p>
     <p>
-      <%= restaurant.wait_time ? `Estimated wait time: ${restaurant.wait_time} minutes` : `No wait time` %>
+      <%= restaurant.wait_time ? `Estimated wait time: ${restaurant.wait_time} minutes` : `Estimated wait time: under 5 minutes` %>
     </p>
     <% if (restaurant.waitlist_id !== null) { %>
       <% if (bookedWith != restaurant.waitlist_id) { %>
         <% include partials/waitlist_entries/_add %>
       <% } else { %>
         <% include partials/waitlist_entries/_remove %>
+        <a href="/entries">View Status of Booking</a>
       <% } %>
     <% } %>
   </div>
