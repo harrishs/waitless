@@ -61,7 +61,7 @@ module.exports = (db) => {
               res.redirect('/restaurants');
             } else {
               data.error.loginError = true;
-              res.status(400).send("Username and password don't match");
+              res.status(400).send("Username or password is incorrect");
             }
           })
           .catch(err => {
@@ -122,7 +122,7 @@ module.exports = (db) => {
               res.redirect("/waitlist")
           } else {
             data.error.loginError = true;
-            res.status(400).send("Username and password don't match");
+            res.status(400).send("Username or password is incorrect");
             // res.render('login-merchant', data);
           }
         })

@@ -1,4 +1,5 @@
 <% include partials/_header %>
+<<<<<<< HEAD
 <form method="POST" action="/restaurants">
   <label for="search">Search by:</label>
 
@@ -14,10 +15,20 @@
 
   <button type="submit">Submit</button>
 </form>
+=======
+<div>
+<img src="https://i.ibb.co/sCTCzLg/Screen-Shot-2019-10-29-at-12-31-58-PM.png">
+</div>
+
+>>>>>>> frontend
 <% for (let restaurant of restaurants) { %>
   <div class ="<%= restaurant.id %>">
     <h3><%= restaurant.name %></h3>
     <p>Type: <%= restaurant.type %></p>
+  <div class= "restaurant-image">
+    <img src= "<%= restaurant.image_url %>">
+  </div>
+
     <p>
       <%= restaurant.wait_time ? `Estimated wait time: ${restaurant.wait_time} minutes` : `Estimated wait time: under 5 minutes` %>
     </p>
@@ -32,3 +43,5 @@
   </div>
 <% } %>
 <% include partials/_footer %>
+
+</html>
