@@ -13,7 +13,7 @@ module.exports = (db) => {
         let queryDel = `DELETE FROM waitlists WHERE restaurant_id = $1`;
         let queryIns =  `INSERT INTO waitlists (restaurant_id, wait_time)
         VALUES ($1, $2)`;
-        let queryValsIns = [1, parseInt(time)];
+        let queryValsIns = [id, parseInt(time)];
         let queryVal = [id];
         db.query(queryDel, queryVal)
         .then(() => {console.log("Successfully deleted")
