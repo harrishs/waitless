@@ -4,7 +4,7 @@
     <h3><%= restaurant.name %></h3>
     <p>Type: <%= restaurant.type %></p>
     <p>
-      <%= restaurant.wait_time ? `Estimated wait time: ${restaurant.wait_time} minutes` : `No wait time` %>
+      <%= restaurant.wait_time ? `Estimated wait time: ${(restaurant.wait_time/60000).toFixed(2)} minutes` : `No wait time` %>
     </p>
     <% if (restaurant.waitlist_id !== null) { %>
       <% if (bookedWith != restaurant.waitlist_id) { %>

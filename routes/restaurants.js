@@ -17,7 +17,7 @@ module.exports = (db) => {
       SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.id AS waitlist_id, waitlists.wait_time
       FROM restaurants
       LEFT JOIN waitlists
-      ON waitlists.id=restaurants.id
+      ON restaurant_id=restaurants.id
     `;
     db.query(queryString)
     .then((resultSet) => {
