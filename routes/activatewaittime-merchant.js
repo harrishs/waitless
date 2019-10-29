@@ -8,12 +8,13 @@ module.exports = (db) => {
     });
 
     router.post("/", (req, res)=> {
+        let id = req.session.user_id;
         const time = parseInt(req.body.times) * 60000;
         let queryDel = `DELETE FROM waitlists WHERE restaurant_id = $1`;
         let queryIns =  `INSERT INTO waitlists (restaurant_id, wait_time)
         VALUES ($1, $2)`;
         let queryValsIns = [1, parseInt(time)];
-        let queryVal = [1];
+        let queryVal = [id];
         db.query(queryDel, queryVal)
         .then(() => {console.log("Successfully deleted")
         res.redirect("/waitlist");})
