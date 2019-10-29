@@ -1,0 +1,8 @@
+<h2>Status Route Hit!</h2>
+
+<h3>Information about your booking with <%= data.name %></h3>
+<h3>Phone number: <%= data.phone_number %></h3>
+<h3>Address: <%= data.address %></h3>
+<h3>Time remaining: <%= Math.floor(data.timeRemaining / 60000) %> minutes</h3>
+
+<a href='/restaurants'>Back to Restaurants</a>
