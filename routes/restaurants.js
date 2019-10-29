@@ -12,15 +12,17 @@ module.exports = (db) => {
   router.get("/", (req, res) => {
     // testing some session code
     req.session.user_id = 1;
+    console.log('requesting restaurants');
     // const queryString = "SELECT * FROM restaurants";
     const queryString = `
-      SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.id AS waitlist_id, waitlists.wait_time
+      SELECT restaurants.id, restaurants.name, restaurants.type, restaurants.image_url, waitlists.id AS waitlist_id, waitlists.wait_time
       FROM restaurants
       LEFT JOIN waitlists
       ON waitlists.id=restaurants.id
     `;
     db.query(queryString)
       .then((resultSet) => {
+        console.log('----------', resultSet, '------------');
         // pass the resultSet to the data object and render
         data.restaurants = resultSet.rows;
         data.bookedWith = req.session.waitlistId || null;

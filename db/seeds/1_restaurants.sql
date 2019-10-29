@@ -21,7 +21,7 @@ VALUES
   'gino@stripedpizza.net',
   -- bcrypt for 'password'
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  'images/striped_pizza.png'
+  'images/striped_pizza.jpg'
 ),
 (
   'Lemongrass Thai Cuisine',
