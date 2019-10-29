@@ -59,6 +59,7 @@ const waitlists = require("./routes/waitlists");
 const merchantActivateWait = require("./routes/activatewaittime-merchant");
 const merchantWaitList = require("./routes/peoplewaiting-merchant")
 
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/login", login(db));

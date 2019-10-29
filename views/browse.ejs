@@ -1,4 +1,8 @@
 <% include partials/_header %>
+<div>
+<img src="https://i.ibb.co/sCTCzLg/Screen-Shot-2019-10-29-at-12-31-58-PM.png">
+</div>
+
 <% for (let restaurant of restaurants) { %>
   <div class ="<%= restaurant.id %>">
     <h3><%= restaurant.name %></h3>
@@ -16,3 +20,5 @@
   </div>
 <% } %>
 <% include partials/_footer %>
+
+</html>

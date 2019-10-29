@@ -10,7 +10,7 @@ VALUES
   '4164444444',
   'jimmy@soufis.com',
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/soufi.png'
 ),
 (
   'Striped Pizza',
@@ -21,7 +21,7 @@ VALUES
   'gino@stripedpizza.net',
   -- bcrypt for 'password'
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/striped_pizza.png'
 ),
 (
   'Lemongrass Thai Cuisine',
@@ -32,7 +32,7 @@ VALUES
   'manager@lemongrass.com',
     -- bcrypt for 'password'
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/lemongrass.png'
 ),
 (
   'Ultra Kebab',
@@ -42,7 +42,7 @@ VALUES
   '4165586881',
   'manager@ultrakebab.com',
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/kebab.png'
 ),
 (
   'Saigon Pho',
@@ -53,7 +53,7 @@ VALUES
   'lisa@saigonpho.com',
   -- bcrypt for 'password'
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/pho.png'
 ),
 (
   'El Rey Mexicana',
@@ -64,7 +64,7 @@ VALUES
   'admin@elrey.com',
     -- bcrypt for 'password'
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/elrey.jpg'
 ),
 (
   'Marcelle''s',
@@ -74,7 +74,7 @@ VALUES
   '4164444444',
   'marcelle@marcelles.com',
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/marcelle.jpg'
 ),
 (
   'Obsidian',
@@ -85,7 +85,7 @@ VALUES
   'foh@obsidian.com',
   -- bcrypt for 'password'
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/obsidian.jpg'
 ),
 (
   'Silver Spoon Yogurt Bar',
@@ -96,7 +96,7 @@ VALUES
   'john@theoneandonlysilverspoon.com',
     -- bcrypt for 'password'
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/silver.jpg'
 ),
 (
   'Maze''s End Cafe',
@@ -106,7 +106,7 @@ VALUES
   '4164444444',
   'sam@mazeend.com',
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/maze.jpg'
 ),
 (
   'Tan Fish Lane',
@@ -117,7 +117,7 @@ VALUES
   'gram@rogers.net',
   -- bcrypt for 'password'
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  ''
+  'images/fish.jpg'
 );
 -- CREATE TABLE restaurants (
 --   id SERIAL PRIMARY KEY,
