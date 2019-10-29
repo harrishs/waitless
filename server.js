@@ -10,6 +10,18 @@ const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+server.listen(PORT);
+
+io.on('connection', function (socket) {
+  console.log("Connected");
+  socket.on('update', function (data) {
+    res.redirect(data);
+  });
+});
+
 
 const cookieSession = require('cookie-session');
 

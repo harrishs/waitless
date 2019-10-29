@@ -100,6 +100,8 @@ module.exports = (db) => {
              }
         }
         updateTime(rest_id);
+        const socket = io.connect('http://localhost:8080');
+          socket.emit('update', { my: '/restaurant' });
     })
     return router;
 }

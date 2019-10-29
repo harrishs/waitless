@@ -24,6 +24,8 @@ module.exports = (db) => {
       // pass the resultSet to the data object and render
       data.restaurants = resultSet.rows;
       data.bookedWith = req.session.waitlistId || null;
+      const socket = io.connect('http://localhost:8080');
+      socket.emit('update', { my: '/waitlist' });
       res.render('browse', data);
     })
     .catch(err => console.log(err));
@@ -39,8 +41,11 @@ module.exports = (db) => {
     .then((resultSet) => {
       data.restaurants = resultSet.rows;
       res.render('browse', data);
+      const socket = io.connect('http://localhost:8080');
+          socket.emit('update', { my: '/waitlist' });
     })
     .catch(err => console.log(err));
+    
   });
 
   return router;

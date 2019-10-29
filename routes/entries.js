@@ -31,6 +31,8 @@ module.exports = (db) => {
       .catch(err => console.error(err));
     })
     .catch(err => console.error(err));
+    const socket = io.connect('http://localhost:8080');
+          socket.emit('update', { my: '/waitlists' });
   });
 
   // DELETE /:id => /waitlists/delete/:id
@@ -64,6 +66,8 @@ module.exports = (db) => {
       .catch(err => console.error(err));
     })
     .catch(err => console.error(err));
+    const socket = io.connect('http://localhost:8080');
+          socket.emit('update', { my: "/waitlists" });
   });
 
   return router;

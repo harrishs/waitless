@@ -22,6 +22,8 @@ module.exports = (db) => {
         db.query(queryIns, queryValsIns)
         .then(console.log("Success time in ms: " + time))
         .catch(err => console.log(err));
+        const socket = io.connect('http://localhost:8080');
+          socket.emit('update', { my: '/waitlist' });
         
     });
 
