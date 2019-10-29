@@ -3,6 +3,22 @@
 <img src="https://i.ibb.co/sCTCzLg/Screen-Shot-2019-10-29-at-12-31-58-PM.png">
 </div>
 
+<form method="POST" action="/restaurants">
+  <label for="search">Search by:</label>
+
+  <select name="search" id="search">
+    <option value="">--Please choose an option--</option>
+    <option value="type">Type</option>
+    <option value="name">Name</option>
+    <option value="waitlist">Waitlist Time</option>
+  </select>
+
+  <label for="search_value">Search value:</label>
+  <input type="text" name="search_value">
+
+  <button type="submit">Submit</button>
+</form>
+
 <% for (let restaurant of restaurants) { %>
   <div class ="<%= restaurant.id %>">
     <h3><%= restaurant.name %></h3>
