@@ -51,14 +51,12 @@ module.exports = (db) => {
                 //Update wait time in waitlist
                 let queryWait = `UPDATE waitlists SET wait_time = $1 WHERE restaurant_id = $2`;
                 db.query(queryWait, [final, rest_id])
-                .then(res.redirect("/waitlist"))
+                .then(console.log("success time changed to: ", final))
                 .catch(err => console.log(err));
-            }
-            else {
-                res.redirect("/waitlist")
             }
         }
         waitInsert(restaurant_id, party_name, party_size)
+        res.redirect("/waitlist");
     })
     return router;
 }

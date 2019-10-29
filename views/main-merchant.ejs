@@ -11,17 +11,16 @@
 <body>
     <a href = "/create-waitlist">Create New Waitlist</a>
 
-    <h1>Waitlist</h1>
+    <h1 class = "waitlist">Waitlist</h1>
     <% if (entries){ let count = 1; %>
         <a href = "/update-waitlist">Add New Waitlist Entry</a>
-        <h1>Wait time: <%= time.toFixed(2) %></h1>
         <form action="/waitlist" method="post">
             <input type="submit" value="Delete Waitlist">
         </form>
     <% for (let entry of entries){ %>
-        <h1>Rank: <%= count %></h1>
-        <h1><%= entry.party_name %></h1>
-        <h1><%= entry.party_size %></h1>
+        <div name = "rank">Rank: <%= count %></div>
+        <div name = "party_name"><%= entry.party_name %></h1>
+        <div name = "party_size"><%= entry.party_size %></h1>
         <form action="/waitlist/delete" method="post">
             <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
             <input type="submit" value="Delete Entry">
