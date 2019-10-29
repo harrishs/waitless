@@ -1,4 +1,14 @@
 <% include partials/_header %>
+<form method="POST" action="/restaurants">
+  <label for="search-type">Search by:</label>
+
+  <select name="type" id="search-type">
+    <option value="">--Please choose an option--</option>
+    <option value="type">Type</option>
+    <option value="waitlist">Waitlist Time</option>
+  </select>
+  <button type="submit">Submit</button>
+</form>
 <% for (let restaurant of restaurants) { %>
   <div class ="<%= restaurant.id %>">
     <h3><%= restaurant.name %></h3>

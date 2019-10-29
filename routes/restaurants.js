@@ -11,8 +11,6 @@ module.exports = (db) => {
   // Queries all restaurants and renders them with information appropriate to the page
   router.get("/", (req, res) => {
     // testing some session code
-    req.session.user_id = 1;
-    // const queryString = "SELECT * FROM restaurants";
     const queryString = `
       SELECT restaurants.id, restaurants.name, restaurants.type, waitlists.id AS waitlist_id, waitlists.wait_time
       FROM restaurants
@@ -42,6 +40,12 @@ module.exports = (db) => {
     })
     .catch(err => console.log(err));
   });
+
+  router.post("/",  (req, res) => {
+    // Search by type:
+
+  })
+
 
   return router;
 };

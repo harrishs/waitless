@@ -3,9 +3,9 @@ const router  = express.Router();
 const bodyParser = require("body-parser")
 
 module.exports = (db) => {
-    router.get("/", (req, res)=> {
-        res.render("activatewaittime-merchant");
-    });
+  router.get("/", (req, res)=> {
+    res.render("activatewaittime-merchant");
+  });
 
     router.post("/", (req, res)=> {
         const time = parseInt(req.body.times) * 60000;
@@ -21,7 +21,7 @@ module.exports = (db) => {
         db.query(queryIns, queryValsIns)
         .then(console.log("Success time in ms: " + time))
         .catch(err => console.log(err));
-        
+
     });
 
     return router;
