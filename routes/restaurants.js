@@ -12,12 +12,10 @@ module.exports = (db) => {
   // SHOW route
   // Queries all restaurants and renders them with information appropriate to the page
   router.get("/", (req, res) => {
-    // testing some session code
-    req.session.user_id = 1;
     console.log('requesting restaurants');
     // const queryString = "SELECT * FROM restaurants";
     const queryString = `
-      SELECT restaurants.id, restaurants.name, restaurants.type, restaurants.image_url, waitlists.id AS waitlist_id, waitlists.wait_time
+      SELECT restaurants.id, restaurants.name, restaurants.address, restaurants.type, restaurants.image_url, waitlists.id AS waitlist_id, waitlists.wait_time
       FROM restaurants
       LEFT JOIN waitlists
       ON restaurants.id=waitlists.restaurant_id
