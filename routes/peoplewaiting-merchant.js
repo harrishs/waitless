@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 module.exports = (db) => {
     router.get("/", (req, res)=> {
         res.render("peoplewaiting-merchant");
+
     });
 
     router.post("/", (req,res)=> {

@@ -22,7 +22,6 @@ module.exports = (db) => {
         db.query(queryIns, queryValsIns)
         .then(console.log("Success time in ms: " + time))
         .catch(err => console.log(err));
-
     });
 
     return router;

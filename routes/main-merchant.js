@@ -49,13 +49,25 @@ module.exports = (db) => {
     router.post("/delete", (req, res) => {
         entry_id = req.body.id;
         rest_id = req.session.user_id;
-        let queryDel = `DELETE FROM waitlist_entries WHERE id = $1`;
-        db.query(queryDel, [entry_id])
-        .then(() => {
-            console.log("Successfully deleted entry");
-            res.redirect("/waitlist");
-        })
-        .catch(err => console.log(err));
+            // find the user corresponding with the booking id
+        const updateString = `
+        UPDATE users
+        SET booking_id = $1
+        WHERE booking_id = $2
+        RETURNING id
+        `;
+  const updateParameters = [null, entry_id];
+  db.query(updateString, updateParameters)
+  .then(() => {
+    let queryDel = `DELETE FROM waitlist_entries WHERE id = $1`;
+    db.query(queryDel, [entry_id])
+    .then(() => {
+        console.log("Successfully deleted entry");
+        res.redirect("/waitlist");
+    })
+    .catch(err => console.log(err));
+  })
+  .catch(err => console.log(err));
         
         async function updateTime(rest_id){
              //Find waitlist id and wait time provided by restaurant
@@ -73,7 +85,7 @@ module.exports = (db) => {
              let numPpl = await db.query(queryList, [waitId]);
              let count = numPpl.rows[0].count;
              console.log(count);
-             if (count > -1){
+             if (count > 0){
                  //Query to obtain booking time of first and last entries
                  let queryFirst = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 LIMIT 1`;
                  let queryLast = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 ORDER BY id DESC LIMIT 1`;

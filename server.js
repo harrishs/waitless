@@ -21,6 +21,22 @@ app.use(expressSession({
   saveUninitialized: true
 }));
 
+//Sockets
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
+io.on('connection', function (socket) {
+  console.log("connected")
+  socket.on('reload', function (data) {
+    console.log("reload", data);
+    socket.broadcast.emit("reload", {...data});
+  });
+});
+
+
+
+
+
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
@@ -75,6 +91,6 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Waitless Server listening on port ${PORT}`);
 });

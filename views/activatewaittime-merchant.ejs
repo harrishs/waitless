@@ -20,4 +20,14 @@
         <button type="submit" id="submit">submit</button>
     </form>
 </body>
+<script src="/socket.io/socket.io.js"></script>
+<script>var socket = io();
+  document.getElementById("submit").on("click", () => {
+      console.log("testing reload")
+      socket.emit("reload", () => {});
+  })
+  document.getElementById("anotherSub").on("click", () => {
+      socket.emit("reload", () => {});
+  })
+</script>
 </html>
