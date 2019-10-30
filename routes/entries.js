@@ -35,6 +35,10 @@ module.exports = (db) => {
     if (req.session.user_id === undefined) {
       res.send("Cannot add if not logged in!");
     }
+    console.log(req.body);
+    if (parseInt(req.body.party_size) === '0') {
+      res.send("Cannot create a new booking without selecting a party size!");
+    }
     req.session.waitlistId = req.params.id;
     const insertString = `
         INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name)

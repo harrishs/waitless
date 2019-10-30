@@ -32,66 +32,12 @@
         <% include partials/waitlist_entries/_add %>
       <% } else { %>
         <% include partials/waitlist_entries/_remove %>
-        <a href="/entries">View Status of Booking</a>
+        <a href="/entries" style=>View Status of Booking</a>
       <% } %>
     <% } %>
   </div>
   <div class="addressValue" style="display: none;"><%= restaurant.address %></div>
 <% } %>
-<script>
-  // Google Maps API
-  var map;
-  var markerAddresses = [];
-  function createMarker(name, address) {
-    const markerObject = {};
-    const streetAddress = address.split(' ').join('+') + ',';
-    const baseURL = `https://maps.googleapis.com/maps/api/geocode/json?`
-    const city = `+Toronto,+ON`;
-    const fullAddress = `${streetAddress}${city}`;
-    const apiKey = `AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY`;
-    const url = `${baseURL}address=${fullAddress}&key=${apiKey}`;
-    // console.log(url);
-    return fetch(url)
-    .then(data => data.json())
-    .then(data => {
-      markerObject.lat = data.results[0].geometry.location.lat;
-      markerObject.lng = data.results[0].geometry.location.lng;
-      markerObject.title = name;
-      console.log(markerObject);
-      return markerObject;
-    })
-  }
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('browse-map-section'), {
-      center: {lat: 43.644175, lng: -79.4022042},
-      // 43.6532° N, 79.3832° W for centre of Toronto
-      // 43.644175, -79.4022042 centring on LHL
-      zoom: 13.5
-    });
-    var restaurants = {};
-    var names = document.querySelectorAll("h3.restaurant-name");
-    var addresses = document.querySelectorAll("div.addressValue");
-    // it makes the most sense to use a C-style for loop in this case since both name and address index will be identical:
-    for (let i = 0; i < names.length; i++) {
-      markerAddresses.push(createMarker(names[i].innerText, addresses[i].innerText))
-    }
-
-    Promise.all(markerAddresses)
-    .then((results) => {
-      results.forEach((location) => {
-        var marker = new google.maps.Marker({
-          position: {
-            lat: location.lat,
-            lng: location.lng,
-          },
-          title: location.title,
-          map: map
-        });
-        // marker.setMap(map);
-      })
-    });
-  }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY&callback=initMap" async defer></script>
+<% include partials/_google_maps %>
 <% include partials/_footer %>
 
