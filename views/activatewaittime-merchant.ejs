@@ -22,12 +22,8 @@
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>var socket = io();
-  document.getElementById("submit").on("click", () => {
-      console.log("testing reload")
-      socket.emit("reload", () => {});
-  })
-  document.getElementById("anotherSub").on("click", () => {
-      socket.emit("reload", () => {});
+  document.getElementById("submit").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
   })
 </script>
 </html>

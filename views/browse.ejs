@@ -96,16 +96,13 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io();
-  document.getElementById("submit").addEventListener("click", () => {
-      socket.emit("reload", {page: "/browse"});
-  })
-  document.getElementById("remove").addEventListener("click", () => {
-      socket.emit("reload", {page: "/browse"});
-  })
   socket.on("reload", (data)=>{
     if (data.page === "/browse"){
       window.location.reload();
     }
+  })
+  document.getElementById("submit").addEventListener("click", () => {
+      socket.emit("reload", {page: "/waitlist"});
   })
 </script>
 <% include partials/_footer %>

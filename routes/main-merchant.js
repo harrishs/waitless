@@ -78,14 +78,14 @@ module.exports = (db) => {
              let waitObj = await db.query(queryListId, queryVals);
              let waitId = waitObj.rows[0].id;
              //wait time in db to display
-             let time = timeObj.rows[0].wait_time;
+             let time = (timeObj.rows[0].wait_time)*60000;
 
              //Get number of entries in waitlist
              let queryList = `SELECT count(*) FROM waitlist_entries WHERE waitlist_id = $1`;
              let numPpl = await db.query(queryList, [waitId]);
              let count = numPpl.rows[0].count;
              console.log(count);
-             if (count > 0){
+             if (count > 1){
                  //Query to obtain booking time of first and last entries
                  let queryFirst = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 LIMIT 1`;
                  let queryLast = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 ORDER BY id DESC LIMIT 1`;
@@ -103,7 +103,7 @@ module.exports = (db) => {
                  //increment in milliseconds
                  let increment = 300000;
                  //final time
-                 let final = (time - timeBetween) - increment;
+                 let final = parseInt(((time - timeBetween) - increment)/60000);
                  //Update wait time in waitlist
                  let queryWait = `UPDATE waitlists SET wait_time = $1 WHERE restaurant_id = $2`;
                  db.query(queryWait, [final, rest_id])
