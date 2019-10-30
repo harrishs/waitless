@@ -4,6 +4,7 @@ const router  = express.Router();
 module.exports = (db) => {
     router.get("/", (req, res)=> {
         res.render("peoplewaiting-merchant");
+
     });
 
     router.post("/", (req,res)=> {
@@ -46,7 +47,7 @@ module.exports = (db) => {
                 //increment in milliseconds
                 let increment = 300000;
                 //final time
-                let final = (time - timeBetween) + increment;
+                let final = parseInt(((time - timeBetween) + increment)/60000);
                 //Update wait time in waitlist
                 let queryWait = `UPDATE waitlists SET wait_time = $1 WHERE restaurant_id = $2`;
                 db.query(queryWait, [final, rest_id])

@@ -15,7 +15,7 @@
     <% if (entries){ let count = 1; %>
         <a href = "/update-waitlist">Add New Waitlist Entry</a>
         <form action="/waitlist" method="post">
-            <input type="submit" value="Delete Waitlist">
+            <input type="submit" id = "remove" value="Delete Waitlist">
         </form>
     <% for (let entry of entries){ %>
         <div name = "rank">Rank: <%= count %></div>
@@ -23,7 +23,7 @@
         <div name = "party_size"><%= entry.party_size %></h1>
         <form action="/waitlist/delete" method="post">
             <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
-            <input type="submit" value="Delete Entry">
+            <input type="submit" value="Delete Entry" id = "delete">
         </form>
         <% count++ }} else { %>
             <h2>No Waitlist</h2>
