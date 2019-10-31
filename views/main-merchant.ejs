@@ -28,7 +28,6 @@
         <% count++ }} else { %>
             <h2>No Waitlist</h2>
         <% } %>
-</body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
   const socket = io();
@@ -37,6 +36,5 @@
       window.location.reload();
     }
   })
-
 </script>
-</html>
+<% include partials/_footer %>

@@ -22,11 +22,10 @@
             </select>
         <button type="submit" id="submit">submit</button>
     </form>
-</body>
 <script src="/socket.io/socket.io.js"></script>
 <script>var socket = io();
   document.getElementById("submit").addEventListener("click", () => {
       socket.emit("reload", {page: "/browse"});
   })
 </script>
-</html>
+<% include partials/_footer %>
