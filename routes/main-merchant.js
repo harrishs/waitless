@@ -65,6 +65,7 @@ module.exports = (db) => {
     let queryList = `SELECT count(*) FROM waitlist_entries WHERE waitlist_id = $1`;
     let numPpl = await db.query(queryList, [waitId]);
     let count = numPpl.rows[0].count;
+    let timeBetween;
     console.log(count);
     if (count >= 1){
         //Query to obtain booking time of first and last entries
@@ -79,7 +80,7 @@ module.exports = (db) => {
            let firstEntry = firstObj.rows[0].booked_at;
            let lastEntry = lastObj.rows[0].booked_at;
            //time between is time elapsed
-           let timeBetween = lastEntry - firstEntry;
+           timeBetween = lastEntry - firstEntry;
         }
         //increment in milliseconds
         let increment = 300000;

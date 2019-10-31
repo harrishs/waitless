@@ -25,7 +25,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>var socket = io();
   document.getElementById("submit").addEventListener("click", () => {
-      socket.emit("reload", {page: "/browse"});
+        socket.emit("reload", {page: "/browse"});
   })
 </script>
 <% include partials/_footer %>
