@@ -23,7 +23,7 @@ module.exports = (db) => {
             }
         }
         getList(rest_id)
-                .then(vals => 
+                .then(vals =>
                     {
                         if (!vals){
                         res.render("main-merchant", {entries: null, time: null})
@@ -31,10 +31,10 @@ module.exports = (db) => {
                         else{
                             res.render("main-merchant", {entries: vals[0], time: vals[1]})
                         }
-                        
+
                     })
                 .catch(err => console.log(err));
-        
+
     })
 
     router.post("/", (req, res) => {
@@ -49,7 +49,7 @@ module.exports = (db) => {
     router.post("/delete", (req, res) => {
         entry_id = req.body.id;
         rest_id = req.session.user_id;
-  
+
   async function updateTime(rest_id){
     //Find waitlist id and wait time provided by restaurant
     let queryStr = `SELECT wait_time FROM waitlists WHERE restaurant_id = $1`;
@@ -96,11 +96,11 @@ module.exports = (db) => {
     // find the user corresponding with the booking id
     const queryStr = `SELECT id FROM users WHERE booking_id = $1`;
     const vals = [entry_id];
-        const updateString = `
-        UPDATE users
-        SET booking_id = $1
-        WHERE id = $2
-        RETURNING id
+    const updateString = `
+      UPDATE users
+      SET booking_id = $1
+      WHERE id = $2
+      RETURNING id
         `;
 let queryDel = `DELETE FROM waitlist_entries WHERE id = $1`;
 
@@ -124,10 +124,10 @@ db.query(queryStr, vals)
             updateTime(rest_id);
         })
         .catch(err => console.log(err));
-    } 
+    }
 })
 .then(res.redirect("/waitlist"))
-.catch(err => console.log(err));      
+.catch(err => console.log(err));
 })
     return router;
 }

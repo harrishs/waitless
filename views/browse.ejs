@@ -21,12 +21,12 @@
 
 </form>
 
-<div class= "map" id='browse-map-section'></div>
+<div class= "map" id='browse-map-section' style="width: 1100px; height: 900px; margin: 60px;"></div>
 
 <% for (let restaurant of restaurants) { %>
   <div class= "container">
   <div class="restaurant-image container-stack">
-      <img src= "<%= restaurant.image_url %>">
+      <img src= "<%= restaurant.image_url %>" style="width: 400px; height:400px;">
   </div>
   <div class="<%= restaurant.id %> container-stack">
     <h3 class="restaurant-name"><%= restaurant.name %></h3>
@@ -37,7 +37,7 @@
         <% include partials/waitlist_entries/_add %>
       <% } else { %>
         <% include partials/waitlist_entries/_remove %>
-        <a href="/entries" style=>View Status of Booking</a>
+        <a href="/entries" style="margin: 15px;">View Status of Booking</a>
       <% } %>
     <% } %>
   </div>

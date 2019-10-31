@@ -1,5 +1,7 @@
 <form action="/entries/<%= restaurant.waitlist_id %>" method="POST">
-  <label name="party-size" for="party-size"></label>
+  <label name="party_name" for="party_name">Party Name</label>
+  <input type="text" name="party_name" placeholder="Name of party" required>
+  <label name="party-size" for="party-size">Party Size</label>
   <select name="party_size">
     <option value="0">Select party size</option>
     <option value="1">1</option>
