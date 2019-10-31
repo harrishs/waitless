@@ -145,3 +145,7 @@ body {
   margin: 10px 0;
   min-width: 100%;
 }
+
+.blue-background {
+  background-color: blue;
+}

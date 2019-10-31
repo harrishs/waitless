@@ -2,7 +2,7 @@
   // Google Maps API
   var map;
   var markerAddresses = [];
-  function createMarker(name, address) {
+  function createMarker(name, address, id) {
     // Building the data for the marker object.
     const markerObject = {};
     const streetAddress = address.split(' ').join('+') + ',';
@@ -19,6 +19,7 @@
       markerObject.lng = data.results[0].geometry.location.lng;
       markerObject.title = name;
       markerObject.address = address;
+      markerObject.id = id;
       return markerObject;
     })
   }
@@ -32,9 +33,10 @@
     var restaurants = {};
     var names = document.querySelectorAll("h3.restaurant-name");
     var addresses = document.querySelectorAll("div.addressValue");
+    var ids = document.querySelectorAll("div.idValue");
     // it makes the most sense to use a C-style for loop in this case since both name and address index will be identical:
     for (let i = 0; i < names.length; i++) {
-      markerAddresses.push(createMarker(names[i].innerText, addresses[i].innerText))
+      markerAddresses.push(createMarker(names[i].innerText, addresses[i].innerText, ids[i].innerText))
     }
 
     Promise.all(markerAddresses)
@@ -49,7 +51,8 @@
           icon: `http://maps.google.com/mapfiles/ms/icons/blue-dot.png`,
           map: map,
           clickable: true,
-          address: location.address
+          address: location.address,
+          restaurantId: location.id
         });
 
         var infoWindow = new google.maps.InfoWindow({
@@ -57,7 +60,12 @@
         });
 
         marker.addListener('click', function() {
-          infoWindow.open(map, marker);
+          var element = document.querySelector(`.blue-background`);
+          if (element !== null) {
+            element.classList.remove('blue-background');
+          }
+          element = document.getElementById(`${marker.restaurantId}`);
+          element.classList.add('blue-background');
         });
 
         // marker.setMap(map);

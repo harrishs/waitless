@@ -28,7 +28,7 @@
       <div class="restaurant-image">
        <img src= "<%= restaurant.image_url %>">
       </div>
-      <div class="<%= restaurant.id %> container-stack">
+      <div class="container-stack" id="<%= restaurant.id %>"</div>
         <h3 class="restaurant-name"><%= restaurant.name %></h3>
         <p><%= restaurant.type %> <%= restaurant.wait_time ? ` | ${restaurant.wait_time} Min Wait` : ` | < 5 Min Wait` %></p>
     <% if (restaurant.waitlist_id !== null) { %>
@@ -42,7 +42,7 @@
   <% } %>
   </div>
   <div class="addressValue" style="display: none;"><%= restaurant.address %></div>
-  <div class="idValue" style="display: none;"><%= restaurant.id %></div>"
+  <div class="idValue" style="display: none;"><%= restaurant.id %></div>
   <% } %>
 <% include partials/_google_maps %>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY&callback=initMap" async defer></script>
