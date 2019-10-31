@@ -20,7 +20,7 @@ module.exports = (db) => {
             let waitObj = await db.query(queryListId, queryVals);
             let waitId = waitObj.rows[0].id;
             //wait time in db to display
-            let time = timeObj.rows[0].wait_time;
+            let time = timeObj.rows[0].wait_time * 60000;
 
             //insert into waitlist entries
             let query2 = `INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name) VALUES ($1, $2, $3, $4)`;
