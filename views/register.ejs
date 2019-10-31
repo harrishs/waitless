@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <html>
-  <head>
-    <link rel="stylesheet" href="/styles/register.css" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
-    <title>Register</title>
-  </head>
-
-  <div class="header">
-    <img src="https://i.ibb.co/ngvjBCh/Logo.png">
+ <head>
+   <link rel="stylesheet" href="/styles/register.css" type="text/css" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+   <title>Register</title>
+ </head>
+ <div class="header">
+   <img src="https://i.ibb.co/ngvjBCh/Logo.png">
 </div>
-    <div class= "header">
-      <a class="active" href="/login/users">Sign In</a>
-      <a href="/register">Sign Up</a>
-    </div>
+   <div class= "header">
+     <a href="/login/users">Sign In</a>
+     <a class="active">Sign Up</a>
+   </div>
 </div>
-
 <body>
-  <form action="/register" method="POST">
-      <div class="container">
+ <form action="/register" method="POST">
+     <div class="container">
+       <div class="user-input">
+          <i class="fa fa-address-book" aria-hidden="true"></i>
+         <input type="text" placeholder="First and Last Name" name="name" required>
+       </div>
+       <div class="user-input">
 
-        <label for="name"></label>
-        <input type="text" placeholder="First and Last Name" name="name" required>
+          <input type="text" placeholder="Enter Email" name="email" required>
+       </div>
+       <div class="user-input">
+          <input type="text" placeholder="Phone Number" name="phone_number" required>
+        </div>
+        <div class="user-input">
+          <input type="password" placeholder="Enter Password" name="password" required>
+        </div>
+        <div class="user-input">
+          <input type="password" placeholder="Repeat Password" name="password-repeat" required>
+        </div>
 
-        <label for="email"></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
-
-        <label for="phone_number"></label>
-        <input type="text" placeholder="Phone Number" name="phone_number" required>
-
-        <label for="password"></label>
-        <input type="password" placeholder="Enter Password" name="password" required>
-
-        <label for="password-repeat"></label>
-        <input type="password" placeholder="Repeat Password" name="password-repeat" required>
-        <hr>
-
-        <button type="submit" class="registerbtn">Register</button>
-      </div>
-    </form>
-  </body>
+       <button type="submit" class="registerbtn">Register</button>
+     </div>
+   </form>
+ </body>
 </html>
-
 
 
