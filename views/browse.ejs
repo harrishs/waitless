@@ -1,37 +1,38 @@
 <% include partials/_header %>
-<!-- Map div -- the browse-map-section -->
 
 
 <form method="POST" action="/restaurants" class="search-form">
 
-<!-- SEARCH -->
+  <!-- SEARCH -->
   <!-- <label for="search_value">Search:</label> -->
   <input type="text" name="search_value" class="search-input" placeholder="Search">
-  <button type="submit">Submit</button>
+  <button type="submit" class="search-submit">Submit</button>
 
-<!-- FILTER -->
-  <label for="search">Search by:</label>
+  <!-- FILTER -->
+  <p>Search by:</p>
 
-  <select name="search" id="search">
-    <option value="">--</option>
-    <option value="type">Type</option>
-    <option value="name">Name</option>
-    <option value="waitlist">Waitlist Time</option>
-  </select>
+  <div class="radio-toolbar">
+    <input type="radio" id="type" name="search" value="type" checked>
+    <label for="type"><i class="fa fa-wifi" aria-hidden="true"></i> Type</label>
+    <input type="radio" id="name" name="search" value="name">
+    <label for="name"><i class="fa fa-pencil" aria-hidden="true"></i> Name</label>
+    <input type="radio" id="waitlist" name="search" value="waitlist">
+    <label for="waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Time</label>
+  </div>
 
 </form>
 
-<div class= "map" id='browse-map-section' style="width: 1100px; height: 900px; margin: 60px;"></div>
-
-<% for (let restaurant of restaurants) { %>
-  <div class= "container">
-  <div class="restaurant-image container-stack">
-      <img src= "<%= restaurant.image_url %>" style="width: 400px; height:400px;">
-  </div>
-  <div class="<%= restaurant.id %> container-stack">
-    <h3 class="restaurant-name"><%= restaurant.name %></h3>
-    <p><%= restaurant.type %> <%= restaurant.wait_time ? ` | ${restaurant.wait_time} Min Wait` : ` | < 5 Min Wait` %>
-    </p>
+<!-- Map div -- the browse-map-section -->
+  <div class= "map" id='browse-map-section'></div>
+  <div class="container">
+  <% for (let restaurant of restaurants) { %>
+    <div class="card">
+      <div class="restaurant-image">
+       <img src= "<%= restaurant.image_url %>">
+      </div>
+      <div class="<%= restaurant.id %> container-stack">
+        <h3 class="restaurant-name"><%= restaurant.name %></h3>
+        <p><%= restaurant.type %> <%= restaurant.wait_time ? ` | ${restaurant.wait_time} Min Wait` : ` | < 5 Min Wait` %></p>
     <% if (restaurant.waitlist_id !== null) { %>
       <% if (bookedWith != restaurant.waitlist_id) { %>
         <% include partials/waitlist_entries/_add %>
@@ -39,11 +40,11 @@
         <% include partials/waitlist_entries/_remove %>
         <a href="/entries" style="margin: 15px;">View Status of Booking</a>
       <% } %>
-    <% } %>
+    </div>
+  <% } %>
   </div>
-</div>
   <div class="addressValue" style="display: none;"><%= restaurant.address %></div>
-<% } %>
+  <% } %>
 <% include partials/_google_maps %>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY&callback=initMap" async defer></script>
 <script src="/socket.io/socket.io.js"></script>

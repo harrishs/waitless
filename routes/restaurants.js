@@ -71,7 +71,7 @@ module.exports = (db) => {
         FROM restaurants
         LEFT JOIN waitlists
         ON restaurants.id=waitlists.restaurant_id
-        WHERE waitlists.wait_time < $1
+        WHERE waitlists.wait_time <= $1
       `;
       const searchValue = parseInt(req.body.search_value);
       const queryParameters = [searchValue];
@@ -83,8 +83,6 @@ module.exports = (db) => {
       .catch(err => console.log(err));
     } else if (req.body.search === 'name') {
       res.send("Search by name hit!");
-    } else {
-      res.send("Please select one of the search options!");
     }
   })
 

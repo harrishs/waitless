@@ -18,7 +18,6 @@ module.exports = (db) => {
     res.render("login-user", data);
   });
 
-
   // Route to login registered users
   router.post("/users", (req,res) => {
     let data = {
