@@ -1,77 +1,48 @@
-html {
-  font-family: 'Roboto Mono', monospace;
-}
-
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
 body {
-  margin: 15px;
+ font-family: 'Roboto Mono', monospace;
 }
 
-.video {
-  width: 345px;
-  height: 400px;
-  left: 31px;
-  top: 152px;
-  margin-left: auto;
-  margin-right: auto;
-  border: 11px solid #f3f4f8;
-  box-sizing: border-box;
-  border-radius: 20px;
+.logo {
+  margin: 30px 0 0 10px;
 }
 
-/* Style the header with a grey background and some padding */
+.container {
+  margin-left: 5px;
+}
+
 .header {
-  overflow: hidden;
-
-  max-width: 345px;
-  margin-top: 15px;
-  display: flex;
+ display: flex;
+ flex-direction: row;
 }
 
-
-/* Style the header links */
-.header a {
-  color: black;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 4px;
-  background-color:  #F3F4F8;
-  color: black;
-  margin: 5px;
-  white-space:nowrap;
+.landing-video {
+ margin-top: 20px;
+ width: 400px;
+ height: 600px;
+ border-radius: 20px;
 }
-
-/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
-.header a.logo {
-  font-size: 25px;
-  font-weight: bold;
+.header {
+ margin-top: 70px;
 }
-
-/* Change the background color on mouse-over */
-.header a:hover {
-  background-color: #D5D5D6;
-  color: black;
+.half-button {
+ background: #aeaeb1;
+ border-radius: 10px;
+ width: 165px;
+ margin: 10px;
+ padding: 20px;
+ margin-top: -45px;
+ text-align: center;
 }
-
-
-/* Float the link section to the right */
-.header-right {
-  float: left;
+a:link, a:visited {
+ color: #3e4a59;
+ text-decoration: none;
+ font-style: normal;
+ font-weight: bold;
+ font-size: 16px;
+ line-height: 19px;
 }
-
-.logo, .container {
-  margin-top: 30px;
-}
-
-.logo img {
-  max-width: 200px;
-}
-
-.button-half {
-  width: 50%;
-  border-radius: 4px;
-  background-color: #F3F4F8;
-  margin: 5px;
-  padding: 12px 0px 12px 0px;
-  text-align: center;
+a:hover {
+ color: #aeaeb1;
+ background-color: #3e4a59;
 }
