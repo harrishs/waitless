@@ -1,31 +1,36 @@
 <% include partials/_header %>
 <!-- Map div -- the browse-map-section -->
-<div id='browse-map-section' style="width: 100%; height: 800px;"></div>
-<form method="POST" action="/restaurants">
+
+
+<form method="POST" action="/restaurants" class="search-form">
+
+<!-- SEARCH -->
+  <!-- <label for="search_value">Search:</label> -->
+  <input type="text" name="search_value" class="search-input" placeholder="Search">
+  <button type="submit">Submit</button>
+
+<!-- FILTER -->
   <label for="search">Search by:</label>
 
   <select name="search" id="search">
-    <option value="">--Please choose an option--</option>
+    <option value="">--</option>
     <option value="type">Type</option>
     <option value="name">Name</option>
     <option value="waitlist">Waitlist Time</option>
   </select>
 
-  <label for="search_value">Search value:</label>
-  <input type="text" name="search_value">
-
-  <button type="submit">Submit</button>
 </form>
 
+<div class= "map" id='browse-map-section'></div>
+
 <% for (let restaurant of restaurants) { %>
-  <div class="<%= restaurant.id %>">
-    <h3 class="restaurant-name"><%= restaurant.name %></h3>
-    <p>Type: <%= restaurant.type %></p>
-  <div class="restaurant-image">
-    <img src= "<%= restaurant.image_url %>">
+  <div class= "container">
+  <div class="restaurant-image container-stack">
+      <img src= "<%= restaurant.image_url %>">
   </div>
-    <p>
-      <%= restaurant.wait_time ? `Estimated wait time: ${restaurant.wait_time} minutes` : `Estimated wait time: under 5 minutes` %>
+  <div class="<%= restaurant.id %> container-stack">
+    <h3 class="restaurant-name"><%= restaurant.name %></h3>
+    <p><%= restaurant.type %> <%= restaurant.wait_time ? ` | ${restaurant.wait_time} Min Wait` : ` | < 5 Min Wait` %>
     </p>
     <% if (restaurant.waitlist_id !== null) { %>
       <% if (bookedWith != restaurant.waitlist_id) { %>
@@ -36,8 +41,11 @@
       <% } %>
     <% } %>
   </div>
+</div>
   <div class="addressValue" style="display: none;"><%= restaurant.address %></div>
 <% } %>
+</div>
+
 <script>
   // Google Maps API
   var map;
