@@ -7,7 +7,7 @@ module.exports = (db) => {
   });
     router.post("/", (req, res)=> {
         let id = req.session.user_id;
-        const time = parseInt(req.body.times) * 60000;
+        const time = parseInt(req.body.times);
         let queryDel = `DELETE FROM waitlists WHERE restaurant_id = $1`;
         let queryIns =  `INSERT INTO waitlists (restaurant_id, wait_time)
         VALUES ($1, $2)`;
@@ -21,8 +21,5 @@ module.exports = (db) => {
         .then(console.log("Success time in ms: " + time))
         .catch(err => console.log(err));
     });
-
     return router;
-
-  return router;
 }

@@ -29,7 +29,7 @@ module.exports = (db) => {
                         res.render("main-merchant", {entries: null, time: null})
                         }
                         else{
-                            res.render("main-merchant", {entries: vals[0], time: vals[1]/60000})
+                            res.render("main-merchant", {entries: vals[0], time: vals[1]})
                         }
                         
                     })
