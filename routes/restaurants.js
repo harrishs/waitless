@@ -12,7 +12,7 @@ module.exports = (db) => {
   // SHOW route
   // Queries all restaurants and renders them with information appropriate to the page
   router.get("/", (req, res) => {
-    console.log('requesting restaurants');
+    // console.log('requesting restaurants');
     // const queryString = "SELECT * FROM restaurants";
     const queryString = `
       SELECT restaurants.id, restaurants.name, restaurants.address, restaurants.type, restaurants.image_url, waitlists.id AS waitlist_id, waitlists.wait_time
@@ -22,7 +22,7 @@ module.exports = (db) => {
     `;
     db.query(queryString)
       .then((resultSet) => {
-        console.log('----------', resultSet, '------------');
+        // console.log('----------', resultSet, '------------');
         // pass the resultSet to the data object and render
         data.restaurants = resultSet.rows;
         data.bookedWith = req.session.waitlistId || null;
