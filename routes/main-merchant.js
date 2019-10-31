@@ -23,7 +23,7 @@ module.exports = (db) => {
             }
         }
         getList(rest_id)
-                .then(vals => 
+                .then(vals =>
                     {
                         if (!vals){
                         res.render("main-merchant", {entries: null, time: null})
@@ -31,10 +31,10 @@ module.exports = (db) => {
                         else{
                             res.render("main-merchant", {entries: vals[0], time: vals[1]/60000})
                         }
-                        
+
                     })
                 .catch(err => console.log(err));
-        
+
     })
 
     router.post("/", (req, res) => {
@@ -49,7 +49,7 @@ module.exports = (db) => {
     router.post("/delete", (req, res) => {
         entry_id = req.body.id;
         rest_id = req.session.user_id;
-  
+
   async function updateTime(rest_id){
     //Find waitlist id and wait time provided by restaurant
     let queryStr = `SELECT wait_time FROM waitlists WHERE restaurant_id = $1`;
@@ -96,41 +96,12 @@ module.exports = (db) => {
     // find the user corresponding with the booking id
     const queryStr = `SELECT id FROM users WHERE booking_id = $1`;
     const vals = [entry_id];
-        const updateString = `
-        UPDATE users
-        SET booking_id = $1
-        WHERE id = $2
-        RETURNING id
+    const updateString = `
+      UPDATE users
+      SET booking_id = $1
+      WHERE id = $2
+      RETURNING id
         `;
-<<<<<<< HEAD
-let queryDel = `DELETE FROM waitlist_entries WHERE id = $1`;
-
-db.query(queryStr, vals)
-.then(res => {
-    if (res.rows[0])
-    {
-        id = res.rows[0].id;
-        const updateParameters = [null, id];
-        db.query(updateString, updateParameters)
-        .then(()=> {
-        db.query(queryDel, [entry_id])
-        .then(updateTime(rest_id))
-        .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
-    }
-    else{
-        db.query(queryDel, [entry_id])
-        .then(() => {
-            updateTime(rest_id);
-        })
-        .catch(err => console.log(err));
-    } 
-})
-.then(res.redirect("/waitlist"))
-.catch(err => console.log(err));      
-})
-=======
   const updateParameters = [null, entry_id];
   db.query(updateString, updateParameters)
   .then(() => {
@@ -143,7 +114,7 @@ db.query(queryStr, vals)
     .catch(err => console.log(err));
   })
   .catch(err => console.log(err));
-        
+
         async function updateTime(rest_id){
              //Find waitlist id and wait time provided by restaurant
              let queryStr = `SELECT wait_time FROM waitlists WHERE restaurant_id = $1`;
@@ -188,6 +159,5 @@ db.query(queryStr, vals)
         }
         updateTime(rest_id);
     })
->>>>>>> b3fab2bea77716aa2f013721711af9ea5e6fa8f0
     return router;
 }

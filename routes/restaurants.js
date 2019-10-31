@@ -66,7 +66,21 @@ module.exports = (db) => {
       })
       .catch(err => console.log(err));
     } else if (req.body.search === 'waitlist') {
-      res.send("Search by waitlist time hit!");
+      const queryString = `
+        SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
+        FROM restaurants
+        LEFT JOIN waitlists
+        ON restaurants.id=waitlists.restaurant_id
+        WHERE waitlists.wait_time < $1
+      `;
+      const searchValue = parseInt(req.body.search_value);
+      const queryParameters = [searchValue];
+      db.query(queryString, queryParameters)
+      .then((resultSet) => {
+        data.restaurants = resultSet.rows;
+        res.render('browse', data);
+      })
+      .catch(err => console.log(err));
     } else if (req.body.search === 'name') {
       res.send("Search by name hit!");
     } else {

@@ -41,11 +41,11 @@ module.exports = (db) => {
     }
     req.session.waitlistId = req.params.id;
     const insertString = `
-        INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name)
-        VALUES ($1, $2, $3, $4)
-        RETURNING id, booked_at
-      `;
-    const insertParameters = [req.params.id, Date.now(), req.body.party_size, 'John'];
+      INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name)
+      VALUES ($1, $2, $3, $4)
+      RETURNING id, booked_at
+    `;
+    const insertParameters = [req.params.id, Date.now(), req.body.party_size, req.body.party_name];
     db.query(insertString, insertParameters)
     .then((resultSet) => {
       req.session.bookedAt = resultSet.rows[0].booked_at;
@@ -70,6 +70,11 @@ module.exports = (db) => {
         db.query(queryString, queryParameters)
         .then((resultSet) => {
           data = resultSet.rows[0];
+          const phoneNumber = data.phone_number.toString();
+          const left = phoneNumber.substring(0,3);
+          const middle = phoneNumber.substring(3,6);
+          const right = phoneNumber.substring(6);
+          data.phone_number = `(${left}) ${middle}-${right}`;
           req.session.cookie.maxAge = data.wait_time * 60000;
           data.timeRemaining = req.session.cookie.maxAge;
           data.minutes = Math.floor(req.session.cookie.maxAge / 60000);
