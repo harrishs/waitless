@@ -3,38 +3,49 @@
 <html>
   <head>
     <link rel="stylesheet" href="/styles/login-merchant.css" type="text/css" />
-    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
     <title>Login Merchant</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
   </head>
-<body>
-      <img src="https://i.ibb.co/HY0xGPx/Logo-merchant.png">
-      <body style="background-color:#3E4A59;"></body>
-</body>
+
+<div class="header">
+  <img src="https://i.ibb.co/HY0xGPx/Logo-merchant.png">
+  <body style="background-color:#3E4A59;"></body>
+</div>
+  <div class= "header">
+    <a class="active"> Restaurant Sign In </a>
+  </div>
+</div>
 
 <body>
-  <form action="/login/merchants" method="post">
-      <label class= "icon_holder"><img src="https://i.ibb.co/qnqnZ3K/Email.png"></label>
-      <input class= "placeholder_text" placeholder= "Email" name="email" required>
-<br>
-      <label class= "icon_holder"><img src="https://i.ibb.co/0Jz4v0d/Password.png"></label>
-      <input type= "password" id="myInput" class= "placeholder_text" placeholder="Password" name="password" required>
-<br>
-      <input class ="merchant_font" type="checkbox" onclick="myFunction()"> Show Password </input>
+  <form action="/login/merchants" method="POST">
+      <div class="container">
 
-      <script>
-        function myFunction() {
-          var x = document.getElementById("myInput");
-          if (x.type === "password") {
-            x.type = "text";
-          } else {
-            x.type = "password";
+        <label for="email"></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+
+        <label for="password"></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+        <br>
+        <input class="show-password" type="checkbox" onclick="myFunction()">Show Password
+        <script>
+          function myFunction() {
+            var x = document.getElementById("myInput");
+            if (x.type === "password") {
+              x.type = "text";
+            } else {
+              x.type = "password";
+            }
           }
-        }
-      </script>
-<br>
-    <button class= "sign_button">Sign In</button>
-  </form>
-</body>
-</html>
+        </script>
+        <hr>
+
+        <button type="submit" class="registerbtn">Sign In</button>
+
+      </div>
+    </form>
+  </body>
+  </html>
 
