@@ -45,5 +45,8 @@
       window.location.reload();
     }
   })
+  document.getElementById("remove").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
 </script>
-</html>
+<% include partials/_footer %>
