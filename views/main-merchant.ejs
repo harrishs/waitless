@@ -15,7 +15,7 @@
     <% if (entries){ let count = 1; %>
         <a href = "/update-waitlist">Add New Waitlist Entry</a>
         <form action="/waitlist" method="post">
-            <input type="submit" id = "remove" value="Delete Waitlist">
+            <input type="submit" id = "submit" value="Delete Waitlist">
         </form>
     <% for (let entry of entries){ %>
         <div name = "rank">Rank: <%= count %></div>
@@ -29,4 +29,18 @@
             <h2>No Waitlist</h2>
         <% } %>
 </body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+ document.getElementById("submit").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  document.getElementById("delete").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  socket.on("reload", (data)=>{
+    if (data.page === "/waitlist"){
+      window.location.reload();
+    }
+  })
+</script>
 </html>

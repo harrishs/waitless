@@ -47,7 +47,7 @@ module.exports = (db) => {
                 //increment in milliseconds
                 let increment = 300000;
                 //final time
-                let final = parseInt(((time - timeBetween) + increment)/60000);
+                let final = (time - timeBetween) + increment;
                 //Update wait time in waitlist
                 let queryWait = `UPDATE waitlists SET wait_time = $1 WHERE restaurant_id = $2`;
                 db.query(queryWait, [final, rest_id])

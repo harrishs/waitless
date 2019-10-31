@@ -40,6 +40,21 @@
 <% } %>
 <% include partials/_google_maps %>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY&callback=initMap" async defer></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  document.getElementById("submit").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  document.getElementById("remove").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  socket.on("reload", (data)=>{
+    if (data.page === "/browse"){
+      window.location.reload();
+    }
+  })
+</script>
 <% include partials/_footer %>
 
 
