@@ -1,6 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-const bodyParser = require("body-parser");
 
 module.exports = (db) => {
     router.get("/", (req, res)=> {
@@ -21,15 +20,15 @@ module.exports = (db) => {
             let waitObj = await db.query(queryListId, queryVals);
             let waitId = waitObj.rows[0].id;
             //wait time in db to display
-            let time = (timeObj.rows[0].wait_time) * 60000;
-        
+            let time = timeObj.rows[0].wait_time;
+
             //insert into waitlist entries
             let query2 = `INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name) VALUES ($1, $2, $3, $4)`;
             let queryVal2 = [waitId, Date.now(), party_size, party_name];
             db.query(query2, queryVal2)
             .then(console.log("Success"))
             .catch(err => console.log(err));
-        
+
             //Get number of entries in waitlist
             let queryList = `SELECT count(*) FROM waitlist_entries WHERE waitlist_id = $1`;
             let numPpl = await db.query(queryList, [waitId]);
@@ -48,7 +47,7 @@ module.exports = (db) => {
                 //increment in milliseconds
                 let increment = 300000;
                 //final time
-                let final = parseInt(((time - timeBetween) + increment)/60000);
+                let final = (time - timeBetween) + increment;
                 //Update wait time in waitlist
                 let queryWait = `UPDATE waitlists SET wait_time = $1 WHERE restaurant_id = $2`;
                 db.query(queryWait, [final, rest_id])

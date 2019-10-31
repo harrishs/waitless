@@ -9,13 +9,17 @@
   <title>Merchant Landing</title>
 </head>
 <body>
+  <img src="https://i.ibb.co/HY0xGPx/Logo-merchant.png">
+  <body style="background-color:#3E4A59;"></body>
+</body>
+<body>
     <a href = "/create-waitlist">Create New Waitlist</a>
 
     <h1 class = "waitlist">Waitlist</h1>
     <% if (entries){ let count = 1; %>
         <a href = "/update-waitlist">Add New Waitlist Entry</a>
         <form action="/waitlist" method="post">
-            <input type="submit" id = "remove" value="Delete Waitlist">
+            <input type="submit" id = "submit" value="Delete Waitlist">
         </form>
     <% for (let entry of entries){ %>
         <div name = "rank">Rank: <%= count %></div>
@@ -30,14 +34,24 @@
         <% } %>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  const socket = io();
-    socket.on("reload", (data)=>{
+ document.getElementById("submit").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  document.getElementById("delete").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  socket.on("reload", (data)=>{
     if (data.page === "/waitlist"){
       window.location.reload();
     }
   })
+<<<<<<< HEAD
   document.getElementById("remove").addEventListener("click", () => {
       socket.emit("reload", {page: "/browse"});
   })
 </script>
 <% include partials/_footer %>
+=======
+</script>
+</html>
+>>>>>>> b3fab2bea77716aa2f013721711af9ea5e6fa8f0

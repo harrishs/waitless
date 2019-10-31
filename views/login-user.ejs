@@ -10,20 +10,29 @@
 
 <div class="header">
     <img src="https://i.ibb.co/ngvjBCh/Logo.png">
-    <div class="header-right">
+</div>
+    <div class= "header">
       <a class="active" href="/login/users">Sign In</a>
       <a href="/register">Sign Up</a>
     </div>
 </div>
 
+
 <body>
+
   <form action="/login/users" method="post">
-      <label class= "icon_holder"><img src="https://i.ibb.co/qnqnZ3K/Email.png"></label>
-      <input class= "placeholder_text" placeholder= "Email" name="email" required>
-<br>
-      <label class= "icon_holder"><img src="https://i.ibb.co/0Jz4v0d/Password.png"></label>
-      <input type= "password" id="myInput" class= "placeholder_text" placeholder="Password" name="password" required>
-      <input type="checkbox" onclick="myFunction()">Show Password
+    <div class="container">
+
+      <label for="email"><img src="https://i.ibb.co/qnqnZ3K/Email.png"></label>
+      <input type="text" placeholder="Enter Email" name="email" required>
+
+
+      <label for="password"><img src="https://i.ibb.co/0Jz4v0d/Password.png"></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+
+  <br>
+        <input type="checkbox" onclick="myFunction()">Show Password
+
 
       <script>
         function myFunction() {
@@ -36,11 +45,12 @@
         }
       </script>
 <br>
-      <button class= "sign_button">Sign In</button>
-      <button href="/register" class= "sign_button">Sign Up</button>
-
+      <button href="/register" class= "sign_button">Sign In</button>
+</div>
   </form>
 </body>
 </html>
+
+
 
 

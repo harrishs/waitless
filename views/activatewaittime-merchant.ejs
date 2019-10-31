@@ -1,4 +1,4 @@
-  
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,10 +6,10 @@
   <!-- Meta Information -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
   <title>Waitlist</title>
 </head>
 <body>
+<<<<<<< HEAD
     <form method="POST" action="/create-waitlist" id= "timer">
         <select name = "times">
             <option value="15">15 minutes</option>
@@ -19,10 +19,26 @@
         </select>
         <button type="submit" id="submit">submit</button>
     </form>
+=======
+  <form method="POST" action="/create-waitlist" id= "timer">
+    <select name = "times">
+      <option value="15">15 minutes</option>
+      <option value="30">30 minutes</option>
+      <option value="45">45 minutes</option>
+      <option value="60">60 minutes</option>
+    </select>
+    <button type="submit" id="submit">submit</button>
+  </form>
+</body>
+>>>>>>> b3fab2bea77716aa2f013721711af9ea5e6fa8f0
 <script src="/socket.io/socket.io.js"></script>
 <script>var socket = io();
-  document.getElementById("submit").addEventListener("click", () => {
-      socket.emit("reload", {page: "/browse"});
+  document.getElementById("submit").on("click", () => {
+      console.log("testing reload")
+      socket.emit("reload", () => {});
+  })
+  document.getElementById("anotherSub").on("click", () => {
+      socket.emit("reload", () => {});
   })
 </script>
 <% include partials/_footer %>

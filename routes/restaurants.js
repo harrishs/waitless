@@ -50,9 +50,11 @@ module.exports = (db) => {
     // Search by type:
     const searchType = req.body.search;
     if (searchType === 'type') {
-      console.log(searchType);
       const queryString = `
-        SELECT * FROM restaurants
+        SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
+        FROM restaurants
+        LEFT JOIN waitlists
+        ON restaurants.id=waitlists.restaurant_id
         WHERE restaurants.type = $1
       `;
       const searchValue = req.body.search_value;

@@ -1,108 +1,64 @@
 <% include partials/_header %>
 <!-- Map div -- the browse-map-section -->
-<div id='browse-map-section' style="width: 100%; height: 800px;"></div>
-<form method="POST" action="/restaurants">
+
+
+<form method="POST" action="/restaurants" class="search-form">
+
+<!-- SEARCH -->
+  <!-- <label for="search_value">Search:</label> -->
+  <input type="text" name="search_value" class="search-input" placeholder="Search">
+  <button type="submit">Submit</button>
+
+<!-- FILTER -->
   <label for="search">Search by:</label>
 
   <select name="search" id="search">
-    <option value="">--Please choose an option--</option>
+    <option value="">--</option>
     <option value="type">Type</option>
     <option value="name">Name</option>
     <option value="waitlist">Waitlist Time</option>
   </select>
 
-  <label for="search_value">Search value:</label>
-  <input type="text" name="search_value">
-
-  <button type="submit">Submit</button>
 </form>
 
+<div class= "map" id='browse-map-section'></div>
+
 <% for (let restaurant of restaurants) { %>
-  <div class="<%= restaurant.id %>">
-    <h3 class="restaurant-name"><%= restaurant.name %></h3>
-    <p>Type: <%= restaurant.type %></p>
-  <div class="restaurant-image">
-    <img src= "<%= restaurant.image_url %>">
+  <div class= "container">
+  <div class="restaurant-image container-stack">
+      <img src= "<%= restaurant.image_url %>">
   </div>
-    <p>
-      <%= restaurant.wait_time ? `Estimated wait time: ${restaurant.wait_time} minutes` : `Estimated wait time: under 5 minutes` %>
+  <div class="<%= restaurant.id %> container-stack">
+    <h3 class="restaurant-name"><%= restaurant.name %></h3>
+    <p><%= restaurant.type %> <%= restaurant.wait_time ? ` | ${restaurant.wait_time} Min Wait` : ` | < 5 Min Wait` %>
     </p>
     <% if (restaurant.waitlist_id !== null) { %>
       <% if (bookedWith != restaurant.waitlist_id) { %>
         <% include partials/waitlist_entries/_add %>
       <% } else { %>
         <% include partials/waitlist_entries/_remove %>
-        <a href="/entries">View Status of Booking</a>
+        <a href="/entries" style=>View Status of Booking</a>
       <% } %>
     <% } %>
   </div>
+</div>
   <div class="addressValue" style="display: none;"><%= restaurant.address %></div>
 <% } %>
-<script>
-  // Google Maps API
-  var map;
-  var markerAddresses = [];
-  function createMarker(name, address) {
-    const markerObject = {};
-    const streetAddress = address.split(' ').join('+') + ',';
-    const baseURL = `https://maps.googleapis.com/maps/api/geocode/json?`
-    const city = `+Toronto,+ON`;
-    const fullAddress = `${streetAddress}${city}`;
-    const apiKey = `AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY`;
-    const url = `${baseURL}address=${fullAddress}&key=${apiKey}`;
-    // console.log(url);
-    return fetch(url)
-    .then(data => data.json())
-    .then(data => {
-      markerObject.lat = data.results[0].geometry.location.lat;
-      markerObject.lng = data.results[0].geometry.location.lng;
-      markerObject.title = name;
-      console.log(markerObject);
-      return markerObject;
-    })
-  }
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('browse-map-section'), {
-      center: {lat: 43.644175, lng: -79.4022042},
-      // 43.6532° N, 79.3832° W for centre of Toronto
-      // 43.644175, -79.4022042 centring on LHL
-      zoom: 13.5
-    });
-    var restaurants = {};
-    var names = document.querySelectorAll("h3.restaurant-name");
-    var addresses = document.querySelectorAll("div.addressValue");
-    // it makes the most sense to use a C-style for loop in this case since both name and address index will be identical:
-    for (let i = 0; i < names.length; i++) {
-      markerAddresses.push(createMarker(names[i].innerText, addresses[i].innerText))
-    }
-
-    Promise.all(markerAddresses)
-    .then((results) => {
-      results.forEach((location) => {
-        var marker = new google.maps.Marker({
-          position: {
-            lat: location.lat,
-            lng: location.lng,
-          },
-          title: location.title,
-          map: map
-        });
-        // marker.setMap(map);
-      })
-    });
-  }
-</script>
+<% include partials/_google_maps %>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY&callback=initMap" async defer></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io();
+  document.getElementById("submit").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  document.getElementById("remove").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
   socket.on("reload", (data)=>{
     if (data.page === "/browse"){
       window.location.reload();
     }
-  })
-  document.getElementById("submit").addEventListener("click", () => {
-      socket.emit("reload", {page: "/waitlist"});
   })
 </script>
 <% include partials/_footer %>

@@ -1,0 +1,68 @@
+<script>
+  // Google Maps API
+  var map;
+  var markerAddresses = [];
+  function createMarker(name, address) {
+    // Building the data for the marker object.
+    const markerObject = {};
+    const streetAddress = address.split(' ').join('+') + ',';
+    const baseURL = `https://maps.googleapis.com/maps/api/geocode/json?`
+    const city = `+Toronto,+ON`;
+    const fullAddress = `${streetAddress}${city}`;
+    const apiKey = `AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY`;
+    const url = `${baseURL}address=${fullAddress}&key=${apiKey}`;
+    // Return as a Promise, we'll Promise.all() them when rendering the map.
+    return fetch(url)
+    .then(data => data.json())
+    .then(data => {
+      markerObject.lat = data.results[0].geometry.location.lat;
+      markerObject.lng = data.results[0].geometry.location.lng;
+      markerObject.title = name;
+      markerObject.address = address;
+      return markerObject;
+    })
+  }
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('browse-map-section'), {
+      center: {lat: 43.644175, lng: -79.4022042},
+      // 43.6532° N, 79.3832° W for centre of Toronto
+      // 43.644175, -79.4022042 centring on LHL
+      zoom: 13.5
+    });
+    var restaurants = {};
+    var names = document.querySelectorAll("h3.restaurant-name");
+    var addresses = document.querySelectorAll("div.addressValue");
+    // it makes the most sense to use a C-style for loop in this case since both name and address index will be identical:
+    for (let i = 0; i < names.length; i++) {
+      markerAddresses.push(createMarker(names[i].innerText, addresses[i].innerText))
+    }
+
+    Promise.all(markerAddresses)
+    .then((results) => {
+      results.forEach((location) => {
+        var marker = new google.maps.Marker({
+          position: {
+            lat: location.lat,
+            lng: location.lng,
+          },
+          title: location.title,
+          icon: `http://maps.google.com/mapfiles/ms/icons/blue-dot.png`,
+          map: map,
+          clickable: true,
+          address: location.address
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+          content: marker.address
+        });
+
+        marker.addListener('click', function() {
+          infoWindow.open(map, marker);
+        });
+
+        // marker.setMap(map);
+      })
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY&callback=initMap" async defer></script>
