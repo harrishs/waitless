@@ -12,6 +12,7 @@ module.exports = (db) => {
            restaurants.name,
            restaurants.phone_number,
            restaurants.address,
+           restaurants.image_url,
            waitlist_entries.party_name,
            waitlist_entries.party_size
       FROM restaurants
@@ -81,6 +82,7 @@ module.exports = (db) => {
                 restaurants.name,
                 restaurants.phone_number,
                 restaurants.address,
+                restaurants.image_url,
                 waitlist_entries.party_name,
                 waitlist_entries.party_size
             FROM restaurants
