@@ -12,6 +12,7 @@ html {
   color: white;
   background: #3E4A59;
   border-style: none;
+  display: contents;
 }
 
 .logo-pushdown form {
@@ -20,12 +21,82 @@ html {
 }
 
 .logo {
-  display: in-line;
+  display: contents;
   margin: 0px 0px 0px 15px;
   width: 150px;
 }
 
 .logo-pushdown {
-  padding-top: 50px;
+  padding-top: 30px;
   margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+.active_waittime {
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  border-style: none;
+  color: #FFFFFF;
+  background: #3E4A59;
+  margin: 20px;
+  display: flex;
+  margin-top:30px;
+}
+
+  /* Set a style for the submit/register button */
+  .submit-btn {
+    position: absolute;
+    width: 345px;
+    height: 55px;
+    left: 40px;
+    top: 380px;
+    background: #445EE9;
+    box-shadow: 0px 10px 30px rgba(68, 94, 233, 0.25);
+    border-radius: 10px;
+    font-family: 'Roboto Mono';
+    border: 0px;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.radio-toolbar {
+  margin-top: 30px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  margin-left: 45px;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+  color: #FFF;
+}
+
+.radio-toolbar label {
+  width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+  background-color: #505B69;
+  color: #FFF;
+}
+
+.radio-toolbar label:hover {
+  background-color: #505B69;
+  color: #FFF;
+}
+
+.fa-clock-o:before {
+  content: "\f017";
+  margin-left: 10px;
+  margin-right: 10px;
 }
