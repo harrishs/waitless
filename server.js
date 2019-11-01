@@ -30,6 +30,10 @@ io.on('connection', function (socket) {
     console.log("reload", data);
     socket.broadcast.emit("reload", {...data});
   });
+  socket.on('load', function (data) {
+    console.log("reload", data);
+    socket.broadcast.emit("load", {...data});
+  });
 });
 
 // PG database client/connection setup

@@ -13,9 +13,21 @@
 <h3> Party Size: <%= data.party_size %> </h3>
 
 <form method="POST" action="/entries?_method=DELETE">
-  <button type="submit">Cancel Reservation</button>
+  <button type="submit" id="cancel">Cancel Reservation</button>
 </form>
 
 <a href='/restaurants'>Back to Restaurants</a>
 
 <% include partials/_footer %>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+    socket.on("load", (data)=>{
+    if (data.page === "/browse"){
+      window.location.replace("/restaurants");
+    }
+  })
+  document.getElementById("cancel").addEventListener("click", () => {
+      socket.emit("reload", {page: "/waitlist"});
+  })
+</script>

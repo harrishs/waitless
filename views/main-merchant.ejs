@@ -21,10 +21,10 @@
   </div>
 
 <body>
-    <a class="active_waittime" href = "/create-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Activate Wait Time </a>
 
     <h1 class = "waitlist">Waitlist</h1>
     <% if (entries){ let count = 0; %>
+      <h2>Current Wait Time: <%= time %></h2>
         <a href = "/update-waitlist">Update Waitlist</a>
         <form action="/waitlist" method="post">
             <input type="submit" id = "remove" value="Deactivate Waitlist">
@@ -40,6 +40,7 @@
         <% }if (count === 0){ %>
           <h2>No People Waiting</h2>
         <% }} else { %>
+          <a class="active_waittime" href = "/create-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Activate Wait List </a>
             <h2>Waitlist De-activated</h2>
         <% } %>
 <script src="/socket.io/socket.io.js"></script>
@@ -51,6 +52,18 @@
     }
   })
   document.getElementById("remove").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  document.getElementById("remove").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  document.getElementById("remove").addEventListener("click", () => {
+      socket.emit("load", {page: "/browse"});
+  })
+  document.getElementById("delete").addEventListener("click", () => {
+      socket.emit("load", {page: "/browse"});
+  })
+  document.getElementById("delete").addEventListener("click", () => {
       socket.emit("reload", {page: "/browse"});
   })
 </script>
