@@ -51,6 +51,7 @@ module.exports = (db) => {
     // Search by type:
     const searchType = req.body.search;
     if (searchType === 'type') {
+      console.log(req.body.search);
       const queryString = `
         SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
         FROM restaurants
@@ -67,6 +68,7 @@ module.exports = (db) => {
       })
       .catch(err => console.log(err));
     } else if (req.body.search === 'waitlist') {
+      console.log(req.body.search);
       const queryString = `
         SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
         FROM restaurants
@@ -83,9 +85,22 @@ module.exports = (db) => {
       })
       .catch(err => console.log(err));
     } else if (req.body.search === 'name') {
-      res.send("Search by name hit!");
+      console.log(req.body.search);
+      const queryString = `
+        SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
+        FROM restaurants
+        LEFT JOIN waitlists
+        ON restaurants.id=waitlists.restaurant_id
+        WHERE restaurants.name = $1
+      `;
+      const queryParameters = [req.body.search_value];
+      db.query(queryString, queryParameters)
+      .then(resultSet => {
+        data.restaurants = resultSet.rows;
+        res.render('browse', data);
+      })
+      .catch(err => console.error(err));
     }
   })
-
   return router;
 };
