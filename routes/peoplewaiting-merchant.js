@@ -76,7 +76,7 @@ module.exports = (db) => {
         WHERE restaurant_id = $2`;
         let queryValsUpdate = [parseInt(time), id];
         db.query(queryUpdate, queryValsUpdate)
-        .then(() => {console.log("Successfully deleted")
+        .then(() => {console.log("Successfully updated")
         res.redirect("/waitlist");})
         .catch(err => console.log(err));
     });
