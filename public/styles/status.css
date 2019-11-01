@@ -19,6 +19,7 @@ html {
   font-family: 'Roboto Mono', monospace;
   padding-left: 10px;
   padding-right: 10px;
+  margin-left: 10px;
   margin-left: 7%;
 }
 
@@ -73,6 +74,7 @@ container1{
   min-width: 100%;
   padding-bottom: 15px;
   padding-top: 5px;
+  margin-left: 10px;
 }
 
 .previous {
@@ -87,4 +89,30 @@ container1{
   border-style: none;
   border:none;
   margin-left: 13px;
+}
+
+
+.title {
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+
+  color: #FFFFFF;
+
+  opacity: 0.4;
+  margin-left: 10px;
+}
+
+
+.details {
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+
+  color: #FFFFFF;
+  margin-left: 10px;
 }
