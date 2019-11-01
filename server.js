@@ -15,7 +15,7 @@ const morgan                  = require('morgan');
 app.use(expressSession({
   secret: 'fluffy bunny feet',
   cookie: {
-    maxAge: 90000
+    maxAge: 900000
   },
   resave: false,
   saveUninitialized: true
