@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/main-merchant.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <title>Main Merchant</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
 
-<head>
-  <!-- Meta Information -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<div class="header">
+  <img src="https://i.ibb.co/HY0xGPx/Logo-merchant.png">
+  <body style="background-color:#3E4A59;"></body>
+  <form method="POST" action="/logout">
+    <button class="logout" type="submit">Sign Out</button>
+  </form>
+</div>
 
-  <title>Merchant Landing</title>
-</head>
 <body>
-    <a href = "/create-waitlist">Create New Waitlist</a>
+    <a href = "/create-waitlist">Activate Wait Time</a>
 
-    <h1 class = "waitlist">Waitlist</h1>
+    <h1 class = "waitlist">People Waiting</h1>
     <% if (entries){ let count = 0; %>
         <a href = "/update-waitlist">Update Waitlist</a>
         <form action="/waitlist" method="post">
@@ -26,9 +38,9 @@
             <input type="submit" value="Delete Entry" id = "delete">
         </form>
         <% }if (count === 0){ %>
-          <h2>No Entries</h2>
+          <h2>No People Waiting</h2>
         <% }} else { %>
-            <h2>No Waitlist</h2>
+            <h2>Waitlist De-activated</h2>
         <% } %>
 <script src="/socket.io/socket.io.js"></script>
 <script>

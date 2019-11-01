@@ -1,0 +1,31 @@
+html {
+  font-family: 'Roboto Mono', monospace;
+ }
+
+ .logout {
+  width: 90px;
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+  color: white;
+  background: #3E4A59;
+  border-style: none;
+}
+
+.logo-pushdown form {
+  float: right;
+  margin-top: 12px;
+}
+
+.logo {
+  display: in-line;
+  margin: 0px 0px 0px 15px;
+  width: 150px;
+}
+
+.logo-pushdown {
+  padding-top: 50px;
+  margin-bottom: 10px;
+}
