@@ -1,3 +1,90 @@
 html {
   font-family: 'Roboto Mono', monospace;
 }
+
+.container2 {
+  background-color: #445EE9;
+  color: white;
+  border-radius: 10px;
+  height: 400px;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.card2 {
+  background-color: white;
+  color: black;
+  border-radius: 30px;
+  width: 80%;
+  height: 160px;
+  font-family: 'Roboto Mono', monospace;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 7%;
+}
+
+.card2 h3 {
+  margin-top: 10px;
+}
+
+.card3{
+  background-color: #576EEB;
+  color: white;
+  border-radius: 10px;
+  width: 37%;
+  font-family: 'Roboto Mono', monospace;
+  margin-top:20px;
+  margin-left: 30%;
+}
+
+.fa fa-times{
+  background-color: #576EEB;
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.details {
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+
+  color: #FFFFFF;
+}
+
+container1{
+  margin-top: 20px;
+  background: white;
+  width: 600px;
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: black;
+  border-top: 1px solid #f3f4f8;
+}
+
+.card1 {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+  min-width: 100%;
+  padding-bottom: 15px;
+  padding-top: 5px;
+}
+
+.previous {
+  width: 90px;
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+  color: black;
+  background: #fff;
+  border-style: none;
+  border:none;
+  margin-left: 13px;
+}

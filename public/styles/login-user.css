@@ -31,6 +31,10 @@ html {
     outline: none;
   }
 
+  input {
+    font-size: 16px;
+  }
+
   /* Set a style for the submit/register button */
   .registerbtn {
     position: absolute;
