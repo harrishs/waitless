@@ -11,6 +11,7 @@
 </head>
 <body>
     <form method="POST" action="/update-waitlist" id= "timer">
+      <h2>Add Entry To Waitlist</h2>
         <input type="text" name="name" required>
         <select name = "party">
                 <option value="1">1 Person</option>
@@ -22,9 +23,22 @@
             </select>
         <button type="submit" id="submit">submit</button>
     </form>
+    <form method="POST" action="/update-waitlist/time" id= "timer">
+      <h2>Update Estimated Wait Time</h2>
+      <select name = "times">
+        <option value="15">15 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="45">45 minutes</option>
+        <option value="60">60 minutes</option>
+      </select>
+      <button type="submit" id="update">submit</button>
+    </form>
 <script src="/socket.io/socket.io.js"></script>
 <script>var socket = io();
   document.getElementById("submit").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
+  })
+  document.getElementById("update").addEventListener("click", () => {
       socket.emit("reload", {page: "/browse"});
   })
 </script>
