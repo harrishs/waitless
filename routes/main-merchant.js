@@ -72,6 +72,7 @@ module.exports = (db) => {
         let queryLast = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 ORDER BY id DESC LIMIT 1`;
         let firstObj = await db.query(queryFirst, [waitId]);
         let lastObj = await db.query(queryLast, [waitId]);
+        let timeBetween;
         if (!firstObj.rows[0]){
            timeBetween = 0;
         }
@@ -79,7 +80,7 @@ module.exports = (db) => {
            let firstEntry = firstObj.rows[0].booked_at;
            let lastEntry = lastObj.rows[0].booked_at;
            //time between is time elapsed
-           let timeBetween = lastEntry - firstEntry;
+           timeBetween = lastEntry - firstEntry;
         }
         //increment in milliseconds
         let increment = 300000;

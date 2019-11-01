@@ -10,6 +10,7 @@
 </head>
 <body>
   <form method="POST" action="/create-waitlist" id= "timer">
+    <h2>Set Default Wait Time</h2>
     <select name = "times">
       <option value="15">15 minutes</option>
       <option value="30">30 minutes</option>
@@ -21,12 +22,8 @@
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>var socket = io();
-  document.getElementById("submit").on("click", () => {
-      console.log("testing reload")
-      socket.emit("reload", () => {});
-  })
-  document.getElementById("anotherSub").on("click", () => {
-      socket.emit("reload", () => {});
+  document.getElementById("submit").addEventListener("click", () => {
+      socket.emit("reload", {page: "/browse"});
   })
 </script>
 <% include partials/_footer %>

@@ -7,6 +7,7 @@ module.exports = (db) => {
 
     });
 
+    //add users to wait list
     router.post("/", (req,res)=> {
         let restaurant_id = req.session.user_id;
         let party_name = req.body.name;
@@ -34,20 +35,27 @@ module.exports = (db) => {
             let numPpl = await db.query(queryList, [waitId]);
             let count = numPpl.rows[0].count;
             console.log(count);
-            if (count > 0){
+            if (count >= 0){
                 //Query to obtain booking time of first and last entries
                 let queryFirst = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 LIMIT 1`;
                 let queryLast = `SELECT booked_at FROM waitlist_entries WHERE waitlist_id = $1 ORDER BY id DESC LIMIT 1`;
                 let firstObj = await db.query(queryFirst, [waitId]);
                 let lastObj = await db.query(queryLast, [waitId]);
-                let firstEntry = firstObj.rows[0].booked_at;
-                let lastEntry = lastObj.rows[0].booked_at;
-                //time between is time elapsed
-                let timeBetween = lastEntry - firstEntry;
+                let timeBetween;
+                if (!firstObj.rows[0])
+                {
+                    timeBetween = 0;
+                }
+                else {
+                    let firstEntry = firstObj.rows[0].booked_at;
+                    let lastEntry = lastObj.rows[0].booked_at;
+                    //time between is time elapsed
+                    timeBetween = lastEntry - firstEntry;
+                }
                 //increment in milliseconds
                 let increment = 300000;
                 //final time
-                let final = (time - timeBetween) + increment;
+                let final = parseInt(((time - timeBetween) + increment)/60000);
                 //Update wait time in waitlist
                 let queryWait = `UPDATE waitlists SET wait_time = $1 WHERE restaurant_id = $2`;
                 db.query(queryWait, [final, rest_id])
@@ -58,5 +66,19 @@ module.exports = (db) => {
         waitInsert(restaurant_id, party_name, party_size)
         res.redirect("/waitlist");
     })
+
+    //update waitlist time
+    router.post("/time", (req, res)=> {
+        let id = req.session.user_id;
+        const time = parseInt(req.body.times);
+        let queryUpdate =  `UPDATE waitlists 
+        SET wait_time = $1
+        WHERE restaurant_id = $2`;
+        let queryValsUpdate = [parseInt(time), id];
+        db.query(queryUpdate, queryValsUpdate)
+        .then(() => {console.log("Successfully deleted")
+        res.redirect("/waitlist");})
+        .catch(err => console.log(err));
+    });
     return router;
 }

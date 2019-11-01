@@ -6,23 +6,30 @@ module.exports = (db) => {
   // GET / => /entries
   // Shows the status of the user's booking.
   router.get("/", (req, res) => {
+    console.log(`req.session.bookingId: ${req.session.bookingId}`);
     const queryString = `
-      SELECT waitlists.wait_time, restaurants.name, restaurants.phone_number, restaurants.address
+      SELECT waitlists.wait_time,
+           restaurants.name,
+           restaurants.phone_number,
+           restaurants.address,
+           waitlist_entries.party_name,
+           waitlist_entries.party_size
       FROM restaurants
       JOIN waitlists ON restaurants.id=waitlists.restaurant_id
-      WHERE waitlists.id = $1
+      JOIN waitlist_entries ON waitlist_entries.waitlist_id = waitlists.id
+      JOIN users ON users.booking_id=waitlist_entries.id
+      WHERE users.booking_id = $1
     `;
-    const queryParameters = [req.session.waitlistId];
+    const queryParameters = [req.session.bookingId];
     db.query(queryString, queryParameters)
     .then((resultSet) => {
       data = resultSet.rows[0];
       const timeDifference = Date.now() - req.session.bookedAt;
       const initialTime = data.wait_time * 60000;
       const currentWait = initialTime - timeDifference;
-      console.log(currentWait);
+      console.log(`Current time: ${currentWait} ms`);
       data.minutes = Math.floor(currentWait / 60000);
       data.seconds = Math.floor((currentWait % 60000) / 1000);
-      console.log(data.timeRemaining);
       res.render("status", data);
     })
     .catch(err => console.log(err));
@@ -57,16 +64,25 @@ module.exports = (db) => {
       // this is the id returned in from the insert of the waitlist entry,
       // which will now be used in the update of the appropriate user record.
       const bookingId = resultSet.rows[0].id;
+      req.session.bookingId = bookingId;
       const updateParameters = [bookingId, req.session.user_id];
       db.query(updateString, updateParameters)
       .then(() => {
         // Query wait list time and alter the age of the cookie. This will then get us the wait time for the user.
         const queryString = `
-          SELECT waitlists.wait_time, restaurants.name, restaurants.phone_number, restaurants.address
-          FROM restaurants
-          JOIN waitlists ON restaurants.id=waitlists.restaurant_id
-          WHERE waitlists.id = $1`;
-        const queryParameters = [req.session.waitlistId];
+        SELECT waitlists.wait_time,
+             restaurants.name,
+             restaurants.phone_number,
+             restaurants.address,
+             waitlist_entries.party_name,
+             waitlist_entries.party_size
+        FROM restaurants
+        JOIN waitlists ON restaurants.id=waitlists.restaurant_id
+        JOIN waitlist_entries ON waitlist_entries.waitlist_id = waitlists.id
+        JOIN users ON users.booking_id=waitlist_entries.id
+        WHERE users.booking_id = $1
+      `;
+        const queryParameters = [req.session.bookingId];
         db.query(queryString, queryParameters)
         .then((resultSet) => {
           data = resultSet.rows[0];
@@ -96,26 +112,29 @@ module.exports = (db) => {
   // Removes a user from a given waitlist through the user side of the app.
   // The waitlist entry is deleted and the user's booking_id is set back to null.
   router.delete("/", (req, res) => {
+    console.log(`Delete route hit!`);
     if (req.session.user_id === undefined) {
       res.send("Cannot delete waitlist reservation if not logged in!");
+    } else if (!req.session.bookingId) {
+      res.send("No booking id on this user.");
     }
     // find the user corresponding with the booking id
     const updateString = `
       UPDATE users
       SET booking_id = $1
       WHERE id = $2
-      RETURNING id
     `;
     const updateParameters = [null, req.session.user_id];
     db.query(updateString, updateParameters)
-    .then((resultSet) => {
+    .then(() => {
       const deleteString = `
         DELETE FROM waitlist_entries
         WHERE id = $1
       `;
-      const deleteParameters = [resultSet.rows[0].id];
+      const deleteParameters = [req.session.bookingId];
       db.query(deleteString, deleteParameters)
       .then(() => {
+        req.session.bookingId = null;
         req.session.waitlistId = null;
         res.redirect('/restaurants');
       })
