@@ -29,6 +29,7 @@
         <form action="/waitlist" method="post">
             <input type="submit" id = "remove" value="Deactivate Waitlist">
         </form>
+<div class= "waitlist-entry">
     <% for (let entry of entries){ count++ %>
         <div name = "rank">Rank: <%= count %></div>
         <div name = "party_name"><%= entry.party_name %></h1>
@@ -37,6 +38,7 @@
             <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
             <input type="submit" value="Delete Entry" id = "delete">
         </form>
+    </div>
         <% }if (count === 0){ %>
           <h2>No People Waiting</h2>
         <% }} else { %>
