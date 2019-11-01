@@ -92,7 +92,7 @@ module.exports = (db) => {
         LEFT JOIN waitlists
         ON restaurants.id=waitlists.restaurant_id
         WHERE restaurants.name = $1
-      `
+      `;
       const queryParameters = [req.body.search_value];
       db.query(queryString, queryParameters)
       .then(resultSet => {
