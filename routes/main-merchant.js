@@ -13,7 +13,7 @@ module.exports = (db) => {
             let wait_id = waitObj.rows[0].id;
             let wait_time = waitObj.rows[0].wait_time;
             //get waitlist entries
-            let query2 = `SELECT * FROM waitlist_entries WHERE  waitlist_id = $1`;
+            let query2 = `SELECT * FROM waitlist_entries WHERE  waitlist_id = $1 ORDER BY booked_at`;
             let entriesObj = await db.query(query2, [wait_id]);
             let entriesArr = entriesObj.rows;
             return [entriesArr, wait_time];
