@@ -46,58 +46,68 @@ module.exports = (db) => {
     if (parseInt(req.body.party_size) === '0') {
       res.send("Cannot create a new booking without selecting a party size!");
     }
-    req.session.waitlistId = req.params.id;
-    const insertString = `
-      INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name)
-      VALUES ($1, $2, $3, $4)
-      RETURNING id, booked_at
-    `;
-    const insertParameters = [req.params.id, Date.now(), req.body.party_size, req.body.party_name];
-    db.query(insertString, insertParameters)
+    const queryString = `SELECT name FROM users WHERE id = $1`;
+    const queryParameters = [req.session.user_id];
+    db.query(queryString, queryParameters)
     .then((resultSet) => {
-      req.session.bookedAt = resultSet.rows[0].booked_at;
-      const updateString = `
-        UPDATE users
-        SET booking_id = $1
-        WHERE id = $2;
+      console.log('after select query');
+      req.session.waitlistId = req.params.id;
+      const insertString = `
+        INSERT INTO waitlist_entries (waitlist_id, booked_at, party_size, party_name)
+        VALUES ($1, $2, $3, $4)
+        RETURNING id, booked_at
       `;
-      // this is the id returned in from the insert of the waitlist entry,
-      // which will now be used in the update of the appropriate user record.
-      const bookingId = resultSet.rows[0].id;
-      req.session.bookingId = bookingId;
-      const updateParameters = [bookingId, req.session.user_id];
-      db.query(updateString, updateParameters)
-      .then(() => {
-        // Query wait list time and alter the age of the cookie. This will then get us the wait time for the user.
-        const queryString = `
-        SELECT waitlists.wait_time,
-             restaurants.name,
-             restaurants.phone_number,
-             restaurants.address,
-             waitlist_entries.party_name,
-             waitlist_entries.party_size
-        FROM restaurants
-        JOIN waitlists ON restaurants.id=waitlists.restaurant_id
-        JOIN waitlist_entries ON waitlist_entries.waitlist_id = waitlists.id
-        JOIN users ON users.booking_id=waitlist_entries.id
-        WHERE users.booking_id = $1
-      `;
-        const queryParameters = [req.session.bookingId];
-        db.query(queryString, queryParameters)
-        .then((resultSet) => {
-          data = resultSet.rows[0];
-          const phoneNumber = data.phone_number.toString();
-          const left = phoneNumber.substring(0,3);
-          const middle = phoneNumber.substring(3,6);
-          const right = phoneNumber.substring(6);
-          data.phone_number = `(${left}) ${middle}-${right}`;
-          req.session.cookie.maxAge = data.wait_time * 60000;
-          data.timeRemaining = req.session.cookie.maxAge;
-          data.minutes = Math.floor(req.session.cookie.maxAge / 60000);
-          data.seconds = Math.floor((req.session.cookie.maxAge % 60000) / 1000);
-          res.render("status", data);
+      const insertParameters = [req.session.waitlistId, Date.now(), req.body.party_size, resultSet.rows[0].name];
+      db.query(insertString, insertParameters)
+      .then((resultSet) => {
+        console.log('after insert query');
+        req.session.bookedAt = resultSet.rows[0].booked_at;
+        const updateString = `
+          UPDATE users
+          SET booking_id = $1
+          WHERE id = $2;
+        `;
+        // this is the id returned in from the insert of the waitlist entry,
+        // which will now be used in the update of the appropriate user record.
+        const bookingId = resultSet.rows[0].id;
+        req.session.bookingId = bookingId;
+        const updateParameters = [bookingId, req.session.user_id];
+        db.query(updateString, updateParameters)
+        .then(() => {
+          console.log('after update query');
+          // Query wait list time and alter the age of the cookie. This will then get us the wait time for the user.
+          const queryString = `
+            SELECT waitlists.wait_time,
+                restaurants.name,
+                restaurants.phone_number,
+                restaurants.address,
+                waitlist_entries.party_name,
+                waitlist_entries.party_size
+            FROM restaurants
+            JOIN waitlists ON restaurants.id=waitlists.restaurant_id
+            JOIN waitlist_entries ON waitlist_entries.waitlist_id = waitlists.id
+            JOIN users ON users.booking_id=waitlist_entries.id
+            WHERE users.booking_id = $1
+          `;
+          const queryParameters = [req.session.bookingId];
+          db.query(queryString, queryParameters)
+          .then((resultSet) => {
+            console.log('after second query');
+            data = resultSet.rows[0];
+            const phoneNumber = data.phone_number.toString();
+            const left = phoneNumber.substring(0,3);
+            const middle = phoneNumber.substring(3,6);
+            const right = phoneNumber.substring(6);
+            data.phone_number = `(${left}) ${middle}-${right}`;
+            req.session.cookie.maxAge = data.wait_time * 60000;
+            data.timeRemaining = req.session.cookie.maxAge;
+            data.minutes = Math.floor(req.session.cookie.maxAge / 60000);
+            data.seconds = Math.floor((req.session.cookie.maxAge % 60000) / 1000);
+            res.render("status", data);
+          })
+          .catch(err => console.error(err));
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
     })
