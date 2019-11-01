@@ -60,12 +60,12 @@
         });
 
         marker.addListener('click', function() {
-          var element = document.querySelector(`.blue-background`);
+          var element = document.querySelector(`.highlighted`);
           if (element !== null) {
-            element.classList.remove('blue-background');
+            element.classList.remove('highlighted');
           }
           element = document.getElementById(`${marker.restaurantId}`);
-          element.classList.add('blue-background');
+          element.classList.add('highlighted');
         });
 
         // marker.setMap(map);
