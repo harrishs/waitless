@@ -1,14 +1,26 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/main-merchant.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <title>People Waiting</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
 
-<head>
-  <!-- Meta Information -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <div class="logo-pushdown">
+    <img src="https://i.ibb.co/HY0xGPx/Logo-merchant.png">
+    <body style= "background-color:#3E4A59;"></body>
+    <form method="POST" action="/logout">
+      <button class="logout" type="submit">Sign Out</button>
+    </form>
+  </div>
 
-  <title>Waitlist</title>
-</head>
 <body>
     <form method="POST" action="/update-waitlist" id= "timer">
       <h2>Add Entry To Waitlist</h2>

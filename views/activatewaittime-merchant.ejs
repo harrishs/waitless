@@ -1,23 +1,40 @@
-
 <!DOCTYPE html>
 <html lang="en">
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/main-merchant.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <title>Create Waitlist</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
 
-<head>
-  <!-- Meta Information -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>Waitlist</title>
-</head>
+<div class="logo-pushdown">
+  <img src="https://i.ibb.co/HY0xGPx/Logo-merchant.png">
+  <body style= "background-color:#3E4A59;"></body>
+  <form method="POST" action="/logout">
+    <button class="logout" type="submit">Sign Out</button>
+  </form>
+</div>
+
+
 <body>
   <form method="POST" action="/create-waitlist" id= "timer">
-    <h2>Set Default Wait Time</h2>
-    <select name = "times">
-      <option value="15">15 minutes</option>
-      <option value="30">30 minutes</option>
-      <option value="45">45 minutes</option>
-      <option value="60">60 minutes</option>
-    </select>
-    <button type="submit" id="submit">submit</button>
+    <a class="active_waittime"><i class="fa fa-clock-o" aria-hidden="true"></i>  Set Wait Time</a>
+    <div class="radio-toolbar">
+      <input type="radio" id="time" name="times" value="15">
+      <label for="type"> 15 Minutes</label>
+      <input type="radio" id="time" name="times" value="30">
+      <label for="name"> 30 Minutes</label>
+      <input type="radio" id="time" name="times" value="45">
+      <label for="waitlist"> 45 Minutes</label>
+      <input type="radio" id="time" name="times" value="60">
+      <label for="type"> 60 Minutes</label>
+    </div>
+    <button type="submit" id="submit" class="submit-btn">Submit <i class="fa fa-send" aria-hidden="true"></i></button>
   </form>
 </body>
 <script src="/socket.io/socket.io.js"></script>
@@ -27,3 +44,4 @@
   })
 </script>
 <% include partials/_footer %>
+

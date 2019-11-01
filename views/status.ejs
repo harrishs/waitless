@@ -1,11 +1,21 @@
 <% include partials/_header %>
 
+<<<<<<< HEAD
 <img src="/<%= data.image_url %>">
 <h3>Party for <%= data.party_size %> under the name of <%= data.party_name %></h3>
 <h3>Confirmed with <%= data.name %></h3>
 <h3>Phone number: <%= data.phone_number %></h3>
 <h3>Address: <%= data.address %></h3>
 <h3>Time remaining: <%= data.minutes %> minutes, <%= data.seconds %> seconds</h3>
+=======
+<h3><%= data.name %></h3>
+<h3><%= data.address %></h3>
+<h3><%= data.phone_number %></h3>
+<h3>Your table is ready in: <%= data.minutes %> minutes</h3>
+<h3>Details</h3>
+<h3> Name: <%= data.party_name %> </h3>
+<h3> Party Size: <%= data.party_size %> </h3>
+>>>>>>> ddc0796b0134d3d01acaad37ac8150109bd4766d
 
 <form method="POST" action="/entries?_method=DELETE">
   <button type="submit">Cancel Reservation</button>
