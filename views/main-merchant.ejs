@@ -12,12 +12,12 @@
     <a href = "/create-waitlist">Create New Waitlist</a>
 
     <h1 class = "waitlist">Waitlist</h1>
-    <% if (entries){ let count = 1; %>
-        <a href = "/update-waitlist">Add New Waitlist Entry</a>
+    <% if (entries){ let count = 0; %>
+        <a href = "/update-waitlist">Update Waitlist</a>
         <form action="/waitlist" method="post">
-            <input type="submit" id = "remove" value="Delete Waitlist">
+            <input type="submit" id = "remove" value="Deactivate Waitlist">
         </form>
-    <% for (let entry of entries){ %>
+    <% for (let entry of entries){ count++ %>
         <div name = "rank">Rank: <%= count %></div>
         <div name = "party_name"><%= entry.party_name %></h1>
         <div name = "party_size"><%= entry.party_size %></h1>
@@ -25,7 +25,9 @@
             <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
             <input type="submit" value="Delete Entry" id = "delete">
         </form>
-        <% count++ }} else { %>
+        <% }if (count === 0){ %>
+          <h2>No Entries</h2>
+        <% }} else { %>
             <h2>No Waitlist</h2>
         <% } %>
 <script src="/socket.io/socket.io.js"></script>
