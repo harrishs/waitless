@@ -57,6 +57,11 @@ html {
       font-weight: bold;
       color: #fff;
   }
+
+  input {
+    font-size: 16px;
+  }
+
   /* Add a blue text color to links */
   a {
     color: dodgerblue;
