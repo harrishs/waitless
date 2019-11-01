@@ -2,108 +2,126 @@ html {
   font-family: 'Roboto Mono', monospace;
  }
  @media screen and (max-width: 500px) {
- * {box-sizing: border-box}
- /* Add padding to containers */
- .container {
-  padding: 16px;
- }
- html {
-  font-family: 'Roboto Mono', monospace;
- }
- /* Full-width input fields */
- input[type=text], input[type=password] {
-  width: 80%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #fff;
-  border-bottom: 2px solid #b7bbc1;
-  font-family: 'Roboto Mono', monospace;
- }
- input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
- }
- /* Overwrite default styles of hr */
- hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
- }
- /* Set a style for the submit/register button */
- .registerbtn {
-    position: absolute;
-    width: 345px;
-    height: 55px;
-    left: 40px;
-    top: 600px;
-    background: #445EE9;
-    box-shadow: 0px 10px 30px rgba(68, 94, 233, 0.25);
-    border-radius: 10px;
-    font-family: 'Roboto Mono';
-    font-size: 16px;
-    line-height: 19px;
-    font-weight: bold;
-    color: #fff;
- }
- /* Add a blue text color to links */
- a {
-  color: dodgerblue;
- }
- /* Set a grey background color and center the text of the "sign in" section */
- .signin {
-  background-color: #f1f1f1;
-  text-align: center;
- }
+  * {box-sizing: border-box}
+  /* Add padding to containers */
+  .container {
+    padding: 16px;
+  }
+  html {
+    font-family: 'Roboto Mono', monospace;
+  }
+  /* Full-width input fields */
+  input[type=text], input[type=password] {
+    width:300px;
+    padding: 15px 15px 15px 0px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #fff;
+    border-bottom: 2px solid #b7bbc1;
+    font-family: 'Roboto Mono', monospace;
 
- .user-input {
-  display: flex;
-  flex-direction: row;
-}
- /* Style the header with a grey background and some padding */
- .header {
-  overflow: hidden;
-  padding: 20px 10px;
- }
- /* Style the header links */
- .header a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  margin-left: 20px;
-  width: 165px;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 4px;
- }
- /* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
- .header a.logo {
-  font-size: 25px;
-  font-weight: bold;
- }
- /* Change the background color on mouse-over */
- .header a:hover {
-  background-color: #F3F4F8;
-  color: black;
- }
- /* Style the active/current link */
- .header a.active {
-  background-color: #F3F4F8;
-  color: black;
- }
- /* Float the link section to the right */
- .user-input {
-    display: flex;
-    flex-direction: row;
+  }
+  input[type=text]::placeholder, input[type=password]::placeholder  {
+    color: #B7BBC1;
+  }
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
   }
 
- .header-right {
-  float: right;
- }
- }
- /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+  /* Overwrite default styles of hr */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+  /* Set a style for the submit/register button */
+  .registerbtn {
+      position: absolute;
+      width: 345px;
+      height: 55px;
+      left: 40px;
+      top: 600px;
+      background: #445EE9;
+      box-shadow: 0px 10px 30px rgba(68, 94, 233, 0.25);
+      border-radius: 10px;
+      font-family: 'Roboto Mono';
+      border: 0px;
+      font-size: 16px;
+      line-height: 19px;
+      font-weight: bold;
+      color: #fff;
+  }
+  /* Add a blue text color to links */
+  a {
+    color: dodgerblue;
+  }
+  /* Set a grey background color and center the text of the "sign in" section */
+  .signin {
+    background-color: #f1f1f1;
+    text-align: center;
+  }
+
+  .user-input {
+    display: inline-block;
+    flex-direction: row;
+  }
+  /* Style the header with a grey background and some padding */
+  .header {
+    overflow: hidden;
+    padding: 20px 10px;
+  }
+  /* Style the header links */
+  .header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    margin-left: 20px;
+    width: 165px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+  }
+  /* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+  .header a.logo {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  /* Change the background color on mouse-over */
+  .header a:hover {
+    background-color: #F3F4F8;
+    color: black;
+  }
+  /* Style the active/current link */
+  .header a.active {
+    background-color: #F3F4F8;
+    color: black;
+    border-radius: 10px;
+  }
+  /* Float the link section to the right */
+  .user-input {
+      display: flex;
+      flex-direction: row;
+    }
+
+  .header-right {
+    float: right;
+  }
+
+  .fa {
+    margin: 10px 10px 10px 10px;
+    background-color: #F3F4F8;
+    padding: 11px;
+    height: 39px;
+    border-radius: 11px;
+    color: #B7BBC1;
+  }
+}
+
+
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
  @media screen and (min-width: 500px) {
  * {box-sizing: border-box}
  /* Add padding to containers

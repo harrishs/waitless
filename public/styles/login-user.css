@@ -11,33 +11,35 @@ html {
     padding: 16px;
   }
   /* Full-width input fields */
+
   input[type=text], input[type=password] {
-    width: 60%;
-    padding: 15px;
+    width:280px;
+    padding: 15px 15px 15px 0px;
     margin: 5px 0 22px 0;
     display: inline-block;
     border: none;
     background: #fff;
     border-bottom: 2px solid #b7bbc1;
     font-family: 'Roboto Mono', monospace;
+
+  }
+  input[type=text]::placeholder, input[type=password]::placeholder  {
+    color: #B7BBC1;
   }
   input[type=text]:focus, input[type=password]:focus {
     background-color: #ddd;
     outline: none;
   }
-  /* Overwrite default styles of hr */
-  hr {
-    border: 1px solid #f1f1f1;
-    margin-bottom: 25px;
-  }
+
   /* Set a style for the submit/register button */
   .registerbtn {
     position: absolute;
     width: 345px;
     height: 55px;
     left: 40px;
-    top: 440px;
+    top: 380px;
     background: #445EE9;
+    border: 0px;
     box-shadow: 0px 10px 30px rgba(68, 94, 233, 0.25);
     border-radius: 10px;
     font-family: 'Roboto Mono';
@@ -64,7 +66,7 @@ html {
   /* Style the header links */
   .header a {
     float: left;
-    color: black;
+    color: rgb(51, 31, 31);
     text-align: center;
     padding: 12px;
     margin-left: 20px;
@@ -74,7 +76,8 @@ html {
     line-height: 25px;
     border-radius: 4px;
   }
-  /* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+
+  /* Style the logo link*/
   .header a.logo {
     font-size: 25px;
     font-weight: bold;
@@ -87,11 +90,21 @@ html {
   /* Style the active/current link */
   .header a.active {
     background-color: #F3F4F8;
+    border-radius: 10px;
     color: black;
   }
 
+  .fa {
+    margin: 10px 10px 10px 10px;
+    background-color: #F3F4F8;
+    padding: 11px;
+    height: 39px;
+    border-radius: 11px;
+    color: #B7BBC1;
+  }
+
   .user-input {
-    display: flex;
+    display: inline-block;
     flex-direction: row;
   }
 
@@ -99,9 +112,10 @@ html {
   .header-right {
     float: right;
   }
-  }
+
+}
   /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-  @media screen and (min-width: 500px) {
+@media screen and (min-width: 500px) {
   * {box-sizing: border-box}
   /* Add padding to containers
   /* Add padding to containers */
@@ -110,7 +124,7 @@ html {
   }
   /* Full-width input fields */
   input[type=text], input[type=password] {
-    width: 100%;
+    width: 80%;
     padding: 15px;
     margin: 5px 0 22px 0;
     display: inline-block;
@@ -191,5 +205,4 @@ html {
     flex-direction: row;
   }
 
-  }
-
+}

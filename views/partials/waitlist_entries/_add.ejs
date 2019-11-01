@@ -1,9 +1,10 @@
 <form class="add-form" action="/entries/<%= restaurant.waitlist_id %>" method="POST">
-  <label name="party_name" for="party_name"></label>
-  <input type="text" name="party_name" placeholder="Name of party" required>
+  <!-- <label name="party_name" for="party_name"></label>
+  <input type="text" name="party_name" placeholder="Reserved for" required> -->
   <label name="party-size" for="party-size"></label>
+<div class="box">
   <select name="party_size">
-    <option value="0">Select party size</option>
+    <option value="0">Party Size</option>
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -11,7 +12,6 @@
     <option value="5">5</option>
     <option value="6">6</option>
   </select>
-  <div class="button" style="margin-top: 10px;">
-    <button type="submit" id = "submit">Add to Waitlist</button>
-  </div>
+</div>
+    <button class="waitlist-button" type="submit" id = "submit">Join The Waitlist</button>
 </form>
