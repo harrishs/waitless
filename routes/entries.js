@@ -116,10 +116,6 @@ module.exports = (db) => {
     .catch(err => console.error(err));
   });
 
-  // DELETE /:id => /entries/:id
-  // Removes a user from a given waitlist through the user side of the app.
-  // The waitlist entry is deleted and the user's booking_id is set back to null.
-
   // DELETE => /entries
   // Removes a user from a given waitlist through the user side of the app.
   // The waitlist entry is deleted and the user's booking_id is set back to null.
