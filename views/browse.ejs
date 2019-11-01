@@ -23,27 +23,29 @@
 <!-- Map div -- the browse-map-section -->
   <div class= "map" id='browse-map-section'></div>
   <div class="container">
-  <% for (let restaurant of restaurants) { %>
+    <% for (let restaurant of restaurants) { %>
     <div class="card">
+      <div class="addressValue" style="display: none;"><%= restaurant.address %></div>
+      <div class="idValue" style="display: none;"><%= restaurant.id %></div>
       <div class="restaurant-image">
        <img src= "<%= restaurant.image_url %>">
       </div>
-      <div class="container-stack" id="<%= restaurant.id %>"</div>
+      <div class="container-stack" id="<%= restaurant.id %>">
         <h3 class="restaurant-name"><%= restaurant.name %></h3>
         <p><%= restaurant.type %> |
           <span><%= restaurant.wait_time ? `   ${restaurant.wait_time} Min Wait` : `  < 5 Min Wait` %></span></p>
-    <% if (restaurant.waitlist_id !== null) { %>
-      <% if (bookedWith != restaurant.waitlist_id) { %>
-        <% include partials/waitlist_entries/_add %>
-      <% } else { %>
-        <% include partials/waitlist_entries/_remove %>
-        <a href="/entries" style="margin: 15px;">View Status of Booking</a>
-      <% } %>
+      <% if (restaurant.waitlist_id !== null) { %>
+        <% if (bookedWith != restaurant.waitlist_id) { %>
+          <% include partials/waitlist_entries/_add %>
+        <% } else { %>
+          <% include partials/waitlist_entries/_remove %>
+          <a href="/entries" style="margin: 15px;">View Status of Booking</a>
+        <% } %>
+      </div>
+    <% } %>
     </div>
-  <% } %>
   </div>
-  <div class="addressValue" style="display: none;"><%= restaurant.address %></div>
-  <div class="idValue" style="display: none;"><%= restaurant.id %></div>
+
   <% } %>
 <% include partials/_google_maps %>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcVOAEYSVHbc_M8e70aGmMm9A0Z8MO1qY&callback=initMap" async defer></script>

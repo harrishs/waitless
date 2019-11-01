@@ -28,7 +28,8 @@
       center: {lat: 43.644175, lng: -79.4022042},
       // 43.6532° N, 79.3832° W for centre of Toronto
       // 43.644175, -79.4022042 centring on LHL
-      zoom: 13.5
+      zoom: 13.5,
+      disableDefaultUI: true
     });
     var restaurants = {};
     var names = document.querySelectorAll("h3.restaurant-name");
@@ -52,7 +53,7 @@
           map: map,
           clickable: true,
           address: location.address,
-          restaurantId: location.id
+          restaurantId: location.id,
         });
 
         var infoWindow = new google.maps.InfoWindow({

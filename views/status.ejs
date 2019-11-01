@@ -1,22 +1,36 @@
 <% include partials/_header %>
 
-<div class="restaurant-image">
-  <img src="/<%= data.image_url %>">
+<a href='/restaurants' class="previous"></i>Back to Restaurants</a>
+
+<div class="container1">
+  <div class="card1">
+    <div class="restaurant-image">
+      <img src="/<%= data.image_url %>">
+    </div>
+    <%= data.name %>
+    <%= data.address %>
+    <%= data.phone_number %>
+  </div>
 </div>
-<h3><%= data.name %></h3>
-<h3><%= data.address %></h3>
-<h3><%= data.phone_number %></h3>
-<h3>Your table is ready in: <%= data.minutes %> minutes</h3>
-<br>
-<h3>Details</h3>
-<h3> Name: <%= data.party_name %> </h3>
-<h3> Party Size: <%= data.party_size %> </h3>
 
-<form method="POST" action="/entries?_method=DELETE">
-  <button type="submit" id="cancel">Cancel Reservation</button>
-</form>
+<div class= "container2">
+  <h3>Confirmed!</h3>
+  <div class="card2">
+  <h3>Your table is ready in: <%= data.minutes %> minutes</h3>
+  Let the host know when you arrive.
+  </div>
+  <h3 class ="details">Details</h3>
+  <h3 class="title"> Name Party Size </h3>
+    <%= data.party_name %>
+    <%= data.party_size %> </h3>
 
-<a href='/restaurants'>Back to Restaurants</a>
+  <div class="card3">
+    <form method="POST" action="/entries?_method=DELETE">
+      <button type="submit" id ="cancel"><i class="fa fa-times" aria-hidden="true"></i> Cancel Reservation</button>
+    </form>
+  </div>
+</div>
+
 
 <% include partials/_footer %>
 <script src="/socket.io/socket.io.js"></script>
