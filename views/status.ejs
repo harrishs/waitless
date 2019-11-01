@@ -6,7 +6,9 @@
 <h3>Address: <%= data.address %></h3>
 <h3>Time remaining: <%= data.minutes %> minutes, <%= data.seconds %> seconds</h3>
 
-<a href="/entries?_method=DELETE"> X Cancel Reservation</a>
+<form method="POST" action="/entries?_method=DELETE">
+  <button type="submit">Cancel Reservation</button>
+</form>
 
 <a href='/restaurants'>Back to Restaurants</a>
 

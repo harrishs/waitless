@@ -26,6 +26,7 @@ module.exports = (db) => {
         // pass the resultSet to the data object and render
         data.restaurants = resultSet.rows;
         data.bookedWith = req.session.waitlistId || null;
+        console.log(`data.bookedWith: ${data.bookedWith}`);
         res.render('browse', data);
       })
       .catch(err => console.log(err));
