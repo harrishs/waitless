@@ -27,6 +27,13 @@ html {
   margin-top: 10px;
 }
 
+.table-ready{
+  padding-top:30px;
+  padding-left:30px;
+  padding-right:30px;
+  padding-bottom:15px;
+}
+
 .card3{
   background-color: #576EEB;
   color: white;
@@ -115,4 +122,17 @@ container1{
 
   color: #FFFFFF;
   margin-left: 10px;
+}
+
+.progress-ring__circle {
+  transition: 0.35s stroke-dashoffset;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+input {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 80px;
 }

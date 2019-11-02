@@ -14,23 +14,21 @@
 </div>
 
 <div class= "container2">
-  <h3>Confirmed!</h3>
+  <h3 class="details">Confirmed!</h3>
   <div class="card2">
-  <h3>Your table is ready in: <%= data.minutes %> minutes</h3>
+  <h3 class="table-ready">Your table is ready in: <%= data.minutes %> minutes</h3>
   Let the host know when you arrive.
   </div>
   <h3 class ="details">Details</h3>
   <h3 class="title"> Name Party Size </h3>
     <%= data.party_name %>
-    <%= data.party_size %> </h3>
-
+    <%= data.party_size %>
   <div class="card3">
     <form method="POST" action="/entries?_method=DELETE">
       <button type="submit" id ="cancel"><i class="fa fa-times" aria-hidden="true"></i> Cancel Reservation</button>
     </form>
   </div>
 </div>
-
 
 <% include partials/_footer %>
 <script src="/socket.io/socket.io.js"></script>
