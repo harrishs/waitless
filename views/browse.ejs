@@ -39,8 +39,7 @@
         <% if (bookedWith != restaurant.waitlist_id) { %>
           <% include partials/waitlist_entries/_add %>
         <% } else { %>
-          <% include partials/waitlist_entries/_remove %>
-          <a href="/entries" style="margin: 15px;">View Status of Booking</a>
+          <% include partials/waitlist_entries/_status %>
         <% } %>
       </div>
     <% } %>
