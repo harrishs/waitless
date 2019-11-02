@@ -39,6 +39,11 @@ module.exports = (db) => {
       db.query(queryString, queryParameters)
       .then((resultSet) => {
         data = resultSet.rows[0];
+        const phoneNumber = data.phone_number.toString();
+        const left = phoneNumber.substring(0,3);
+        const middle = phoneNumber.substring(3,6);
+        const right = phoneNumber.substring(6);
+        data.phone_number = `(${left}) ${middle}-${right}`;
         const timeDifference = Date.now() - resultSet.rows[0].booked_at;
         const initialTime = data.wait_time * 60000;
         const currentWait = initialTime - timeDifference;
@@ -57,7 +62,7 @@ module.exports = (db) => {
   router.post("/:id", (req, res) => {
     console.log(req.session.user_id);
     if (req.session.user_id === undefined) {
-      req.session.errorMessage = "You cannot add yourself to a waitlist if you're not logged in."
+      req.session.errorMessage = "You cannot book with a waitlist if you're not logged in."
       req.session.errorSeen = false;
       res.redirect("/restaurants");
     }
@@ -81,7 +86,15 @@ module.exports = (db) => {
         const insertParameters = [req.session.waitlistId, Date.now(), req.body.party_size, resultSet.rows[0].name];
         db.query(insertString, insertParameters)
         .then((resultSet) => {
+          // for a more readable booking time:
+          const bookingTime = new Date(resultSet.rows[0].booked_at);
           console.log('after insert query');
+          console.log(`---------------------`)
+          console.log(`---------------------`)
+          console.log(`---------------------`)
+          console.log(`---------------------`)
+          console.log(`---------------------`)
+          console.log(`booked at: ${bookingTime.toString()}`);
           req.session.bookedAt = resultSet.rows[0].booked_at;
           const updateString = `
             UPDATE users
@@ -99,6 +112,8 @@ module.exports = (db) => {
             // Query wait list time and alter the age of the cookie. This will then get us the wait time for the user.
             const queryString = `
               SELECT waitlists.wait_time,
+                  waitlists.id AS waitlist_id,
+                  restaurants.id AS restaurant_id,
                   restaurants.name,
                   restaurants.phone_number,
                   restaurants.address,
@@ -114,18 +129,58 @@ module.exports = (db) => {
             const queryParameters = [req.session.bookingId];
             db.query(queryString, queryParameters)
             .then((resultSet) => {
-              console.log('after second query');
+              console.log('before setting time remaining');
               data = resultSet.rows[0];
+              req.session.waitlistId = data.waitlist_id;
               const phoneNumber = data.phone_number.toString();
               const left = phoneNumber.substring(0,3);
               const middle = phoneNumber.substring(3,6);
               const right = phoneNumber.substring(6);
               data.phone_number = `(${left}) ${middle}-${right}`;
-              req.session.cookie.maxAge = data.wait_time * 60000;
-              data.timeRemaining = req.session.cookie.maxAge;
-              data.minutes = Math.floor(req.session.cookie.maxAge / 60000);
+              data.minutes = data.wait_time;
               data.seconds = Math.floor((req.session.cookie.maxAge % 60000) / 1000);
-              res.render("status", data);
+
+              const queryString = `
+                SELECT booked_at
+                FROM waitlist_entries
+                WHERE waitlist_id = $1
+              `;
+              const queryParameters = [data.waitlist_id];
+              db.query(queryString, queryParameters)
+              .then((resultSet) => {
+                let timeBetween;
+                const rowCount = resultSet.rowCount;
+                if (rowCount <= 1) {
+                  timeBetween = 0;
+                } else {
+                  console.log(`Row count: ${rowCount}`);
+                  const firstInLine = resultSet.rows[rowCount - 2].booked_at;
+                  const lastInLine = resultSet.rows[rowCount - 1].booked_at;
+                  timeBetween = lastInLine - firstInLine;
+                  console.log(`Time between entries: ${timeBetween}`);
+                }
+                // Update by 5 minutes in milliseconds:
+                const increment = 300000;
+                const currentWaitTime = data.wait_time;
+                const waitTimeInMilliseconds = currentWaitTime * 60000;
+                const newWaitTime = Math.floor((waitTimeInMilliseconds - timeBetween + increment) / 60000);
+                data.wait_time = newWaitTime;
+                console.log(`New wait time: ${newWaitTime} minutes`);
+                // update wait time with new wait time:
+                const updateQuery = `
+                  UPDATE waitlists
+                  SET wait_time = $1
+                  WHERE restaurant_id = $2
+                `
+                const updateParameters = [newWaitTime, data.restaurant_id];
+                db.query(updateQuery, updateParameters)
+                .then(() => {
+                  console.log("Successful update of waitlist with new wait time!");
+                  res.render("status", data);
+                })
+                .catch(err => console.error(err));
+              })
+              .catch(err => console.error(err));
             })
             .catch(err => console.error(err));
           })
