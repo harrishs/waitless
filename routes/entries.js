@@ -6,32 +6,48 @@ module.exports = (db) => {
   // GET / => /entries
   // Shows the status of the user's booking.
   router.get("/", (req, res) => {
-    console.log(`req.session.bookingId: ${req.session.bookingId}`);
-    const queryString = `
-      SELECT waitlists.wait_time,
-           restaurants.name,
-           restaurants.phone_number,
-           restaurants.address,
-           restaurants.image_url,
-           waitlist_entries.party_name,
-           waitlist_entries.party_size
-      FROM restaurants
-      JOIN waitlists ON restaurants.id=waitlists.restaurant_id
-      JOIN waitlist_entries ON waitlist_entries.waitlist_id = waitlists.id
-      JOIN users ON users.booking_id=waitlist_entries.id
-      WHERE users.booking_id = $1
-    `;
-    const queryParameters = [req.session.bookingId];
+    const queryString = `SELECT booking_id
+                         FROM users
+                         WHERE users.id = $1`
+    const queryParameters = [req.session.user_id];
     db.query(queryString, queryParameters)
     .then((resultSet) => {
-      data = resultSet.rows[0];
-      const timeDifference = Date.now() - req.session.bookedAt;
-      const initialTime = data.wait_time * 60000;
-      const currentWait = initialTime - timeDifference;
-      console.log(`Current time: ${currentWait} ms`);
-      data.minutes = Math.floor(currentWait / 60000);
-      data.seconds = Math.floor((currentWait % 60000) / 1000);
-      res.render("status", data);
+      console.log(resultSet.rows.length);
+      console.log(resultSet.rows);
+      if (resultSet.rows.length === 0) {
+        res.session.errorMessage = "Cannot check a cancelled status.";
+        res.redirect('/restaurants');
+      }
+      console.log(`req.session.bookingId: ${req.session.bookingId}`);
+      const queryString = `
+        SELECT waitlists.wait_time,
+             restaurants.name,
+             restaurants.phone_number,
+             restaurants.address,
+             restaurants.image_url,
+             waitlist_entries.party_name,
+             waitlist_entries.party_size,
+             waitlist_entries.booked_at
+        FROM restaurants
+        JOIN waitlists ON restaurants.id=waitlists.restaurant_id
+        JOIN waitlist_entries ON waitlist_entries.waitlist_id = waitlists.id
+        JOIN users ON users.booking_id=waitlist_entries.id
+        WHERE users.booking_id = $1
+      `;
+
+      const queryParameters = [resultSet.rows[0].booking_id];
+      db.query(queryString, queryParameters)
+      .then((resultSet) => {
+        data = resultSet.rows[0];
+        const timeDifference = Date.now() - resultSet.rows[0].booked_at;
+        const initialTime = data.wait_time * 60000;
+        const currentWait = initialTime - timeDifference;
+        console.log(`Current time: ${currentWait} ms`);
+        data.minutes = Math.floor(currentWait / 60000);
+        data.seconds = Math.floor((currentWait % 60000) / 1000);
+        res.render("status", data);
+      })
+      .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
   })
