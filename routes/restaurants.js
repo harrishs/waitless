@@ -5,13 +5,21 @@ const router  = express.Router();
 module.exports = (db) => {
   // needed here for renders, will expand this object out soon
   let data = {
-    bookedWith: null
+    bookedWith: null,
+    errorMessage: null
   };
 
   // GET - /restaurants
   // SHOW route
   // Queries all restaurants and renders them with information appropriate to the page
   router.get("/", (req, res) => {
+    if (req.session.errorMessage && (req.session.errorSeen === false)) {
+      data.errorMessage = req.session.errorMessage;
+      req.session.errorSeen = true;
+    } else {
+      // error has been seen!
+      data.errorMessage = "";
+    }
     // console.log('requesting restaurants');
     // const queryString = "SELECT * FROM restaurants";
     const queryString = `
@@ -21,16 +29,32 @@ module.exports = (db) => {
       ON restaurants.id=waitlists.restaurant_id
     `;
     db.query(queryString)
+    .then((resultSet) => {
+      // console.log('----------', resultSet, '------------');
+      // pass the resultSet to the data object and render
+      data.restaurants = resultSet.rows;
+      // check if there's a booking id:
+      const queryString = `SELECT waitlists.id AS waitlist_id FROM waitlists
+      JOIN waitlist_entries ON waitlists.id=waitlist_entries.waitlist_id
+      JOIN users ON waitlist_entries.id=users.booking_id
+      WHERE users.id = $1`;
+
+      const queryParameters = [req.session.user_id];
+      db.query(queryString, queryParameters)
       .then((resultSet) => {
-        // console.log('----------', resultSet, '------------');
-        // pass the resultSet to the data object and render
-        data.restaurants = resultSet.rows;
-        data.bookedWith = req.session.waitlistId || null;
+        console.log(`Result set length: ${resultSet.rows.length}`);
+        if (resultSet.rows.length === 0) {
+          data.bookedWith = null;
+        } else {
+          data.bookedWith = resultSet.rows[0].waitlist_id;
+        }
         console.log(`data.bookedWith: ${data.bookedWith}`);
         res.render('browse', data);
       })
       .catch(err => console.log(err));
-  });
+    })
+    .catch(err => console.log(err));
+  })
 
   // GET /:id => /restaurants/:id
   // Gets a specific restaurant from the database where the id matches the route.

@@ -22,6 +22,7 @@
 
 <!-- Map div -- the browse-map-section -->
   <div class= "map" id='browse-map-section'></div>
+  <h3><%= errorMessage %></h3>
   <div class="container">
     <% for (let restaurant of restaurants) { %>
     <div class="card">
@@ -38,8 +39,7 @@
         <% if (bookedWith != restaurant.waitlist_id) { %>
           <% include partials/waitlist_entries/_add %>
         <% } else { %>
-          <% include partials/waitlist_entries/_remove %>
-          <a href="/entries" style="margin: 15px;">View Status of Booking</a>
+          <% include partials/waitlist_entries/_status %>
         <% } %>
       </div>
     <% } %>
