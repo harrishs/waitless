@@ -87,14 +87,14 @@ module.exports = (db) => {
         db.query(insertString, insertParameters)
         .then((resultSet) => {
           // for a more readable booking time:
-          const bookingTime = new Date(resultSet.rows[0].booked_at);
-          console.log('after insert query');
-          console.log(`---------------------`)
-          console.log(`---------------------`)
-          console.log(`---------------------`)
-          console.log(`---------------------`)
-          console.log(`---------------------`)
-          console.log(`booked at: ${bookingTime.toString()}`);
+          // const bookingTime = new Date(resultSet.rows[0].booked_at);
+          // console.log('after insert query');
+          // console.log(`---------------------`)
+          // console.log(`---------------------`)
+          // console.log(`---------------------`)
+          // console.log(`---------------------`)
+          // console.log(`---------------------`)
+          // console.log(`booked at: ${bookingTime.toString()}`);
           req.session.bookedAt = resultSet.rows[0].booked_at;
           const updateString = `
             UPDATE users
