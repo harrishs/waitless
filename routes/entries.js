@@ -18,7 +18,6 @@ module.exports = (db) => {
         res.session.errorMessage = "Cannot check a cancelled status.";
         res.redirect('/restaurants');
       }
-      console.log(`req.session.bookingId: ${req.session.bookingId}`);
       const queryString = `
         SELECT waitlists.wait_time,
              restaurants.name,
@@ -39,6 +38,10 @@ module.exports = (db) => {
       db.query(queryString, queryParameters)
       .then((resultSet) => {
         data = resultSet.rows[0];
+        console.log("HIT STATUS ROUTE");
+        console.log("-----------------");
+        console.log(new Date(parseInt(data.booked_at)));
+        // Format the phone number
         const phoneNumber = data.phone_number.toString();
         const left = phoneNumber.substring(0,3);
         const middle = phoneNumber.substring(3,6);
@@ -47,9 +50,12 @@ module.exports = (db) => {
         const timeDifference = Date.now() - resultSet.rows[0].booked_at;
         const initialTime = data.wait_time * 60000;
         const currentWait = initialTime - timeDifference;
-        console.log(`Current time: ${currentWait} ms`);
+        if (currentWait <= 0) {
+          // To do
+        }
         data.minutes = Math.floor(currentWait / 60000);
         data.seconds = Math.floor((currentWait % 60000) / 1000);
+        console.log(`Current wait time: ${currentWait} ms, or ${data.minutes} minutes and ${data.seconds} seconds.`);
         res.render("status", data);
       })
       .catch(err => console.log(err));
@@ -86,15 +92,14 @@ module.exports = (db) => {
         const insertParameters = [req.session.waitlistId, Date.now(), req.body.party_size, resultSet.rows[0].name];
         db.query(insertString, insertParameters)
         .then((resultSet) => {
-          // for a more readable booking time:
-          // const bookingTime = new Date(resultSet.rows[0].booked_at);
-          // console.log('after insert query');
-          // console.log(`---------------------`)
-          // console.log(`---------------------`)
-          // console.log(`---------------------`)
-          // console.log(`---------------------`)
-          // console.log(`---------------------`)
-          // console.log(`booked at: ${bookingTime.toString()}`);
+          const bookingTime = new Date(parseInt(resultSet.rows[0].booked_at));
+          console.log('after insert query');
+          console.log(`---------------------`)
+          console.log(`---------------------`)
+          console.log(`---------------------`)
+          console.log(`---------------------`)
+          console.log(`---------------------`)
+          console.log(`booked at: ${bookingTime.toString()}`);
           req.session.bookedAt = resultSet.rows[0].booked_at;
           const updateString = `
             UPDATE users
