@@ -5,13 +5,17 @@ const router  = express.Router();
 module.exports = (db) => {
   // needed here for renders, will expand this object out soon
   let data = {
-    bookedWith: null
+    bookedWith: null,
+    errorMessage: null
   };
 
   // GET - /restaurants
   // SHOW route
   // Queries all restaurants and renders them with information appropriate to the page
   router.get("/", (req, res) => {
+    if (req.session.errorMessage) {
+      data.errorMessage = req.session.errorMessage;
+    }
     // console.log('requesting restaurants');
     // const queryString = "SELECT * FROM restaurants";
     const queryString = `

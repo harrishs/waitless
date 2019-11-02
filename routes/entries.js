@@ -122,7 +122,8 @@ module.exports = (db) => {
   router.delete("/", (req, res) => {
     console.log(`Delete route hit!`);
     if (req.session.user_id === undefined) {
-      res.send("Cannot delete waitlist reservation if not logged in!");
+      req.session.errorMessage = "Cannot delete waitlist reservation if not logged in!";
+      res.redirect('/restaurants');
     } else if (!req.session.bookingId) {
       res.send("No booking id on this user.");
     }
