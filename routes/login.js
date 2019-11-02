@@ -44,9 +44,7 @@ module.exports = (db) => {
                           `;
 
         db
-          .query(`SELECT * FROM users
-          WHERE users.email = $1
-          LIMIT 1 `, [email])
+          .query(userQuery, [email])
           .then(userInfo => {
           let response = userInfo.rows[0];
             if (response !== undefined && bcrypt.compareSync(password, response.password)) {
