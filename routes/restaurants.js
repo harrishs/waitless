@@ -13,8 +13,12 @@ module.exports = (db) => {
   // SHOW route
   // Queries all restaurants and renders them with information appropriate to the page
   router.get("/", (req, res) => {
-    if (req.session.errorMessage) {
+    if (req.session.errorMessage && (req.session.errorSeen === false)) {
       data.errorMessage = req.session.errorMessage;
+      req.session.errorSeen = true;
+    } else {
+      // error has been seen!
+      data.errorMessage = "";
     }
     // console.log('requesting restaurants');
     // const queryString = "SELECT * FROM restaurants";
