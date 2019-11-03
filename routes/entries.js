@@ -133,10 +133,13 @@ module.exports = (db) => {
               db.query(queryString, queryParameters)
               .then((resultSet) => {
                 let timeBetween;
+                let increment;
                 const rowCount = resultSet.rowCount;
                 if (rowCount <= 1) {
                   timeBetween = 0;
+                  increment = 0;
                 } else {
+                  increment = 300000;
                   console.log(`Row count: ${rowCount}`);
                   const firstInLine = resultSet.rows[rowCount - 2].booked_at;
                   const lastInLine = resultSet.rows[rowCount - 1].booked_at;
@@ -144,7 +147,6 @@ module.exports = (db) => {
                   console.log(`Time between entries: ${timeBetween}`);
                 }
                 // Update by 5 minutes in milliseconds:
-                const increment = 300000;
                 const currentWaitTime = data.wait_time;
                 const waitTimeInMilliseconds = currentWaitTime * 60000;
                 const newWaitTime = Math.floor((waitTimeInMilliseconds - timeBetween + increment) / 60000);
