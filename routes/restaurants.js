@@ -42,13 +42,11 @@ module.exports = (db) => {
       const queryParameters = [req.session.user_id];
       db.query(queryString, queryParameters)
       .then((resultSet) => {
-        console.log(`Result set length: ${resultSet.rows.length}`);
         if (resultSet.rows.length === 0) {
           data.bookedWith = null;
         } else {
           data.bookedWith = resultSet.rows[0].waitlist_id;
         }
-        console.log(`data.bookedWith: ${data.bookedWith}`);
         res.render('browse', data);
       })
       .catch(err => console.log(err));
@@ -75,7 +73,6 @@ module.exports = (db) => {
     // Search by type:
     const searchType = req.body.search;
     if (searchType === 'type') {
-      console.log(req.body.search);
       const queryString = `
         SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
         FROM restaurants
@@ -92,7 +89,6 @@ module.exports = (db) => {
       })
       .catch(err => console.log(err));
     } else if (req.body.search === 'waitlist') {
-      console.log(req.body.search);
       const queryString = `
         SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
         FROM restaurants
@@ -109,7 +105,6 @@ module.exports = (db) => {
       })
       .catch(err => console.log(err));
     } else if (req.body.search === 'name') {
-      console.log(req.body.search);
       const queryString = `
         SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
         FROM restaurants
