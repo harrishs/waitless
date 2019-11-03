@@ -30,16 +30,16 @@
   </div>
 </div>
 
-<% include partials/_footer %>
 <script src="/socket.io/socket.io.js"></script>
 <script>
   const socket = io();
-    socket.on("load", (data)=>{
+  socket.on("load", (data)=>{
     if (data.page === "/browse"){
       window.location.replace("/restaurants");
     }
   })
   document.getElementById("cancel").addEventListener("click", () => {
-      socket.emit("reload", {page: "/waitlist"});
+    socket.emit("reload", {page: "/waitlist"});
   })
-</script>
+  </script>
+<% include partials/_footer %>
