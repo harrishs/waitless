@@ -44,9 +44,6 @@ module.exports = (db) => {
         const timeDifference = Date.now() - resultSet.rows[0].booked_at;
         const initialTime = data.wait_time * 60000;
         const currentWait = initialTime - timeDifference;
-        if (currentWait <= 0) {
-
-        }
         data.minutes = Math.floor(currentWait / 60000);
         data.seconds = Math.floor((currentWait % 60000) / 1000);
         console.log(`Current wait time: ${currentWait} ms, or ${data.minutes} minutes and ${data.seconds} seconds.`);
