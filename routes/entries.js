@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const helpers = require('../public/scripts/helpers');
 
 module.exports = (db) => {
   // SHOW
@@ -38,20 +39,13 @@ module.exports = (db) => {
       db.query(queryString, queryParameters)
       .then((resultSet) => {
         data = resultSet.rows[0];
-        console.log("HIT STATUS ROUTE");
-        console.log("-----------------");
-        console.log(new Date(parseInt(data.booked_at)));
         // Format the phone number
-        const phoneNumber = data.phone_number.toString();
-        const left = phoneNumber.substring(0,3);
-        const middle = phoneNumber.substring(3,6);
-        const right = phoneNumber.substring(6);
-        data.phone_number = `(${left}) ${middle}-${right}`;
+        data.phone_number = helpers.formatPhoneNumber(data.phone_number.toString());
         const timeDifference = Date.now() - resultSet.rows[0].booked_at;
         const initialTime = data.wait_time * 60000;
         const currentWait = initialTime - timeDifference;
         if (currentWait <= 0) {
-          // To do
+
         }
         data.minutes = Math.floor(currentWait / 60000);
         data.seconds = Math.floor((currentWait % 60000) / 1000);
@@ -137,13 +131,9 @@ module.exports = (db) => {
               console.log('before setting time remaining');
               data = resultSet.rows[0];
               req.session.waitlistId = data.waitlist_id;
-              const phoneNumber = data.phone_number.toString();
-              const left = phoneNumber.substring(0,3);
-              const middle = phoneNumber.substring(3,6);
-              const right = phoneNumber.substring(6);
-              data.phone_number = `(${left}) ${middle}-${right}`;
+              // Format the phone number
+              data.phone_number = helpers.formatPhoneNumber(data.phone_number.toString());
               data.minutes = data.wait_time;
-              data.seconds = Math.floor((req.session.cookie.maxAge % 60000) / 1000);
 
               const queryString = `
                 SELECT booked_at
