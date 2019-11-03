@@ -16,7 +16,7 @@
 <div class= "container2">
   <h3 class="details">Confirmed!</h3>
   <div class="card2">
-  <h3 class="table-ready"><%= (data.currentWait >= 0) ? `Your table will be ready in: ${data.minutes} minutes` : `Your table should be ready now.` %></h3>
+  <h3 class="table-ready"><%= (data.minutes >= 0) ? `Your table will be ready in: ${data.minutes} minutes` : `Your table should be ready now.` %></h3>
   Let the host know when you arrive.
   </div>
   <h3 class ="details">Details</h3>

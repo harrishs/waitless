@@ -16,7 +16,8 @@ module.exports = (db) => {
       console.log(resultSet.rows.length);
       console.log(resultSet.rows);
       if (resultSet.rows.length === 0) {
-        res.session.errorMessage = "Cannot check a cancelled status.";
+        req.session.errorMessage = "Cannot check a cancelled status.";
+        req.session.errorSeen = false;
         res.redirect('/restaurants');
       }
       const queryString = `
@@ -83,15 +84,6 @@ module.exports = (db) => {
         const insertParameters = [req.session.waitlistId, Date.now(), req.body.party_size, resultSet.rows[0].name];
         db.query(insertString, insertParameters)
         .then((resultSet) => {
-          const bookingTime = new Date(parseInt(resultSet.rows[0].booked_at));
-          console.log('after insert query');
-          console.log(`---------------------`)
-          console.log(`---------------------`)
-          console.log(`---------------------`)
-          console.log(`---------------------`)
-          console.log(`---------------------`)
-          console.log(`booked at: ${bookingTime.toString()}`);
-          req.session.bookedAt = resultSet.rows[0].booked_at;
           const updateString = `
             UPDATE users
             SET booking_id = $1

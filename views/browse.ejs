@@ -38,7 +38,7 @@
       <% if (restaurant.waitlist_id !== null) { %>
         <% if (bookedWith == restaurant.waitlist_id) { %>
             <% include partials/waitlist_entries/_status %>
-          <% } else if (!bookedWith) { %>
+        <% } else if (!bookedWith) { %>
             <% include partials/waitlist_entries/_add %>
         <% } %>
       </div>

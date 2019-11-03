@@ -20,8 +20,6 @@ module.exports = (db) => {
       // error has been seen!
       data.errorMessage = "";
     }
-    // console.log('requesting restaurants');
-    // const queryString = "SELECT * FROM restaurants";
     const queryString = `
       SELECT restaurants.id, restaurants.name, restaurants.address, restaurants.type, restaurants.image_url, waitlists.id AS waitlist_id, waitlists.wait_time
       FROM restaurants
