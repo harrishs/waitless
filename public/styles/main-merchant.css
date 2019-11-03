@@ -51,6 +51,40 @@ html {
   margin-top:30px;
 }
 
+.active_waittime2 {
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 21px;
+  line-height: 28px;
+  border-style: none;
+  color: #FFFFFF;
+  background: #3E4A59;
+  margin: 15px;
+  display: flex;
+  margin-top:30px;
+}
+
+.add-entry {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 21px;
+  line-height: 28px;
+  border-style: none;
+  color: #FFFFFF;
+  background: #3E4A59;
+  margin: 15px;
+  display: flex;
+}
+
+.party {
+  background-color: #505B69;
+  border: none;
+  border-radius: 10px;
+  font-family: "Roboto Mono";
+}
+
   /* Set a style for the submit/register button */
   .submit-btn {
     position: absolute;
@@ -67,6 +101,45 @@ html {
     line-height: 19px;
     font-weight: bold;
     color: #fff;
+}
+
+.submit-btn2 {
+  position: absolute;
+  width: 345px;
+  height: 55px;
+  left: 40px;
+  top: 450px;
+  background: #445EE9;
+  box-shadow: 0px 10px 30px rgba(68, 94, 233, 0.25);
+  border-radius: 10px;
+  font-family: 'Roboto Mono';
+  border: 0px;
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.submit-btn3 {
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  left: 300px;
+  top: 135px;
+  background: #445EE9;
+  box-shadow: 0px 10px 30px rgba(68, 94, 233, 0.25);
+  border-radius: 10px;
+  font-family: 'Roboto Mono';
+  border: 0px;
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.text {
+  font-family: 'Roboto Mono';
+  border-radius: 10px;
 }
 
 .radio-toolbar {
@@ -111,4 +184,38 @@ html {
   background-color: #fff;
   border-radius: 10px;
   font-family: 'Roboto Mono', monospace;
+}
+
+.waitlist {
+  color: white;
+
+}
+
+.current-wait {
+  color: white;
+}
+
+.update-waitlist {
+  color:white;
+  background-color:#445EE9;
+  border:none;
+  text-decoration: none;
+  border-radius: 10px;
+  width: 266px;
+  padding: 10px;
+  height: 39px;
+  left: 15px;
+  top: 135px;
+  box-shadow: 0px 0px 10px rgba(68, 94, 233, 0.25);
+  margin-left: 25%;
+}
+
+.deactivate-waitlist {
+  color:white;
+  font-family: "Roboto Mono", monospace;
+}
+
+
+.entry {
+background-color:red;
 }

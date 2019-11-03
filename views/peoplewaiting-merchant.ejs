@@ -23,9 +23,10 @@
 
 <body>
     <form method="POST" action="/update-waitlist" id= "timer">
-      <h2>Add Entry To Waitlist</h2>
-        <input type="text" name="name" required>
-        <select name = "party">
+      <h2 class="add-entry">
+        <i class="fa fa-plus" aria-hidden="true"></i>  Add Entry To Waitlist</h2>
+        <input class= "text" placeholder= "Name of Party" type="text" name="name" required>
+        <select class= "party" name = "party">
                 <option value="0">Party Size</option>
                 <option value="1">1 Person</option>
                 <option value="2">2 Person</option>
@@ -34,17 +35,21 @@
                 <option value="5">5 Person</option>
                 <option value="6">6 Person</option>
             </select>
-        <button type="submit" id="submit">submit</button>
+        <button class = "submit-btn3" type="submit" id="submit">Submit</button>
     </form>
     <form method="POST" action="/update-waitlist/time" id= "timer">
-      <h2>Update Estimated Wait Time</h2>
-      <select name = "times">
-        <option value="15">15 minutes</option>
-        <option value="30">30 minutes</option>
-        <option value="45">45 minutes</option>
-        <option value="60">60 minutes</option>
-      </select>
-      <button type="submit" id="update">submit</button>
+      <a class="active_waittime2"><i class="fa fa-clock-o" aria-hidden="true"></i> Update Estimated Wait Time</a>
+      <div class="radio-toolbar">
+        <input type="radio" id="15" name="times" value="15">
+        <label for="15"> 15 Minutes</label>
+        <input type="radio" id="30" name="times" value="30">
+        <label for="30"> 30 Minutes</label>
+        <input type="radio" id="45" name="times" value="45">
+        <label for="45"> 45 Minutes</label>
+        <input type="radio" id="60" name="times" value="60">
+        <label for="60"> 60 Minutes</label>
+      </div>
+      <button type="submit" id="submit" class="submit-btn2">Submit <i class="fa fa-send" aria-hidden="true"></i></button>
     </form>
 <script src="/socket.io/socket.io.js"></script>
 <script>var socket = io();
@@ -56,3 +61,5 @@
   })
 </script>
 <% include partials/_footer %>
+
+

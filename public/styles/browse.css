@@ -188,12 +188,12 @@ body {
 }
 
 .radio-toolbar input[type="radio"]:checked + label {
-  background-color: #47DF98;
+  background-color: #5bd49c;
   color: #FFF;
 }
 
 .radio-toolbar label:hover {
-  background-color: #47DF98;
+  background-color: #5bd49c;
   color: #FFF;
 }
 
@@ -224,6 +224,6 @@ body {
 }
 
 .highlighted {
-  border: 2px solid #47DF98;
+  border: 2px solid #5bd49c;
   border-radius: 10px;
 }

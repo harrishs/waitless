@@ -22,18 +22,18 @@
 
 <body>
 
-    <h1 class = "waitlist">Waitlist</h1>
     <% if (entries){ let count = 0; %>
-      <h2>Current Wait Time: <%= time %></h2>
-        <a href = "/update-waitlist">Update Waitlist</a>
+      <h2 class= "current-wait">Current Wait Time: <%= time %> Mins</h2>
+        <a class ="update-waitlist" href ="/update-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i>Update Waitlist</a>
         <form action="/waitlist" method="post">
-            <input type="submit" id = "remove" value="Deactivate Waitlist">
+            <input class = "deactivate-waitlist" type="submit" id = "remove" value="Delete Waitlist">
         </form>
+<h1 class = "waitlist">Waitlist</h1>
 <div class= "waitlist-entry">
     <% for (let entry of entries){ count++ %>
         <div name = "rank">Rank: <%= count %></div>
-        <div name = "party_name"><%= entry.party_name %></h1>
-        <div name = "party_size"><%= entry.party_size %></h1>
+        <div name = "party_name">Name of Party: <%= entry.party_name %></h1>
+        <div name = "party_size">Party Size: <%= entry.party_size %></h1>
         <form action="/waitlist/delete" method="post">
             <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
             <input type="submit" value="Delete Entry" id = "delete">
@@ -43,7 +43,7 @@
           <h2>No People Waiting</h2>
         <% }} else { %>
           <a class="active_waittime" href = "/create-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Activate Wait List </a>
-            <h2>Waitlist De-activated</h2>
+            <h2>Waitlist Deleted</h2>
         <% } %>
 <script src="/socket.io/socket.io.js"></script>
 <script>

@@ -1,28 +1,45 @@
-<% include partials/_header %>
-
-<a href='/restaurants' class="previous"></i>Back to Restaurants</a>
-
-<div class="container1">
-  <div class="card1">
-    <div class="restaurant-image">
-      <img src="/<%= data.image_url %>">
+<div class="dont-scroll">
+  <% include partials/_header %>
+  <div class= "back-restaurants"
+  <a href='/restaurants' class="previous"></i>Back to Restaurants</a>
+  </div>
+  <div class="container1">
+    <div class="card1">
+      <div class="restaurant-image">
+        <img src="/<%= data.image_url %>">
+      </div>
+      <div class= "status-restaurant">
+        <h3 class= "restaurant-name"><%= data.name %></h3>
+        <p class="status-address"><%= data.address %></p>
+        <p class="status-phonenumber"><%= data.phone_number %></p>
+      </div>
     </div>
-    <%= data.name %>
-    <%= data.address %>
-    <%= data.phone_number %>
   </div>
 </div>
 
 <div class= "container2">
-  <h3 class="details">Confirmed!</h3>
+  <h3 class="confirmed">Confirmed!</h3>
   <div class="card2">
-  <h3 class="table-ready">Your table is ready in: <%= data.minutes %> minutes</h3>
-  Let the host know when you arrive.
+    <div class="left-side">
+      <h3 class="table-ready">Your table is ready in: </h3>
+      <p class= "host">Let the host know when you arrive.</p>
+    </div>
+    <div class= "right-side">
+      <div class="green-circle">
+      <h3><%= data.minutes %> </h3>
+      <p>mins</p>
+      </div>
+    </div>
   </div>
   <h3 class ="details">Details</h3>
-  <h3 class="title"> Name Party Size </h3>
+  <h3 class="title"> Name </h3>
+  <div class ="data">
     <%= data.party_name %>
+  </div>
+  <h3 class="title"> Party Size </h3>
+  <div class ="data">
     <%= data.party_size %>
+  </div>
   <div class="card3">
     <form method="POST" action="/entries?_method=DELETE">
       <button type="submit" id ="cancel"><i class="fa fa-times" aria-hidden="true"></i> Cancel Reservation</button>
