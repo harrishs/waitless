@@ -52,6 +52,7 @@ module.exports = (db) => {
               req.session.email = response.email;
               req.session.name = response.name;
               req.session.phone_number = response.phone_number;
+              req.session.bookingId = response.booking_id;
               data.user = response.name;
               data.email = response.email;
               data.error.loginError = false;
