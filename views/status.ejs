@@ -20,8 +20,16 @@
 <div class= "container2">
   <h3 class="confirmed">Confirmed!</h3>
   <div class="card2">
-  <h3 class="table-ready"><%= (data.minutes >= 0) ? `Your table will be ready in: ${data.minutes} minutes` : `Your table should be ready now.` %></h3>
-  Let the host know when you arrive.
+    <div class="left-side">
+      <h3 class="table-ready">Your table is ready in: </h3>
+      <p class= "host">Let the host know when you arrive.</p>
+    </div>
+    <div class= "right-side">
+      <div class="green-circle">
+      <h3><%= data.minutes %> </h3>
+      <p>mins</p>
+      </div>
+    </div>
   </div>
   <h3 class ="details">Details</h3>
   <h3 class="title"> Name </h3>
