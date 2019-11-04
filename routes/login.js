@@ -62,6 +62,11 @@ module.exports = (db) => {
 
   // Route to show login page for merchants
   router.get("/merchants", (req, res) => {
+    if (!data.error.seen) {
+      data.error.seen = true;
+    } else {
+      data.error.details = '';
+    }
     res.render("login-merchant", data);
   });
 
@@ -90,10 +95,10 @@ module.exports = (db) => {
         res.redirect("/waitlist")
       } else {
         data.error.loginError = true;
-        res.status(400).send("Username or password is incorrect");
-        // res.render('login-merchant', data);
+        data.error.details = "Username or password is incorrect";
+        data.error.seen = false;
+        res.redirect('/login/merchants')
       }
-
     } catch(err) {
       console.log(err);
     }
