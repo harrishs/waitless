@@ -35,14 +35,22 @@
     <% for (let entry of entries){ count++ %>
       <div class= "waitlist-entry">
       <div class="text-waitlist">
-        <p name = "rank">Rank: <%= count %></p>
-        <p name = "party_name">Guest: <%= entry.party_name %></p>
-        <p name = "party_size">Party Size: <%= entry.party_size %></p>
+        <h3 name = "rank" class= "rank"> Rank: <%= count %> </h3>
+        <h3 class="title">Guest </h3>
+        <div name = "party_name" class="data">
+        <%= entry.party_name %>
+      </div>
+        <h3 class="title">Party Size </h3>
+        <div name= "party_size" class="data">
+        <%= entry.party_size %>
+      </div>
       </div>
         <form action="/waitlist/delete" method="post">
             <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
             <input class= "delete" type="submit" value="Delete Entry" id = "delete">
         </form>
+
+
       </div>
         <% }if (count === 0){ %>
           <h2>No People Waiting</h2>
