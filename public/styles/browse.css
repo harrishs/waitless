@@ -227,3 +227,30 @@ body {
   border: 2px solid #5bd49c;
   border-radius: 10px;
 }
+
+.status-booking{
+  width: 90px;
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+  color: black;
+  background: #fff;
+  border-style: none;
+  border:none;
+}
+
+.remove-waitlist {
+  color:white;
+  font-family: "Roboto Mono", monospace;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  border: #FDB9A5;
+  background-color: #FDB9A5;
+  border-radius: 5px;
+  margin-top:5px;
+  margin-bottom:5px;
+}

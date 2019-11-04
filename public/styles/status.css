@@ -236,3 +236,28 @@ input {
   font-size:16px;
   margin-top:0px;
 }
+
+.previous {
+  width: 90px;
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+  color: black;
+  background: #fff;
+  border-style: none;
+}
+
+.status-booking{
+  width: 90px;
+  font-family: Roboto Mono;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+  color: black;
+  background: #fff;
+  border-style: none;
+  border:none;
+}
