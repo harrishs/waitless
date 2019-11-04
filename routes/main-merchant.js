@@ -1,5 +1,8 @@
 const express = require('express');
 const router  = express.Router();
+const accountSid = process.env.twilioSID;
+const authToken = process.env.twilioAuth;
+const client = require('twilio')(accountSid, authToken);
 
 module.exports = (db) => {
     router.get("/", (req, res) => {
@@ -13,7 +16,7 @@ module.exports = (db) => {
             let wait_id = waitObj.rows[0].id;
             let wait_time = waitObj.rows[0].wait_time;
             //get waitlist entries
-            let query2 = `SELECT * FROM waitlist_entries WHERE  waitlist_id = $1 ORDER BY booked_at`;
+            let query2 = `SELECT * FROM waitlist_entries WHERE waitlist_id = $1 ORDER BY booked_at`;
             let entriesObj = await db.query(query2, [wait_id]);
             let entriesArr = entriesObj.rows;
             return [entriesArr, wait_time];
@@ -23,12 +26,43 @@ module.exports = (db) => {
             }
         }
         getList(rest_id)
-                .then(vals =>
-                    {
+                .then(vals => {
                         if (!vals){
                         res.render("main-merchant", {entries: null, time: null})
                         }
                         else{
+                            if (vals[0][0]){
+                            //selecting info to get user phone number
+                            console.log(vals[0][0].id);
+                            let entry_id = vals[0][0].id;
+                            let queryNum = `SELECT phone_number FROM users WHERE booking_id = $1`
+                            if (!vals[0][0].texted)
+                                {
+                                    db.query(queryNum, [entry_id])
+                                    .then(phone => {
+                                        if (phone){
+                                            console.log(phone.rows[0].phone_number);
+                                            let phone_number = phone.rows[0].phone_number;
+                                        client.messages
+                                        .create({
+                                        body: 'You are next in line for a table',
+                                        from: '+19386665741',
+                                        to: `+1${parseInt(phone_number)}`
+                                    })
+                                    //change user waitlist entry to texted
+                                    let queryText = `UPDATE waitlist_entries 
+                                    SET texted = $1
+                                    WHERE id = $2`;
+                                    let qVals = [true, entry_id];
+                                    db.query(queryText, qVals).
+                                    then(console.log("updated to texted"))
+                                    .catch(err => console.log(err));
+                                        }
+                            })
+                                    .catch(err => console.log(err));
+
+                                }
+                            }
                             res.render("main-merchant", {entries: vals[0], time: vals[1]})
                         }
 
