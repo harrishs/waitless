@@ -42,12 +42,10 @@
           <%= entry.party_size %>
         </div>
         </div>
-          <form action="/waitlist/delete" method="post">
-              <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
-              <input class= "delete" type="submit" value="Delete Entry" id = "delete">
-          </form>
-
-
+        <form action="/waitlist/delete" method="post">
+          <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
+          <input class= "delete" type="submit" value="Delete Entry" id = "delete">
+      </form>
         </div>
           <% }if (count === 0){ %>
           <form action="/waitlist" method="post">
@@ -76,11 +74,11 @@
   document.getElementById("remove").addEventListener("click", () => {
       socket.emit("load", {page: "/browse"});
   })
-  document.getElementsByClassName("delete").addEventListener("click", () => {
+  document.getElementById("delete").addEventListener("click", () => {
     console.log("emitting");
       socket.emit("load", {page: "/browse"});
   })
-  document.getElementsByClassName("delete").addEventListener("click", () => {
+  document.getElementById("delete").addEventListener("click", () => {
     console.log("emitting");
       socket.emit("reload", {page: "/browse"});
   })
