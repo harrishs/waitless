@@ -12,6 +12,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
   </head>
 
+<div class =" dont-scroll">
   <div class="logo-pushdown">
     <img src="https://i.ibb.co/HY0xGPx/Logo-merchant.png">
     <body style= "background-color:#3E4A59;"></body>
@@ -25,26 +26,31 @@
     <% if (entries){ let count = 0; %>
       <h2 class= "current-wait">Current Wait Time: <%= time %> Mins</h2>
         <a class ="update-waitlist" href ="/update-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i>Update Waitlist</a>
-        <form action="/waitlist" method="post">
+        <!-- <form action="/waitlist" method="post">
             <input class = "deactivate-waitlist" type="submit" id = "remove" value="Delete Waitlist">
-        </form>
-<h1 class = "waitlist">Waitlist</h1>
-<div class= "waitlist-entry">
+        </form> -->
+<h1 class = "waitlist"><i class=" fa fa-user-o" aria-hidden="true"></i>  People Waiting</h1>
+</div>
+<div class= "background-list">
     <% for (let entry of entries){ count++ %>
-        <div name = "rank">Rank: <%= count %></div>
-        <div name = "party_name">Name of Party: <%= entry.party_name %></h1>
-        <div name = "party_size">Party Size: <%= entry.party_size %></h1>
+      <div class= "waitlist-entry">
+      <div class="text-waitlist">
+        <p name = "rank">Rank: <%= count %></p>
+        <p name = "party_name">Guest: <%= entry.party_name %></p>
+        <p name = "party_size">Party Size: <%= entry.party_size %></p>
+      </div>
         <form action="/waitlist/delete" method="post">
             <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
-            <input type="submit" value="Delete Entry" id = "delete">
+            <input class= "delete" type="submit" value="Delete Entry" id = "delete">
         </form>
-    </div>
+      </div>
         <% }if (count === 0){ %>
           <h2>No People Waiting</h2>
         <% }} else { %>
           <a class="active_waittime" href = "/create-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Activate Wait List </a>
-            <h2>Waitlist Deleted</h2>
-        <% } %>
+        <h2>Waitlist Deleted</h2>
+    <% } %>
+  </div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
   const socket = io();

@@ -18,6 +18,7 @@ html {
   background: #3E4A59;
   border-style: none;
   display: contents;
+  margin-right:10px;
 }
 
 .logo-pushdown form {
@@ -34,7 +35,7 @@ html {
 .logo-pushdown {
   padding-top: 30px;
   margin-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 
 .active_waittime {
@@ -78,11 +79,15 @@ html {
   display: flex;
 }
 
+.text {
+  margin:15px;
+}
 .party {
   background-color: #505B69;
   border: none;
   border-radius: 10px;
   font-family: "Roboto Mono";
+  color:white;
 }
 
   /* Set a style for the submit/register button */
@@ -122,16 +127,16 @@ html {
 
 .submit-btn3 {
   position: absolute;
-  width: 100px;
+  width: 70px;
   height: 40px;
   left: 300px;
-  top: 135px;
+  top: 180px;
   background: #445EE9;
   box-shadow: 0px 10px 30px rgba(68, 94, 233, 0.25);
   border-radius: 10px;
   font-family: 'Roboto Mono';
   border: 0px;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 19px;
   font-weight: bold;
   color: #fff;
@@ -180,19 +185,39 @@ html {
 }
 
 
+/* .background-list {
+  top:280px;
+  position: relative;
+  background-color: #505B69;
+  width: 100%;
+} */
+
 .waitlist-entry {
-  background-color: #fff;
-  border-radius: 10px;
+  background-color: #505B69;
+  color: white;
+  border-bottom: 1px solid #3E4A59;
+  border-top: 1px solid #3E4A59;
+  height: 160px;
   font-family: 'Roboto Mono', monospace;
+}
+
+.dont-scroll {
+  position: fixed;
+  width:100%;
 }
 
 .waitlist {
   color: white;
+  font-size:24px;
+  line-height:28px;
+  margin-top:60px;
 
 }
 
 .current-wait {
   color: white;
+  font-size:24px;
+  line-height:28px;
 }
 
 .update-waitlist {
@@ -216,6 +241,38 @@ html {
 }
 
 
-.entry {
-background-color:red;
+
+.delete {
+  color: #5bd49c;
+  font-family: "Roboto Mono", monospace;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  margin-left: 70%;
+}
+
+.background-list {
+  background-color: #505B69;
+  color: white;
+  border-radius: 20px 20px 20px 20px;
+  font-family: 'Roboto Mono', monospace;
+  top:280px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.text-waitlist{
+  margin-left:15px;
+  margin-top:15px;
+}
+
+.deactivate-waitlist{
+  color: #5bd49c;
+  font-family: "Roboto Mono", monospace;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  margin-left: 70%;
 }
