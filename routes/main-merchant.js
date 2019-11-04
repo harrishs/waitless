@@ -1,5 +1,8 @@
 const express = require('express');
 const router  = express.Router();
+const accountSid = process.env.twilioSID;
+const authToken = process.env.twilioAuth;
+const client = require('twilio')(accountSid, authToken);
 
 module.exports = (db) => {
     router.get("/", (req, res) => {
@@ -16,6 +19,19 @@ module.exports = (db) => {
             let query2 = `SELECT * FROM waitlist_entries WHERE  waitlist_id = $1 ORDER BY booked_at`;
             let entriesObj = await db.query(query2, [wait_id]);
             let entriesArr = entriesObj.rows;
+            //send twilio text to first person in list
+            let queryNum = `SELECT phone_number FROM users WHERE booking_id = $1`
+            db.query(queryNum, [wait_id])
+            .then(phone => {
+                if (phone){
+                    console.log(phone);
+                client.messages
+                .create({
+                body: 'You are next in line for a table',
+                from: '+19386665741',
+                to: `+1${parseInt(phone)}`
+            })}})
+            .catch(err => console.log(err));
             return [entriesArr, wait_time];
             }
             else {
@@ -23,8 +39,7 @@ module.exports = (db) => {
             }
         }
         getList(rest_id)
-                .then(vals =>
-                    {
+                .then(vals => {
                         if (!vals){
                         res.render("main-merchant", {entries: null, time: null})
                         }
