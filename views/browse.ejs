@@ -12,7 +12,7 @@
     <label for="waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Wait Time</label>
   </div>
 
-    <!-- SEARCH -->
+  <!-- SEARCH -->
   <!-- <label for="search_value">Search:</label> -->
   <input type="text" name="search_value" class="search-input" placeholder=" Search">
   <!-- <button type="submit" class="search-submit"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button> -->
@@ -36,10 +36,11 @@
         <p><%= restaurant.type %> |
           <span><%= restaurant.wait_time ? `   ${restaurant.wait_time} Min Wait` : `  < 5 Min Wait` %></span></p>
       <% if (restaurant.waitlist_id !== null) { %>
-        <% if (bookedWith == restaurant.waitlist_id) { %>
-            <% include partials/waitlist_entries/_status %>
-        <% } else if (!bookedWith) { %>
-            <% include partials/waitlist_entries/_add %>
+        <% if (bookedWith != restaurant.waitlist_id) { %>
+          <% include partials/waitlist_entries/_add %>
+        <% } else { %>
+          <% include partials/waitlist_entries/_remove %>
+          <a href="/entries" style="margin: 5px;" class = "status-booking">View Status of Booking</a>
         <% } %>
       </div>
       <% } %>

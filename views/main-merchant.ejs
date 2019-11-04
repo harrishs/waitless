@@ -12,6 +12,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
   </head>
 
+<div class =" dont-scroll">
   <div class="logo-pushdown">
     <img src="https://i.ibb.co/HY0xGPx/Logo-merchant.png">
     <body style= "background-color:#3E4A59;"></body>
@@ -22,20 +23,30 @@
 
 <body>
 
-    <h1 class = "waitlist">Waitlist</h1>
     <% if (entries){ let count = 0; %>
       <h2>Current Wait Time: <%= time %></h2>
         <a href = "/update-waitlist">Update Waitlist</a>
 <div class= "waitlist-entry">
     <% for (let entry of entries){ count++ %>
-        <div name = "rank">Rank: <%= count %></div>
-        <div name = "party_name"><%= entry.party_name %></h1>
-        <div name = "party_size"><%= entry.party_size %></h1>
+      <div class= "waitlist-entry">
+      <div class="text-waitlist">
+        <h3 name = "rank" class= "rank"> Rank: <%= count %> </h3>
+        <h3 class="title">Guest </h3>
+        <div name = "party_name" class="data">
+        <%= entry.party_name %>
+      </div>
+        <h3 class="title">Party Size </h3>
+        <div name= "party_size" class="data">
+        <%= entry.party_size %>
+      </div>
+      </div>
         <form action="/waitlist/delete" method="post">
             <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
-            <input type="submit" value="Delete Entry" id = "delete">
+            <input class= "delete" type="submit" value="Delete Entry" id = "delete">
         </form>
-    </div>
+
+
+      </div>
         <% }if (count === 0){ %>
           <form action="/waitlist" method="post">
             <input type="submit" id = "remove" value="Deactivate Waitlist">
@@ -43,8 +54,9 @@
           <h2>No People Waiting</h2>
         <% }} else { %>
           <a class="active_waittime" href = "/create-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Activate Wait List </a>
-            <h2>Waitlist De-activated</h2>
-        <% } %>
+        <h2>Waitlist Deleted</h2>
+    <% } %>
+  </div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
   const socket = io();
