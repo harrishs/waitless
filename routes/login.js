@@ -8,13 +8,19 @@ module.exports = (db) => {
     error: {
       registerError: false,
       loginError: false,
-      details: ''
+      details: '',
+      seen: true
     },
     email: ''
   };
 
   // Route to show the login page for users
   router.get("/users", (req, res) => {
+    if (!data.error.seen) {
+      data.error.seen = true;
+    } else {
+      data.error.details = '';
+    }
     res.render("login-user", data);
   });
 
@@ -45,7 +51,9 @@ module.exports = (db) => {
         res.redirect('/restaurants');
       } else {
         data.error.loginError = true;
-        res.status(400).send("Username or password is incorrect");
+        data.error.details = "Username or password is incorrect";
+        data.error.seen = false;
+        res.redirect('/login/users')
       }
     } catch(err) {
       console.log(err);
