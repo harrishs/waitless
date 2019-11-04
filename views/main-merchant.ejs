@@ -26,9 +26,6 @@
     <% if (entries){ let count = 0; %>
       <h2>Current Wait Time: <%= time %></h2>
         <a href = "/update-waitlist">Update Waitlist</a>
-        <form action="/waitlist" method="post">
-            <input type="submit" id = "remove" value="Deactivate Waitlist">
-        </form>
 <div class= "waitlist-entry">
     <% for (let entry of entries){ count++ %>
         <div name = "rank">Rank: <%= count %></div>
@@ -40,6 +37,9 @@
         </form>
     </div>
         <% }if (count === 0){ %>
+          <form action="/waitlist" method="post">
+            <input type="submit" id = "remove" value="Deactivate Waitlist">
+        </form>
           <h2>No People Waiting</h2>
         <% }} else { %>
           <a class="active_waittime" href = "/create-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Activate Wait List </a>
