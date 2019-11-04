@@ -19,6 +19,6 @@ VALUES
   'barry@red.com',
   -- bcrypt hashed version of the word 'password' for all users
   '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
-  4164112034
+  6476378535
 );
 

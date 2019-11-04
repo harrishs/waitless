@@ -36,11 +36,11 @@
         <p><%= restaurant.type %> |
           <span><%= restaurant.wait_time ? `   ${restaurant.wait_time} Min Wait` : `  < 5 Min Wait` %></span></p>
       <% if (restaurant.waitlist_id !== null) { %>
-        <% if (bookedWith != restaurant.waitlist_id) { %>
-          <% include partials/waitlist_entries/_add %>
-        <% } else { %>
+        <% if (bookedWith == restaurant.waitlist_id) { %>
           <% include partials/waitlist_entries/_remove %>
           <a href="/entries" style="margin: 5px;" class = "status-booking">View Status of Booking</a>
+        <% } else if (!bookedWith) { %>
+            <% include partials/waitlist_entries/_add %>
         <% } %>
       </div>
       <% } %>
