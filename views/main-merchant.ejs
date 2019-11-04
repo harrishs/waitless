@@ -76,10 +76,12 @@
   document.getElementById("remove").addEventListener("click", () => {
       socket.emit("load", {page: "/browse"});
   })
-  document.getElementById("delete").addEventListener("click", () => {
+  document.getElementsByClassName("delete").addEventListener("click", () => {
+    console.log("emitting");
       socket.emit("load", {page: "/browse"});
   })
-  document.getElementById("delete").addEventListener("click", () => {
+  document.getElementsByClassName("delete").addEventListener("click", () => {
+    console.log("emitting");
       socket.emit("reload", {page: "/browse"});
   })
 </script>
