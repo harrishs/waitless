@@ -12,5 +12,6 @@ CREATE TABLE waitlist_entries (
   -- limited to 1-6 since they will be directed to call the restaurant otherwise
   party_size INTEGER NOT NULL,
   party_name VARCHAR(255) NOT NULL,
-  table_ready_at BIGINT DEFAULT NULL
+  table_ready_at BIGINT DEFAULT NULL,
+  texted BOOLEAN DEFAULT FALSE
 );

@@ -32,22 +32,36 @@ module.exports = (db) => {
                         }
                         else{
                             if (vals[0][0]){
-                                                            //selecting info to get user phone number
+                            //selecting info to get user phone number
                             console.log(vals[0][0].id);
                             let entry_id = vals[0][0].id;
                             let queryNum = `SELECT phone_number FROM users WHERE booking_id = $1`
-                            db.query(queryNum, [entry_id])
-                            .then(phone => {
-                                if (phone){
-                                    console.log(phone.rows[0].phone_number);
-                                    let phone_number = phone.rows[0].phone_number;
-                                client.messages
-                                .create({
-                                body: 'You are next in line for a table',
-                                from: '+19386665741',
-                                to: `+1${parseInt(phone_number)}`
-                            })}})
-                            .catch(err => console.log(err));
+                            if (!vals[0][0].texted)
+                                {
+                                    db.query(queryNum, [entry_id])
+                                    .then(phone => {
+                                        if (phone){
+                                            console.log(phone.rows[0].phone_number);
+                                            let phone_number = phone.rows[0].phone_number;
+                                        client.messages
+                                        .create({
+                                        body: 'You are next in line for a table',
+                                        from: '+19386665741',
+                                        to: `+1${parseInt(phone_number)}`
+                                    })
+                                    //change user waitlist entry to texted
+                                    let queryText = `UPDATE waitlist_entries 
+                                    SET texted = $1
+                                    WHERE id = $2`;
+                                    let qVals = [true, entry_id];
+                                    db.query(queryText, qVals).
+                                    then(console.log("updated to texted"))
+                                    .catch(err => console.log(err));
+                                        }
+                            })
+                                    .catch(err => console.log(err));
+
+                                }
                             }
                             res.render("main-merchant", {entries: vals[0], time: vals[1]})
                         }
