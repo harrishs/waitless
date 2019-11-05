@@ -706,7 +706,7 @@ VALUES
  '9054231128',
  'great@euclid.com',
  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.',
- 'images/euclid.jpg'
+ 'images/los.jpg'
 ),
 (
  'Little Sito',
