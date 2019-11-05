@@ -30,10 +30,12 @@ io.on('connection', function (socket) {
   socket.on('reload', function (data) {
     console.log("reload", data);
     socket.broadcast.emit("reload", {...data});
+    socket.disconnect();
   });
   socket.on('load', function (data) {
     console.log("reload", data);
     socket.broadcast.emit("load", {...data});
+    socket.disconnect();
   });
 });
 
