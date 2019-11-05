@@ -30,10 +30,13 @@ module.exports = (db) => {
       let resultSet = await db.query(queryString);
       data.restaurants = resultSet.rows;
 
-      queryString = `SELECT waitlists.id AS waitlist_id FROM waitlists
-      JOIN waitlist_entries ON waitlists.id=waitlist_entries.waitlist_id
-      JOIN users ON waitlist_entries.id=users.booking_id
-      WHERE users.id = $1`;
+      queryString =
+        `SELECT waitlists.id AS waitlist_id
+         FROM waitlists
+         JOIN waitlist_entries ON waitlists.id=waitlist_entries.waitlist_id
+         JOIN users ON waitlist_entries.id=users.booking_id
+         WHERE users.id = $1
+        `;
 
       let queryParameters = [req.session.user_id];
       resultSet = await db.query(queryString, queryParameters);
@@ -83,12 +86,14 @@ module.exports = (db) => {
         data.restaurants = resultSet.rows;
         res.render('browse', data);
       } else if (searchType === 'waitlist') {
+        console.log("Search by waitlist hit!")
         let queryString = `
           SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
           FROM restaurants
           LEFT JOIN waitlists
           ON restaurants.id=waitlists.restaurant_id
           WHERE waitlists.wait_time <= $1
+          OR waitlists.id IS NULL
         `;
         let searchValue = parseInt(req.body.search_value);
         let queryParameters = [searchValue];
