@@ -58,12 +58,13 @@
       window.location.reload();
     }
   })
-  document.getElementById("submit").addEventListener("click", () => {
-      socket.emit("reload", {page: "/waitlist"});
-  })
-  document.getElementById("remove").addEventListener("click", () => {
-      socket.emit("reload", {page: "/waitlist"});
-  })
+  socket.emit("reload", {page: "/waitlist"});
+  // document.getElementById("submit").addEventListener("click", () => {
+  //     socket.emit("reload", {page: "/waitlist"});
+  // })
+  // document.getElementById("remove").addEventListener("click", () => {
+  //     socket.emit("reload", {page: "/waitlist"});
+  // })
 </script>
 <% include partials/_footer %>
 

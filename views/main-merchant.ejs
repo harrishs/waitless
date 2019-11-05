@@ -65,22 +65,25 @@
       window.location.reload();
     }
   })
-  document.getElementById("remove").addEventListener("click", () => {
-      socket.emit("reload", {page: "/browse"});
-  })
-  document.getElementById("remove").addEventListener("click", () => {
-      socket.emit("reload", {page: "/browse"});
-  })
-  document.getElementById("remove").addEventListener("click", () => {
-      socket.emit("load", {page: "/browse"});
-  })
-  document.getElementById("delete").addEventListener("click", () => {
-    console.log("emitting");
-      socket.emit("load", {page: "/browse"});
-  })
-  document.getElementById("delete").addEventListener("click", () => {
-    console.log("emitting");
-      socket.emit("reload", {page: "/browse"});
-  })
+  socket.emit("reload", {page: "/browse"});
+  socket.emit("load", {page: "/browse"});
+
+  // document.getElementById("remove").addEventListener("click", () => {
+  //     socket.emit("reload", {page: "/browse"});
+  // })
+  // document.getElementById("remove").addEventListener("click", () => {
+  //     socket.emit("reload", {page: "/browse"});
+  // })
+  // document.getElementById("remove").addEventListener("click", () => {
+  //     socket.emit("load", {page: "/browse"});
+  // })
+  // document.getElementById("delete").addEventListener("click", () => {
+  //   console.log("emitting");
+  //     socket.emit("load", {page: "/browse"});
+  // })
+  // document.getElementById("delete").addEventListener("click", () => {
+  //   console.log("emitting");
+  //     socket.emit("reload", {page: "/browse"});
+  // })
 </script>
 <% include partials/_footer %>
