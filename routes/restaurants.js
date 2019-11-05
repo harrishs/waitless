@@ -21,28 +21,36 @@ module.exports = (db) => {
         // error has been seen!
         data.errorMessage = "";
       }
-      let queryString = `
-        SELECT restaurants.id, restaurants.name, restaurants.address, restaurants.type, restaurants.image_url, waitlists.id AS waitlist_id, waitlists.wait_time
-        FROM restaurants
-        LEFT JOIN waitlists
-        ON restaurants.id=waitlists.restaurant_id
-      `;
-      let resultSet = await db.query(queryString);
-      data.restaurants = resultSet.rows;
 
-      queryString = `SELECT waitlists.id AS waitlist_id FROM waitlists
-      JOIN waitlist_entries ON waitlists.id=waitlist_entries.waitlist_id
-      JOIN users ON waitlist_entries.id=users.booking_id
-      WHERE users.id = $1`;
-
-      let queryParameters = [req.session.user_id];
-      resultSet = await db.query(queryString, queryParameters);
-      if (resultSet.rows.length === 0) {
-        data.bookedWith = null;
+      if (req.session.user_id === undefined) {
+        // data.error.details = "Cannot browse when not logged in!";
+        // data.error.seen = false;
+        req.session.loginError = "LOGIN_TO_BROWSE";
+        res.redirect("/login/users");
       } else {
-        data.bookedWith = resultSet.rows[0].waitlist_id;
+        let queryString = `
+          SELECT restaurants.id, restaurants.name, restaurants.address, restaurants.type, restaurants.image_url, waitlists.id AS waitlist_id, waitlists.wait_time
+          FROM restaurants
+          LEFT JOIN waitlists
+          ON restaurants.id=waitlists.restaurant_id
+        `;
+        let resultSet = await db.query(queryString);
+        data.restaurants = resultSet.rows;
+
+        queryString = `SELECT waitlists.id AS waitlist_id FROM waitlists
+        JOIN waitlist_entries ON waitlists.id=waitlist_entries.waitlist_id
+        JOIN users ON waitlist_entries.id=users.booking_id
+        WHERE users.id = $1`;
+
+        let queryParameters = [req.session.user_id];
+        resultSet = await db.query(queryString, queryParameters);
+        if (resultSet.rows.length === 0) {
+          data.bookedWith = null;
+        } else {
+          data.bookedWith = resultSet.rows[0].waitlist_id;
+        }
+        res.render('browse', data);
       }
-      res.render('browse', data);
     } catch(err) {
       console.log(error);
     }

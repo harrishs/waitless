@@ -16,6 +16,11 @@ module.exports = (db) => {
 
   // Route to show the login page for users
   router.get("/users", (req, res) => {
+    if (req.session.loginError === "LOGIN_TO_BROWSE") {
+      req.session.loginError = "";
+      data.error.details = "You must log in to browse restaurants!";
+      data.error.seen = false;
+    }
     if (!data.error.seen) {
       data.error.seen = true;
     } else {
