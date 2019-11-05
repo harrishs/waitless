@@ -57,7 +57,11 @@
         });
 
         var infoWindow = new google.maps.InfoWindow({
-          content: marker.address
+          content: `<div id="content">
+                      <h3>${marker.title}</h3>
+                      <h3>${marker.address}</h3>
+                    </div>
+                   `
         });
 
         marker.addListener('click', function() {
@@ -67,6 +71,7 @@
           }
           element = document.getElementById(`${marker.restaurantId}`);
           element.classList.add('highlighted');
+          infoWindow.open(map, marker);
         });
 
         // marker.setMap(map);
