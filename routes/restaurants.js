@@ -69,51 +69,56 @@ module.exports = (db) => {
 
   router.post("/", async (req, res) => {
     try {
-    // Search by type:
+      if (req.session.errorSeen === false) {
+        data.errorMessage = req.session.errorMessage;
+        req.session.errorSeen = true;
+      } else {
+        // error has been seen!
+        data.errorMessage = "";
+      }
+      // Search by type:
+      let queryString;
       const searchType = req.body.search;
       if (searchType === 'type') {
-        const queryString = `
+        queryString = `
           SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
           FROM restaurants
           LEFT JOIN waitlists
           ON restaurants.id=waitlists.restaurant_id
           WHERE restaurants.type = $1
         `;
-        const searchValue = req.body.search_value;
-        const queryParameters = [searchValue];
-
-        let resultSet = await db.query(queryString, queryParameters);
-        data.restaurants = resultSet.rows;
-        res.render('browse', data);
       } else if (searchType === 'waitlist') {
         console.log("Search by waitlist hit!")
-        let queryString = `
-          SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
-          FROM restaurants
-          LEFT JOIN waitlists
-          ON restaurants.id=waitlists.restaurant_id
-          WHERE waitlists.wait_time <= $1
-          OR waitlists.id IS NULL
+        queryString = `
+        SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
+        FROM restaurants
+        LEFT JOIN waitlists
+        ON restaurants.id=waitlists.restaurant_id
+        WHERE waitlists.wait_time <= $1
+        OR waitlists.id IS NULL
         `;
-        let searchValue = parseInt(req.body.search_value);
-        let queryParameters = [searchValue];
-
-        let resultSet = await db.query(queryString, queryParameters);
-        data.restaurants = resultSet.rows;
-        res.render('browse', data);
       } else if (req.body.search === 'name') {
-        const queryString = `
-          SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
-          FROM restaurants
-          LEFT JOIN waitlists
-          ON restaurants.id=waitlists.restaurant_id
-          WHERE restaurants.name = $1
+        queryString = `
+        SELECT restaurants.*, waitlists.id AS waitlist_id, waitlists.wait_time
+        FROM restaurants
+        LEFT JOIN waitlists
+        ON restaurants.id=waitlists.restaurant_id
+        WHERE restaurants.name = $1
         `;
-        const queryParameters = [req.body.search_value];
-        const resultSet = await db.query(queryString, queryParameters);
-        data.restaurants = resultSet.rows;
-        res.render('browse', data);
       }
+      let searchValue = req.body.search_value;
+      if (req.body.search === 'waitlist') {
+        searchValue = parseInt(searchValue);
+      }
+      const queryParameters = [searchValue];
+      let resultSet = await db.query(queryString, queryParameters)
+      console.log(`resultSet.rowCount is: ${resultSet.rowCount}`);
+      if (resultSet.rowCount === 0) {
+        data.errorMessage = 'No results found, please try again.';
+        req.session.errorSeen = false;
+      }
+      data.restaurants = resultSet.rows;
+      res.render('browse', data);
     } catch(err) {
       console.error(err);
     }
