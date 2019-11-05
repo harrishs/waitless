@@ -25,6 +25,7 @@ html {
     background: #3E4A59;
     border-bottom: 2px solid #b7bbc1;
     font-family: 'Roboto Mono', monospace;
+    color:white;
 
   }
   input[type=text]::placeholder, input[type=password]::placeholder  {
