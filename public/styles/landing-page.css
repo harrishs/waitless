@@ -3,7 +3,6 @@ body {
  font-family: 'Roboto Mono', monospace;
  background-color: #3ABEE8;
  margin:0px;
- color:white;
 }
 
 .logo {
@@ -22,6 +21,7 @@ body {
 .image-landing{
   margin: 0px;
   position:inherit;
+  margin-bottom:-25px;
   width: 100%;
   height:auto;
 
@@ -35,9 +35,6 @@ body {
   border-radius: 20px;
 }
 
-.landing-button {
-  color:white;
-}
 
 .header {
   margin-left: -10px;
@@ -48,38 +45,67 @@ body {
  background: #00405E;
  color: white;
  border-radius: 0px;
- width: 50%;
  padding: 20px;
  text-align: center;
- border: 1px solid #3ABEE8;
- margin-top: -80px;
+ font-weight:bold;
 }
 
 .sick-lines{
   margin-right: 15px;
   margin-left:15px;
   font-style:bold;
+  color: #00405E;
 }
 
 .save-yourself{
   margin-right: 15px;
   margin-left:15px;
+  color: #00405E;
 }
 
-a:link, a:visited {
- color: white;
- text-decoration: none;
- font-style: normal;
- font-weight: bold;
- font-size: 16px;
- line-height: 19px;
+.landing-button {
+  color:white;
+  font-weight:bold;
+  text-decoration:none;
 }
+
 a:hover {
- color: white;
+ color: #3e4a59;
  background-color: #3e4a59;
 }
 
 .second-half {
  background-color:#00405E;
- height:400px;
+ height:250px;
+}
+
+/* .user-button {
+  margin-top: 20px;
+  margin-left: 39%;
+  padding-top:20px;
+
+} */
+
+
+.user-button {
+  background-color: white;
+  border: none;
+  color: #3e4a59;
+  padding: 15px 32px;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-left: 33%;
+  padding-top:20px;
+  border-radius:10px;
+  color:#3e4a59;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  font-family: 'Roboto Mono'
+}
+
+.button {
+  text-decoration:none;
 }
