@@ -21,35 +21,49 @@
     </form>
   </div>
 
-<body>
-    <form method="POST" action="/update-waitlist" id= "timer">
-      <h2 class="add-entry"> ADD A PARTY TO WAITLIST</h2>
-        <input class= "text" placeholder= "  Name of Party" type="text" name="name" required>
+<body class="body-right-margin">
+  <div class="body-container">
+    <form method="POST" action="/update-waitlist" id= "timer" class="waitilist-div">
+      <h2 class="add-entry"> Add a Party To Waitlist</h2>
+        <input class= "text" placeholder= " Name of Party" type="text" name="name" required>
         <select class= "party" name = "party">
-                <option value="0">Party Size</option>
-                <option value="1">1 Person</option>
-                <option value="2">2 Person</option>
-                <option value="3">3 Person</option>
-                <option value="4">4 Person</option>
-                <option value="5">5 Person</option>
-                <option value="6">6 Person</option>
-            </select>
-        <button class = "submit-btn3" type="submit" id="submit">Submit</button>
+            <option value="0"> Party Size</option>
+            <option value="1">1 Person</option>
+            <option value="2">2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
+            <option value="5">5 People</option>
+            <option value="6">6 People</option>
+        </select>
+        <button class = "submit-btn3" type="submit" id="submit">Add <i class="fa fa-send" aria-hidden="true"></i></button>
     </form>
     <form method="POST" action="/update-waitlist/time" id= "timer">
-      <a class="active_waittime2"><i class="fa fa-clock-o" aria-hidden="true"></i> Update Estimated Wait Time</a>
+      <a class="active-waittime2">Update Wait Time</a>
       <div class="radio-toolbar">
-        <input type="radio" id="15" name="times" value="15">
-        <label for="15"> 15 Minutes</label>
-        <input type="radio" id="30" name="times" value="30">
-        <label for="30"> 30 Minutes</label>
-        <input type="radio" id="45" name="times" value="45">
-        <label for="45"> 45 Minutes</label>
-        <input type="radio" id="60" name="times" value="60">
-        <label for="60"> 60 Minutes</label>
+        <div class="radio-background top-radius">
+          <input type="radio" id="15" name="times" value="15">
+          <label for="15"> 15 Minutes</label>
+        </div>
+        <div class="radio-background">
+          <input type="radio" id="30" name="times" value="30">
+          <label for="30"> 30 Minutes</label>
+        </div>
+          <div class="radio-background">
+          <input type="radio" id="45" name="times" value="45">
+          <label for="45"> 45 Minutes</label>
+        </div>
+          <div class="radio-background bottom-radius">
+          <input type="radio" id="60" name="times" value="60">
+          <label for="60"> 60 Minutes</label>
+        </div>
       </div>
+<<<<<<< HEAD
       <button type="submit" id="update" class="submit-btn2">Submit <i class="fa fa-send" aria-hidden="true"></i></button>
+=======
+      <button type="submit" id="submit" class="submit-btn2">Update <i class="fa fa-send" aria-hidden="true"></i></button>
+>>>>>>> tuesday
     </form>
+  </div>
 <script src="/socket.io/socket.io.js"></script>
 <script>var socket = io();
   document.getElementById("submit").addEventListener("click", () => {
