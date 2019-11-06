@@ -106,6 +106,10 @@ a:hover {
   font-family: 'Roboto Mono'
 }
 
+.user-button a {
+  text-decoration: none;
+}
+
 .button {
   text-decoration:none;
 }

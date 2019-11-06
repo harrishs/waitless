@@ -1,12 +1,7 @@
-        SELECT waitlists.wait_time,
-             restaurants.name,
-             restaurants.phone_number,
-             restaurants.address,
-             restaurants.image_url,
-             waitlist_entries.party_name,
-             waitlist_entries.party_size
-        FROM restaurants
-        JOIN waitlists ON restaurants.id=waitlists.restaurant_id
-        JOIN waitlist_entries ON waitlist_entries.waitlist_id = waitlists.id
-        JOIN users ON users.booking_id=waitlist_entries.id
-        WHERE users.booking_id = 21;
+          SELECT restaurants.id, restaurants.name, restaurants.address, restaurants.type, restaurants.image_url, waitlists.id AS waitlist_id, waitlists.wait_time, waitlist_entries.id
+          FROM restaurants
+          LEFT JOIN waitlists ON restaurants.id=waitlists.restaurant_id
+          LEFT JOIN waitlist_entries ON waitlist_entries.waitlist_id=waitlists.id
+          LEFT JOIN users ON waitlist_entries.id=users.booking_id
+          ORDER BY users.booking_id
+          LIMIT 50
