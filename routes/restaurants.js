@@ -35,6 +35,7 @@ module.exports = (db) => {
           LEFT JOIN waitlist_entries ON waitlist_entries.waitlist_id=waitlists.id
           LEFT JOIN users ON waitlist_entries.id=users.booking_id
           ORDER BY waitlist_entries.id
+          LIMIT 50
         `;
         let resultSet = await db.query(queryString);
         data.restaurants = resultSet.rows;
@@ -95,7 +96,8 @@ module.exports = (db) => {
           FROM restaurants
           LEFT JOIN waitlists
           ON restaurants.id=waitlists.restaurant_id
-          WHERE restaurants.type = $1
+          WHERE lower(restaurants.type) LIKE $1
+          LIMIT 50
         `;
       } else if (searchType === 'waitlist') {
         console.log("Search by waitlist hit!")
@@ -106,6 +108,7 @@ module.exports = (db) => {
         ON restaurants.id=waitlists.restaurant_id
         WHERE waitlists.wait_time <= $1
         OR waitlists.id IS NULL
+        LIMIT 50
         `;
       } else if (req.body.search === 'name') {
         queryString = `
@@ -113,12 +116,16 @@ module.exports = (db) => {
         FROM restaurants
         LEFT JOIN waitlists
         ON restaurants.id=waitlists.restaurant_id
-        WHERE restaurants.name = $1
+        WHERE lower(restaurants.name) LIKE $1
+        LIMIT 50
         `;
       }
       let searchValue = req.body.search_value;
       if (req.body.search === 'waitlist') {
         searchValue = parseInt(searchValue);
+      } else {
+        searchValue = `%${searchValue.toLowerCase()}%`;
+        console.log(searchValue);
       }
       const queryParameters = [searchValue];
       let resultSet = await db.query(queryString, queryParameters)
