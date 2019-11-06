@@ -106,8 +106,9 @@ a:hover {
   font-family: 'Roboto Mono'
 }
 
-.user-button a {
+.user-button a, .user-button a:visited {
   text-decoration: none;
+  color: #3e4a59;
 }
 
 .button {
