@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
 body {
  font-family: 'Roboto Mono', monospace;
+ background-color: #3ABEE8;
+ margin:0px;
+ color:white;
 }
 
 .logo {
@@ -8,12 +11,20 @@ body {
 }
 
 .container {
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
 .header {
  display: flex;
  flex-direction: row;
+}
+
+.image-landing{
+  margin: 0px;
+  position:inherit;
+  width: 100%;
+  height:auto;
+
 }
 
 .landing-video {
@@ -24,22 +35,39 @@ body {
   border-radius: 20px;
 }
 
+.landing-button {
+  color:white;
+}
+
 .header {
   margin-left: -10px;
   margin-top: 70px;
 }
 
 .half-button {
- background: #aeaeb1;
- border-radius: 10px;
- width: 165px;
- margin: 10px;
+ background: #00405E;
+ color: white;
+ border-radius: 0px;
+ width: 50%;
  padding: 20px;
- margin-top: -45px;
  text-align: center;
+ border: 1px solid #3ABEE8;
+ margin-top: -80px;
 }
+
+.sick-lines{
+  margin-right: 15px;
+  margin-left:15px;
+  font-style:bold;
+}
+
+.save-yourself{
+  margin-right: 15px;
+  margin-left:15px;
+}
+
 a:link, a:visited {
- color: #3e4a59;
+ color: white;
  text-decoration: none;
  font-style: normal;
  font-weight: bold;
@@ -47,6 +75,11 @@ a:link, a:visited {
  line-height: 19px;
 }
 a:hover {
- color: #aeaeb1;
+ color: white;
  background-color: #3e4a59;
+}
+
+.second-half {
+ background-color:#00405E;
+ height:400px;
 }
