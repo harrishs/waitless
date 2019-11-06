@@ -22,40 +22,62 @@
     </div>
 
   <body>
+    <div class = "header-merchant">
       <% if (entries){ let count = 0; %>
+        <a class ="update-waitlist" href ="/update-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i>Update Waitlist</a>
         <h2 class= "current-wait">Current Wait Time: <%= time %> Mins</h2>
-          <a class ="update-waitlist" href ="/update-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i>Update Waitlist</a>
+      </div>
 
   <h1 class = "waitlist"><i class=" fa fa-user-o" aria-hidden="true"></i>  People Waiting</h1>
   </div>
+
   <div class= "background-list">
-      <% for (let entry of entries){ count++ %>
+      <div class="background-topper">
+        <h3 class="position-title">#</h3>
+        <h3 class="guest-title">Guest</h3>
+        <h3 class="party-title">Party Size</h3>
+      </div>
+      <div class="waitlist-children">
+        <% for (let entry of entries){ count++ %>
         <div class= "waitlist-entry">
-        <div class="text-waitlist">
-          <h3 name = "rank" class= "rank"> Rank: <%= count %> </h3>
-          <h3 class="title">Guest </h3>
-          <div name = "party_name" class="data">
-          <%= entry.party_name %>
+          <div class="text-waitlist">
+
+          <div class="waitlist-position">
+              <% if (count === 1) { %>
+                <h3 name= "rank" class="rank-count"> <%= count %></h3>
+                <h3 name= "rank" class="rank-next"> Next to be seated!</h3>
+              <% } else { %>
+                <h3 name= "rank" class="rank-count"> <%= count %></h3>
+              <% } %>
+            </div>
+
+            <div name = "party_name" class="party-name-data">
+              <%= entry.party_name %>
+            </div>
+
+            <div name= "party_size" class="party-size-data">
+              <%= entry.party_size %>
+            </div>
+
+            <form class= "form-main" action="/waitlist/delete" method="post">
+              <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
+              <input class= "delete" type="submit" value="" id = "delete"><i class=" fa fa-close" aria-hidden="true"></i>
+            </form>
+          </div>
+
         </div>
-          <h3 class="title">Party Size </h3>
-          <div name= "party_size" class="data">
-          <%= entry.party_size %>
-        </div>
-        </div>
-        <form action="/waitlist/delete" method="post">
-          <input type ="number" name ="id" style = "display: none" value=<%= entry.id %> >
-          <input class= "delete" type="submit" value="Delete Entry" id = "delete">
-      </form>
-        </div>
+
           <% }if (count === 0){ %>
-          <form action="/waitlist" method="post">
-              <input class = "deactivate-waitlist" type="submit" id = "remove" value="Delete Waitlist">
-          </form>
-            <h2>No People Waiting</h2>
+          <div class ="background-topper2">
+            <h2 class=no-people>No Guest Waiting</h2>
+          </div>
+            <form action="/waitlist" method="post">
+              <input class = "deactivate-waitlist" type="submit" id = "remove" value="Reset Wait Time">
+            </form>
           <% }} else { %>
-            <a class="active_waittime" href = "/create-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Activate Wait List </a>
-          <h2>Waitlist Deleted</h2>
-      <% } %>
+            <a class="active_waittime" href = "/create-waitlist"><i class="fa fa-clock-o" aria-hidden="true"></i> Activate Wait Time </a>
+        <% } %>
+      </div>
     </div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
